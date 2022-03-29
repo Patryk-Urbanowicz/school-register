@@ -42,8 +42,8 @@ java -jar $(ls /path/to/project/target/*.jar)
 or just open the project in your preferred IDE and run it.
 
 ## Authors
-[Kamil Kocieniewski](https://github.com/KamilKoc-code)
-[Szymon Orzechowski](https://github.com/szymonorz)
+[Kamil Kocieniewski](https://github.com/KamilKoc-code)  
+[Szymon Orzechowski](https://github.com/szymonorz)  
 [Patryk Urbanowicz](https://github.com/Patryk-Urbanowicz)
 
 ## For developers
