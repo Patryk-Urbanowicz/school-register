@@ -3,16 +3,15 @@ package pl.school.register.model;
 import javax.persistence.*;
 
 @Entity
-public class Class {
+public class SchoolClass {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String className;
     private String profile;
 
     @OneToOne
-    private User homeroomTeacherId;
+    private Teacher homeroomTeacher;
 
     public Long getId() {
         return id;
@@ -38,11 +37,11 @@ public class Class {
         this.profile = profile;
     }
 
-    public User getHomeroomTeacherId() {
-        return homeroomTeacherId;
+    public Teacher getHomeroomTeacher() {
+        return homeroomTeacher;
     }
 
-    public void setHomeroomTeacherId(User homeroomTeacherId) {
-        this.homeroomTeacherId = homeroomTeacherId;
+    public void setHomeroomTeacher(Teacher homeroomTeacher) {
+        this.homeroomTeacher = homeroomTeacher;
     }
 }
