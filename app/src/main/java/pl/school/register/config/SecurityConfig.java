@@ -19,7 +19,6 @@ public class SecurityConfig {
                     .csrf().disable()
                     .formLogin().disable()
                     .antMatcher("/api/**");
-
         }
     }
 
@@ -32,7 +31,6 @@ public class SecurityConfig {
                     .antMatcher("/**")
                     .authorizeRequests()
                     .anyRequest().permitAll();
-
         }
 
         @Override
