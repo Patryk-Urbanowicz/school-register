@@ -31,3 +31,13 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Vaadin ###
+frontend/
+node_modules/
+package-lock.json
+package.json
+tsconfig.json
+webpack.config.js
+webpack.generated.js
+types.d.ts
