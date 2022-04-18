@@ -1,6 +1,7 @@
 package pl.school.register.model;
 
 import org.hibernate.validator.constraints.Length;
+import pl.school.register.model.enumerations.Role;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

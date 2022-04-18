@@ -1,6 +1,7 @@
 package pl.school.register.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class SchoolClass {
@@ -12,6 +13,12 @@ public class SchoolClass {
 
     @OneToOne
     private Teacher homeroomTeacher;
+
+    @OneToMany(mappedBy = "schoolClass")
+    private Set<Lesson> lessons;
+
+    @OneToMany(mappedBy = "schoolClass")
+    private Set<Student> students;
 
     public Long getId() {
         return id;
@@ -43,5 +50,21 @@ public class SchoolClass {
 
     public void setHomeroomTeacher(Teacher homeroomTeacher) {
         this.homeroomTeacher = homeroomTeacher;
+    }
+
+    public Set<Lesson> getLessons() {
+        return lessons;
+    }
+
+    public void setLessons(Set<Lesson> lessons) {
+        this.lessons = lessons;
+    }
+
+    public Set<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Set<Student> students) {
+        this.students = students;
     }
 }

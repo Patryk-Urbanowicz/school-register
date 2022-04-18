@@ -1,9 +1,7 @@
 package pl.school.register.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Subject {
@@ -11,6 +9,16 @@ public class Subject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String subjectName;
+
+    @OneToMany(mappedBy = "subject")
+    private Set<Lesson> lessons;
+
+    @ManyToMany(mappedBy = "subjects")
+    private Set<Teacher> teachers;
+
+    @OneToMany(mappedBy = "subject")
+    private Set<Mark> mark;
+
 
     public Long getId() {
         return id;
@@ -26,5 +34,29 @@ public class Subject {
 
     public void setSubjectName(String subjectName) {
         this.subjectName = subjectName;
+    }
+
+    public Set<Lesson> getLessons() {
+        return lessons;
+    }
+
+    public void setLessons(Set<Lesson> lessons) {
+        this.lessons = lessons;
+    }
+
+    public Set<Teacher> getTeachers() {
+        return teachers;
+    }
+
+    public void setTeachers(Set<Teacher> teachers) {
+        this.teachers = teachers;
+    }
+
+    public Set<Mark> getMark() {
+        return mark;
+    }
+
+    public void setMark(Set<Mark> mark) {
+        this.mark = mark;
     }
 }

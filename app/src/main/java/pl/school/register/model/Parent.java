@@ -1,5 +1,7 @@
 package pl.school.register.model;
 
+import pl.school.register.model.enumerations.Role;
+
 import javax.persistence.*;
 import java.util.Set;
 
