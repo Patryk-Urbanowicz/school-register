@@ -8,16 +8,24 @@ public class Lesson {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
     private Teacher teacher;
+
     @ManyToOne
     private SchoolClass schoolClass;
+
     @ManyToOne
     private Subject subject;
+
     @OneToMany(mappedBy = "lesson")
     private Set<LessonBlock> lessonBlocks;
+
     @OneToMany(mappedBy = "lesson")
     private Set<Attendance> attendances;
+
+    @OneToMany(mappedBy = "lesson")
+    private Set<Mark> mark;
 
     public Long getId() {
         return id;

@@ -20,6 +20,9 @@ public class SchoolClass {
     @OneToMany(mappedBy = "schoolClass")
     private Set<Student> students;
 
+    @OneToMany(mappedBy = "schoolClass")
+    private Set<Student_Class> studentClasses;
+
     public Long getId() {
         return id;
     }

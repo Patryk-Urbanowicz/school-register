@@ -16,9 +16,6 @@ public class Subject {
     @ManyToMany(mappedBy = "subjects")
     private Set<Teacher> teachers;
 
-    @OneToMany(mappedBy = "subject")
-    private Set<Mark> mark;
-
 
     public Long getId() {
         return id;
@@ -52,11 +49,4 @@ public class Subject {
         this.teachers = teachers;
     }
 
-    public Set<Mark> getMark() {
-        return mark;
-    }
-
-    public void setMark(Set<Mark> mark) {
-        this.mark = mark;
-    }
 }

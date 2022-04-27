@@ -20,6 +20,8 @@ public class Attendance {
     @Column(name = "status")
     private AttendanceStatus attendanceStatus;
 
+    private String date;
+
     public Long getId() {
         return id;
     }
@@ -50,5 +52,13 @@ public class Attendance {
 
     public void setAttendanceStatus(AttendanceStatus attendanceStatus) {
         this.attendanceStatus = attendanceStatus;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

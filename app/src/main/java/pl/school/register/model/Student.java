@@ -21,6 +21,9 @@ public class Student extends Account {
     @OneToMany(mappedBy = "student")
     private Set<Mark> marks;
 
+    @OneToOne
+    private Student_Class studentClass;
+
     public Set<Parent> getParents() {
         return parents;
     }
@@ -51,5 +54,13 @@ public class Student extends Account {
 
     public void setMarks(Set<Mark> marks) {
         this.marks = marks;
+    }
+
+    public Student_Class getStudentClass() {
+        return studentClass;
+    }
+
+    public void setStudentClass(Student_Class studentClass) {
+        this.studentClass = studentClass;
     }
 }

@@ -12,7 +12,7 @@ public class Mark {
     private Teacher teacher;
 
     @ManyToOne
-    private Subject subject;
+    private Lesson lesson;
 
     @ManyToOne
     private Student student;
@@ -37,12 +37,12 @@ public class Mark {
         this.teacher = teacher;
     }
 
-    public Subject getSubject() {
-        return subject;
+    public Lesson getLesson() {
+        return lesson;
     }
 
-    public void setSubject(Subject subject) {
-        this.subject = subject;
+    public void setLesson(Lesson lesson) {
+        this.lesson = lesson;
     }
 
     public Student getStudent() {
