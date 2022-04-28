@@ -6,7 +6,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.ParentLayout;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.router.RouterLink;
-
+import pl.school.register.view.components.*;
 import static com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyContentMode.*;
 
 @ParentLayout(value = AccountMainLayout.class)
@@ -19,34 +19,16 @@ public class AccountNestedLayout extends HorizontalLayout implements RouterLayou
 
     private VerticalLayout createLeftPanel() {
         VerticalLayout leftPanel = new VerticalLayout();
-        VerticalLayout choiceCard = new VerticalLayout(
-                new RouterLink("Schedule", StudentScheduleView.class),
-                new RouterLink("Marks", StudentMarksView.class)
+		Card choiceCard = new Card("200px");
+		choiceCard.add(	
+                new Link("Schedule", StudentScheduleView.class),
+                new Link("Marks", StudentMarksView.class)
         );
-//        Button tempButton1 = new Button("Grades");
-//        Button tempButton2 = new Button("Marks");
-
-//        tempButton1.addThemeVariants(ButtonVariant.MATERIAL_OUTLINED);
-//        tempButton2.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-//        choiceCard.add(tempButton1, tempButton2);
-        choiceCard.getStyle()
-                .set("padding", "10px")
-                .set("background", "white")
-                .set("border", "1px solid grey");
-        choiceCard.setHeight("200px");
-
-        VerticalLayout recent = new VerticalLayout();
+        Card recent = new Card("300px");
         Label label = new Label("Recent");
         label.getStyle()
                 .set("color", "black");
-
         recent.add(label);
-        recent.getStyle()
-                .set("padding", "10px")
-                .set("background", "white")
-                .set("border", "1px solid grey");
-        recent.setHeight("300px");
-
         leftPanel.setSpacing(true);
         leftPanel.setJustifyContentMode(AROUND);
         leftPanel.add(choiceCard, recent);
