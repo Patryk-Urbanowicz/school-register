@@ -11,7 +11,7 @@ public class LessonBlock {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(name = "weekDay")
     private WeekDay weekDay;
     private String startTime;

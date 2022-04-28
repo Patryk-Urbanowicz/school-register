@@ -1,6 +1,7 @@
 package pl.school.register.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class Mark {
@@ -18,7 +19,7 @@ public class Mark {
     private Student student;
 
     private Integer value;
-    private String createdAt;
+    private LocalDateTime createdAt;
     private Integer weight;
 
     public Long getId() {
@@ -61,11 +62,11 @@ public class Mark {
         this.value = value;
     }
 
-    public String getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 

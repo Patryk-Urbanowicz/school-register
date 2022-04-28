@@ -3,6 +3,7 @@ package pl.school.register.model;
 import pl.school.register.model.enumerations.AttendanceStatus;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class Attendance {
@@ -20,7 +21,7 @@ public class Attendance {
     @Column(name = "status")
     private AttendanceStatus attendanceStatus;
 
-    private String date;
+    private LocalDateTime date;
 
     public Long getId() {
         return id;
@@ -54,11 +55,11 @@ public class Attendance {
         this.attendanceStatus = attendanceStatus;
     }
 
-    public String getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 }
