@@ -14,7 +14,7 @@ public class Column extends VerticalLayout{
 		setWidth("152px");
 		getStyle()
 				.set("padding", "0")
-				.set("border-style", "none solid none solid")
+				.set("border-style", "none solid none none")
 				.set("border-width", "1px")
 				.set("border-color", "black");
 		setSpacing(false);
