@@ -7,21 +7,13 @@ import static com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyConte
 
 public class ScheduleSegment extends VerticalLayout{
 	public ScheduleSegment(String backgroundColor, String lessonName, String classroomName, String teacherShort){
-			 //a very awful workaround in order to fix the component in the ColumnSegment component
-			setWidth("148px");
-			setHeight("100px");
-			getStyle()
-					.set("background", backgroundColor)
-					.set("color", "black")
-					.set("font-size", "13px")
-					//.set("border", "1px solid black")
-					.set("align-items", "center");
+			setClassName("schedule-segment");
+			getStyle().set("background", backgroundColor);
 			Label lessonNameLabel = new Label(lessonName);
 			HorizontalLayout bottom = new HorizontalLayout();
 			Label classroom = new Label(classroomName);
 			Label teacherShortLabel = new Label(teacherShort);
-			bottom.setWidth("100%");
-			bottom.setJustifyContentMode(BETWEEN);
+			bottom.setClassName("bottom-element");
 			bottom.add(classroom, teacherShortLabel);
 			add(lessonNameLabel, bottom);
 	}

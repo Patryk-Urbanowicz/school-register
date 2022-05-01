@@ -3,7 +3,7 @@ package pl.school.register.view.components;
 import java.util.*;
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.orderedlayout.*;
-
+import com.vaadin.flow.component.dependency.*;
 import pl.school.register.view.components.*;
 
 public class Column extends VerticalLayout{
@@ -12,11 +12,7 @@ public class Column extends VerticalLayout{
 	//We should iterate over it and add ColumnSegments in a loop
 	public Column(String weekday, int colnum){
 		setWidth("152px");
-		getStyle()
-				.set("padding", "0")
-				.set("border-style", "none solid none none")
-				.set("border-width", "1px")
-				.set("border-color", "black");
+		setClassName("column");
 		setSpacing(false);
 		ColumnLabel cl = new ColumnLabel(weekday);
 		ArrayList<ColumnSegment> columnSegments = new ArrayList<>();

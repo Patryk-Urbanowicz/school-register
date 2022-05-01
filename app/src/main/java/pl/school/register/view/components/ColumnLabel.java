@@ -6,11 +6,7 @@ import pl.school.register.view.components.*;
 
 public class ColumnLabel extends ColumnSegment{
 	public ColumnLabel(String weekday){
-		setHeight("25px");
-		getStyle()
-				.set("align-items", "center")
-				.set("background", "#696969");
-
+		setClassName("column-label");
 		Label weekdayLabel = new Label(weekday);
 		add(weekdayLabel);
 	}
