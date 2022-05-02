@@ -1,6 +1,7 @@
 package pl.school.register.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -11,11 +12,10 @@ public class Subject {
     private String subjectName;
 
     @OneToMany(mappedBy = "subject")
-    private Set<Lesson> lessons;
+    private Set<Lesson> lessons = new HashSet<>();
 
     @ManyToMany(mappedBy = "subjects")
-    private Set<Teacher> teachers;
-
+    private Set<Teacher> teachers = new HashSet<>();
 
     public Long getId() {
         return id;

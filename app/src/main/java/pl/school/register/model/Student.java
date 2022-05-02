@@ -3,6 +3,7 @@ package pl.school.register.model;
 import pl.school.register.model.enumerations.Role;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -16,13 +17,17 @@ public class Student extends Account {
     private SchoolClass schoolClass;
 
     @OneToMany(mappedBy = "student")
-    private Set<Attendance> attendances;
+    private Set<Attendance> attendances = new HashSet<>();
 
     @OneToMany(mappedBy = "student")
-    private Set<Mark> marks;
+    private Set<Mark> marks = new HashSet<>();
 
-    @OneToOne
+    @OneToOne(mappedBy = "student")
     private Student_Class studentClass;
+
+    public Student() {
+        this.setRole(Role.STUDENT);
+    }
 
     public Set<Parent> getParents() {
         return parents;

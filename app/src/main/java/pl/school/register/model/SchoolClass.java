@@ -1,6 +1,7 @@
 package pl.school.register.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -15,13 +16,13 @@ public class SchoolClass {
     private Teacher homeroomTeacher;
 
     @OneToMany(mappedBy = "schoolClass")
-    private Set<Lesson> lessons;
+    private Set<Lesson> lessons = new HashSet<>();
 
     @OneToMany(mappedBy = "schoolClass")
-    private Set<Student> students;
+    private Set<Student> students = new HashSet<>();
 
     @OneToMany(mappedBy = "schoolClass")
-    private Set<Student_Class> studentClasses;
+    private Set<Student_Class> studentClasses = new HashSet<>();
 
     public Long getId() {
         return id;

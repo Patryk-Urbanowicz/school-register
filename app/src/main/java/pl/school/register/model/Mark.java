@@ -1,7 +1,6 @@
 package pl.school.register.model;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 public class Mark {
@@ -10,16 +9,12 @@ public class Mark {
     private Long id;
 
     @ManyToOne
-    private Teacher teacher;
-
-    @ManyToOne
-    private Lesson lesson;
-
-    @ManyToOne
     private Student student;
 
+    @ManyToOne
+    private Meeting meeting;
+
     private Integer value;
-    private LocalDateTime createdAt;
     private Integer weight;
 
     public Long getId() {
@@ -28,22 +23,6 @@ public class Mark {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Teacher getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
-    }
-
-    public Lesson getLesson() {
-        return lesson;
-    }
-
-    public void setLesson(Lesson lesson) {
-        this.lesson = lesson;
     }
 
     public Student getStudent() {
@@ -62,19 +41,19 @@ public class Mark {
         this.value = value;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public Integer getWeight() {
         return weight;
     }
 
     public void setWeight(Integer weight) {
         this.weight = weight;
+    }
+
+    public Meeting getMeeting() {
+        return meeting;
+    }
+
+    public void setMeeting(Meeting meeting) {
+        this.meeting = meeting;
     }
 }

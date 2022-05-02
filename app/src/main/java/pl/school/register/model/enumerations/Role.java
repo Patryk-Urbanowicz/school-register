@@ -5,7 +5,7 @@ public enum Role {
     STUDENT(Values.STUDENT),
     PARENT(Values.PARENT);
 
-    private String value;
+    private final String value;
 
     Role(String value) {
         this.value = value;

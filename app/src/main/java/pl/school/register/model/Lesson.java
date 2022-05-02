@@ -1,6 +1,7 @@
 package pl.school.register.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -19,13 +20,10 @@ public class Lesson {
     private Subject subject;
 
     @OneToMany(mappedBy = "lesson")
-    private Set<LessonBlock> lessonBlocks;
+    private Set<LessonBlock> lessonBlocks = new HashSet<>();
 
     @OneToMany(mappedBy = "lesson")
-    private Set<Attendance> attendances;
-
-    @OneToMany(mappedBy = "lesson")
-    private Set<Mark> mark;
+    private Set<Meeting> meetings = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -67,12 +65,11 @@ public class Lesson {
         this.lessonBlocks = lessonBlocks;
     }
 
-    public Set<Attendance> getAttendances() {
-        return attendances;
+    public Set<Meeting> getMeetings() {
+        return meetings;
     }
 
-    public void setAttendances(Set<Attendance> attendances) {
-        this.attendances = attendances;
+    public void setMeetings(Set<Meeting> meetings) {
+        this.meetings = meetings;
     }
-
 }

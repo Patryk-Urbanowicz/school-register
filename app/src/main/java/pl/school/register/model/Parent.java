@@ -3,6 +3,7 @@ package pl.school.register.model;
 import pl.school.register.model.enumerations.Role;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -13,7 +14,11 @@ public class Parent extends Account {
     @JoinTable(name = "parent_student",
     joinColumns = @JoinColumn(name = "parent_id"),
     inverseJoinColumns = @JoinColumn(name = "student_id"))
-    private Set<Student> children;
+    private Set<Student> children = new HashSet<>();
+
+    public Parent() {
+        this.setRole(Role.PARENT);
+    }
 
     public Set<Student> getChildren() {
         return children;

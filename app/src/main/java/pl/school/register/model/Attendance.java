@@ -12,16 +12,14 @@ public class Attendance {
     private Long id;
 
     @ManyToOne
-    private Lesson lesson;
+    private Student student;
 
     @ManyToOne
-    private Student student;
+    private Meeting meeting;
 
     @Enumerated
     @Column(name = "status")
     private AttendanceStatus attendanceStatus;
-
-    private LocalDateTime date;
 
     public Long getId() {
         return id;
@@ -29,14 +27,6 @@ public class Attendance {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Lesson getLesson() {
-        return lesson;
-    }
-
-    public void setLesson(Lesson lesson) {
-        this.lesson = lesson;
     }
 
     public Student getStudent() {
@@ -55,11 +45,11 @@ public class Attendance {
         this.attendanceStatus = attendanceStatus;
     }
 
-    public LocalDateTime getDate() {
-        return date;
+    public Meeting getMeeting() {
+        return meeting;
     }
 
-    public void setDate(LocalDateTime date) {
-        this.date = date;
+    public void setMeeting(Meeting meeting) {
+        this.meeting = meeting;
     }
 }
