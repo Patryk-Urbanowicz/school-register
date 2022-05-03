@@ -5,7 +5,7 @@ import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.orderedlayout.*;
 import static com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyContentMode.*;
 
-public class ScheduleSegment extends VerticalLayout{
+public class ScheduleSegment extends ColumnSegment{
 	public ScheduleSegment(String backgroundColor, String lessonName, String classroomName, String teacherShort){
 			setClassName("schedule-segment");
 			getStyle().set("background", backgroundColor);
