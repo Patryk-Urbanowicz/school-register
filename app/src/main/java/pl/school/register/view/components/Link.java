@@ -1,4 +1,4 @@
-package pl.school.register.view;
+package pl.school.register.view.components;
 
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.RouterLink;
