@@ -13,14 +13,15 @@ public class ScheduleTable extends HorizontalLayout {
     public ScheduleTable(List<LessonBlock> lessons) {
         setSpacing(false);
         setClassName("schedule-table");
-        List<String> weekdays = Arrays.stream(WeekDay.values()).map(WeekDay::name).collect(Collectors.toList());
+        List<String> weekdays = Arrays.stream(WeekDay.values())
+                                    .map(WeekDay::name)
+                                    .collect(Collectors.toList());
 		weekdays.remove(WeekDay.SATURDAY.name());
 		weekdays.remove(WeekDay.SUNDAY.name());
         weekdays.forEach(weekday -> {
-            List<LessonBlock> lessonOnThisDay = lessons.
-                    stream().
-                    filter(lessonBlock -> weekday.equals(lessonBlock.getWeekDay().name()))
-					.collect(Collectors.toList());
+            List<LessonBlock> lessonOnThisDay = lessons.stream()
+                            .filter(lessonBlock -> weekday.equals(lessonBlock.getWeekDay().name()))
+                            .collect(Collectors.toList());
             add(new Column(weekday, new ArrayDeque<>(lessonOnThisDay), 8));
         });
 
