@@ -90,7 +90,13 @@ public class StudentScheduleView extends VerticalLayout {
         lessonBlock6.setWeekDay(WeekDay.TUESDAY);
         lessonBlock6.setLesson(lesson);
 
-        blocks.addAll(List.of(lessonBlock, lessonBlock2, lessonBlock3, lessonBlock4, lessonBlock5, lessonBlock6));
+        LessonBlock lessonBlock7 = new LessonBlock();
+        lessonBlock7.setDuration(45);
+        lessonBlock7.setStartTime("8:00");
+        lessonBlock7.setWeekDay(WeekDay.WEDNESDAY);
+        lessonBlock7.setLesson(lesson);
+
+        blocks.addAll(List.of(lessonBlock, lessonBlock2, lessonBlock3, lessonBlock4, lessonBlock5, lessonBlock6, lessonBlock7));
 
 
 

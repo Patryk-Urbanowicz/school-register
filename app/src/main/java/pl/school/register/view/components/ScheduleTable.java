@@ -1,5 +1,6 @@
 package pl.school.register.view.components;
 
+import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import pl.school.register.model.LessonBlock;
 import pl.school.register.model.enumerations.WeekDay;
@@ -9,21 +10,21 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Tag(value = "table")
 public class ScheduleTable extends HorizontalLayout {
     public ScheduleTable(List<LessonBlock> lessons) {
         setSpacing(false);
-        setClassName("schedule-table");
-        List<String> weekdays = Arrays.stream(WeekDay.values())
-                                    .map(WeekDay::name)
-                                    .collect(Collectors.toList());
-		weekdays.remove(WeekDay.SATURDAY.name());
-		weekdays.remove(WeekDay.SUNDAY.name());
-        weekdays.forEach(weekday -> {
-            List<LessonBlock> lessonOnThisDay = lessons.stream()
-                            .filter(lessonBlock -> weekday.equals(lessonBlock.getWeekDay().name()))
+        addClassName("schedule-table");
+        List<String> lessonHours = List.of("8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00");
+        List<WeekDay> days = Arrays.stream(WeekDay.values()).collect(Collectors.toList());
+        days.remove(WeekDay.SATURDAY);
+        days.remove(WeekDay.SUNDAY);
+        add(new Row(days.toArray(new WeekDay[1])));
+        lessonHours.forEach(hour -> {
+                    List<LessonBlock> lessonOnThisHour = lessons.stream()
+                            .filter(lessonBlock -> hour.equals(lessonBlock.getStartTime()))
                             .collect(Collectors.toList());
-            add(new Column(weekday, new ArrayDeque<>(lessonOnThisDay), 8));
-        });
-
+                    add(new ScheduleRow(new ArrayDeque<>(lessonOnThisHour), hour));
+                });
     }
 }

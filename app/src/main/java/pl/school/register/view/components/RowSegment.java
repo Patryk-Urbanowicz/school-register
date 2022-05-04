@@ -5,12 +5,12 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 
 @Tag(value = "td")
-public class ColumnSegment extends Div {
-	public ColumnSegment(){
-		addClassName("column-segment");
+public class RowSegment extends Div {
+	public RowSegment(){
+		addClassName("row-segment");
 	}
 
-	public ColumnSegment(String labelText){
+	public RowSegment(String labelText){
 		addClassName("hour-segment");
 		Label label = new Label(labelText);
 		add(label);

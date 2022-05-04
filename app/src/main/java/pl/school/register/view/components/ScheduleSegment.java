@@ -3,7 +3,7 @@ package pl.school.register.view.components;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.orderedlayout.*;
 
-public class ScheduleSegment extends ColumnSegment{
+public class ScheduleSegment extends RowSegment {
 	public ScheduleSegment(String backgroundColor, String lessonName, String classroomName, String teacherShort){
 			setClassName("schedule-segment");
 			getStyle().set("background", backgroundColor);

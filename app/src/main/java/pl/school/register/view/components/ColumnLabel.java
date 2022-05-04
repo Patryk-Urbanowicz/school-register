@@ -1,13 +1,13 @@
 package pl.school.register.view.components;
 
+import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.html.*;
 
-import pl.school.register.view.components.*;
-
-public class ColumnLabel extends ColumnSegment{
-	public ColumnLabel(String weekday){
+@Tag(value = "th")
+public class ColumnLabel extends RowSegment {
+	public ColumnLabel(String label){
 		setClassName("column-label");
-		Label weekdayLabel = new Label(weekday);
+		Label weekdayLabel = new Label(label);
 		add(weekdayLabel);
 	}
 }
