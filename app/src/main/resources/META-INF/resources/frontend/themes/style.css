@@ -30,13 +30,17 @@ navbar{
 	border-style: solid;
 	border-width: 1px;
 	border-color: black;
+	text-transform: lowercase;
+}
 
+.column-label::first-letter {
+	text-transform: uppercase;
 }
 
 .row-segment {
 	width: 150px;
 	height: 60px;
-	padding: 0px;
+	padding: 2px;
 	border-style: solid;
 	border-width: 1px;
 	border-color: black;
@@ -53,11 +57,12 @@ table {
 	height: 60px;
 	color: black;
 	font-size: 13px;
-	padding-top: 2px;
+	padding: 5px;
 	align-items: center;
 	border-style: solid;
 	border-width: 1px;
 	border-color: black;
+	text-align: center;
 }
 
 .hour-segment {
