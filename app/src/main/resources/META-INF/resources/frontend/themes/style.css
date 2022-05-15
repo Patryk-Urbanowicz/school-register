@@ -1,0 +1,87 @@
+body {
+	background: #2B4F33;
+}
+
+navbar{
+  background: #192122;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  padding: 15px;
+  color: white;
+}
+.left-panel-card {
+	padding: 10px;
+	background: white;
+	border-radius: 2px;
+}
+
+.link {
+	padding: 10px;
+	text-align: center;
+	color: #141414;
+}
+
+.column-label {
+	height: 25px;
+	align-items: center;
+	padding: 0px;
+	background: #696969;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	text-transform: lowercase;
+}
+
+.column-label::first-letter {
+	text-transform: uppercase;
+}
+
+.row-segment {
+	width: 150px;
+	height: 60px;
+	padding: 2px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	color: black;
+	font-size: 15px;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+.schedule-segment {
+	width: 148px;
+	height: 60px;
+	color: black;
+	font-size: 13px;
+	padding: 5px;
+	align-items: center;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	text-align: center;
+}
+
+.hour-segment {
+	width: 75px;
+	height: 60px;
+	color: black;
+	font-weight: bold;
+	font-size: 13px;
+	padding: 3px;
+	background: #3f6f6f;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+}
+
+.schedule-segment > .bottom-element{
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+
