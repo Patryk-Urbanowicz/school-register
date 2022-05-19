@@ -14,12 +14,11 @@ public class LessonService {
 
     private final LessonRepository lessonRepository;
 
-    @Autowired
     public LessonService(LessonRepository lessonRepository) {
         this.lessonRepository = lessonRepository;
     }
 
-    public void addLessons(@RequestBody Lesson lesson){
+    public void addLessons(Lesson lesson){
         lessonRepository.save(lesson);
     }
 

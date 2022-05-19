@@ -15,12 +15,11 @@ public class MarkService {
 
     private final MarkRepository markRepository;
 
-    @Autowired
     public MarkService(MarkRepository markRepository) {
         this.markRepository = markRepository;
     }
 
-    public void addMark(@RequestBody Mark mark){
+    public void addMark(Mark mark){
         markRepository.save(mark);
     }
 

@@ -14,12 +14,11 @@ public class MeetingService {
 
     public final MeetingRepository meetingRepository;
 
-    @Autowired
     public MeetingService(MeetingRepository meetingRepository) {
         this.meetingRepository = meetingRepository;
     }
 
-    public void addMeeting(@RequestBody Meeting meeting){
+    public void addMeeting(Meeting meeting){
         meetingRepository.save(meeting);
     }
 

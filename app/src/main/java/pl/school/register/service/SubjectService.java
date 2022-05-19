@@ -15,12 +15,11 @@ public class SubjectService {
 
     private final SubjectRepository subjectRepository;
 
-    @Autowired
     public SubjectService(SubjectRepository subjectRepository) {
         this.subjectRepository = subjectRepository;
     }
 
-    public void addSubject(@RequestBody Subject subject){
+    public void addSubject(Subject subject){
         subjectRepository.save(subject);
     }
 

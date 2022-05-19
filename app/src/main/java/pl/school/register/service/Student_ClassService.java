@@ -15,12 +15,11 @@ public class Student_ClassService {
 
     public final Student_ClassRepository student_classRepository;
 
-    @Autowired
     public Student_ClassService(Student_ClassRepository student_classRepository) {
         this.student_classRepository = student_classRepository;
     }
 
-    public void addStudent_Class(@RequestBody Student_Class student_class){
+    public void addStudent_Class(Student_Class student_class){
         student_classRepository.save(student_class);
     }
 

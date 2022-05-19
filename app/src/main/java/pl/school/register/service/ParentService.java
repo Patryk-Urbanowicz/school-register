@@ -15,12 +15,11 @@ public class ParentService {
 
     public final ParentRepository parentRepository;
 
-    @Autowired
     public ParentService(ParentRepository parentRepository) {
         this.parentRepository = parentRepository;
     }
 
-    public void addParent(@RequestBody Parent parent){
+    public void addParent(Parent parent){
         parentRepository.save(parent);
     }
 

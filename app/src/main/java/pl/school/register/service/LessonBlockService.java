@@ -14,12 +14,11 @@ public class LessonBlockService {
 
     private final LessonBlockRepository lessonBlockRepository;
 
-    @Autowired
     public LessonBlockService(LessonBlockRepository lessonBlockRepository) {
         this.lessonBlockRepository = lessonBlockRepository;
     }
 
-    public void addLessonBlock(@RequestBody LessonBlock lessonBlock){
+    public void addLessonBlock(LessonBlock lessonBlock){
         lessonBlockRepository.save(lessonBlock);
     }
 

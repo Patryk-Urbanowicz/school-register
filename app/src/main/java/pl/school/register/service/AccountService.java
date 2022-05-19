@@ -14,12 +14,11 @@ public class AccountService {
 
     private final AccountRepository accountRepository;
 
-    @Autowired
     public AccountService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
 
-    public void addAccount(@RequestBody Account account){
+    public void addAccount(Account account){
         accountRepository.save(account);
     }
 

@@ -16,12 +16,11 @@ public class AttendanceService {
 
     private final AttendanceRepository attendanceRepository;
 
-    @Autowired
     public AttendanceService(AttendanceRepository attendanceRepository) {
         this.attendanceRepository = attendanceRepository;
     }
 
-    public void addAttendance(@RequestBody Attendance attendance){
+    public void addAttendance(Attendance attendance){
         attendanceRepository.save(attendance);
     }
 
