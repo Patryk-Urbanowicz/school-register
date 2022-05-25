@@ -74,11 +74,41 @@ table .table-head th{
 	top: 0;
 }
 
+th:after{
+	content:'';
+	position:absolute;
+	left: 0;
+	bottom: 0;
+	width:100%;
+	border: 1px solid rgb(0, 0, 0, .36);
+}
+
+.column-label:after{
+	content:'';
+	position:absolute;
+	left: 0;
+	bottom: 0;
+	width:100%;
+	border: 1px solid rgb(0, 0, 0, .36);
+}
+
+.hour-segment:after{
+	content:'';
+	position:absolute;
+	left: 0;
+	bottom: 0;
+	width:100%;
+	border: 1px solid rgb(0, 0, 0, .36);
+}
+
 .column-label {
 	height: 25px;
 	align-items: center;
 	padding: 0px;
 	background: #696969;
+	color: white;
+	position: sticky;
+	top: 0;
 	border-style: solid;
 	border-width: 1px;
 	border-color: black;
@@ -115,11 +145,14 @@ table .table-head th{
 
 .hour-segment {
 	width: 75px;
-	color: black;
+	color: white;
 	font-weight: bold;
 	font-size: 13px;
 	padding: 3px;
-	background: #3f6f6f;
+	left: 0;
+	position: sticky;
+	z-index: 10;
+	background: #696969;
 	border-style: solid;
 	border-width: 1px;
 	border-color: black;
