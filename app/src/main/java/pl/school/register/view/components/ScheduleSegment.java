@@ -5,7 +5,7 @@ import com.vaadin.flow.component.orderedlayout.*;
 
 public class ScheduleSegment extends RowSegment {
 	public ScheduleSegment(String backgroundColor, String lessonName, String classroomName, String teacherShort){
-			setClassName("schedule-segment");
+			addClassName("schedule-segment");
 			getStyle().set("background", backgroundColor);
 			Label lessonNameLabel = new Label(lessonName);
 			HorizontalLayout bottom = new HorizontalLayout();

@@ -12,12 +12,16 @@ import static com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyConte
 public class AccountNestedLayout extends HorizontalLayout implements RouterLayout {
 
     public AccountNestedLayout() {
-        getStyle().set("height", "100%");
+//        setSizeFull();
+        addClassName("main");
+        setHeight("100%");
         add(createLeftPanel());
     }
 
     private VerticalLayout createLeftPanel() {
         VerticalLayout leftPanel = new VerticalLayout();
+        leftPanel.setClassName("left-panel");
+        leftPanel.setWidth("50%");
 		Card choiceCard = new Card("200px");
 		choiceCard.add(	
                 new Link("Schedule", StudentScheduleView.class),
@@ -28,11 +32,9 @@ public class AccountNestedLayout extends HorizontalLayout implements RouterLayou
         label.getStyle()
                 .set("color", "black");
         recent.add(label);
-        leftPanel.setSpacing(true);
-        leftPanel.setJustifyContentMode(AROUND);
+//        leftPanel.setSpacing(true);
+//        leftPanel.setJustifyContentMode(AROUND);
         leftPanel.add(choiceCard, recent);
-        leftPanel.getStyle()
-                .set("width", "50%");
         return leftPanel;
     }
 }

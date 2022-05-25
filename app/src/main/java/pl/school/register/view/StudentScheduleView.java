@@ -1,5 +1,6 @@
 package pl.school.register.view;
 
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
@@ -18,8 +19,12 @@ public class StudentScheduleView extends VerticalLayout {
     List<LessonBlock> blocks = new ArrayList<>();
     public StudentScheduleView(){
 		sampleData();
+        setSizeFull();
+        Div div = new Div();
         ScheduleTable st = new ScheduleTable(blocks);
-		add(st);
+        div.add(st);
+        div.setClassName("tableFixedSize");
+		add(div);
     }
 
     private void sampleData(){

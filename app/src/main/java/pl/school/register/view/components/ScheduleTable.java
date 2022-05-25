@@ -19,7 +19,9 @@ public class ScheduleTable extends HorizontalLayout {
         List<WeekDay> days = Arrays.stream(WeekDay.values()).collect(Collectors.toList());
         days.remove(WeekDay.SATURDAY);
         days.remove(WeekDay.SUNDAY);
-        add(new Row(days.toArray(new WeekDay[1])));
+        Row thead = new Row(days.toArray(new WeekDay[1]));
+        thead.addClassName("table-head");
+        add(thead);
         lessonHours.forEach(hour -> {
                     List<LessonBlock> lessonOnThisHour = lessons.stream()
                             .filter(lessonBlock -> hour.equals(lessonBlock.getStartTime()))

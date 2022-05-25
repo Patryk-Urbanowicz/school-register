@@ -1,8 +1,36 @@
 body {
 	background: #2B4F33;
 }
+@media (max-width: 800px){
+	navbar{
+		position: sticky;
+		position: -webkit-sticky;
+	}
+	.main{
+		display: flex;
+		flex-direction: column;
+	}
+	.tableFixedSize{
+		width: auto;
+		height: auto;
+	}
+	.left-panel{
+		width: 100% !important;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+	}
+	.left-panel-card{
+		height: 300px !important;
+	}
+}
 
-navbar{
+.left-panel{
+	display: flex;
+	justify-content: space-around;
+}
+
+navbar {
   background: #192122;
   width: 100%;
   display: flex;
@@ -13,13 +41,37 @@ navbar{
 .left-panel-card {
 	padding: 10px;
 	background: white;
+	width: 50%;
 	border-radius: 2px;
+}
+
+.middle-panel{
+	background: #efefef;
+	margin: 10px;
+	height: 100%;
 }
 
 .link {
 	padding: 10px;
 	text-align: center;
 	color: #141414;
+}
+
+.tableFixedSize {
+	height: 100%;
+	width: 100%;
+	overflow-x: auto;
+	overflow-y: auto;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table .table-head th{
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
 }
 
 .column-label {
@@ -39,7 +91,7 @@ navbar{
 
 .row-segment {
 	width: 150px;
-	height: 60px;
+	height: 40px;
 	padding: 2px;
 	border-style: solid;
 	border-width: 1px;
@@ -48,13 +100,9 @@ navbar{
 	font-size: 15px;
 }
 
-table {
-	border-collapse: collapse;
-}
 
 .schedule-segment {
 	width: 148px;
-	height: 60px;
 	color: black;
 	font-size: 13px;
 	padding: 5px;
@@ -67,7 +115,6 @@ table {
 
 .hour-segment {
 	width: 75px;
-	height: 60px;
 	color: black;
 	font-weight: bold;
 	font-size: 13px;
