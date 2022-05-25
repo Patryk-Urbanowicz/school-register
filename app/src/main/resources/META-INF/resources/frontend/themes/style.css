@@ -164,4 +164,24 @@ th:after{
 	width: 100%;
 }
 
+.mark {
+	color: black;
+	padding: 10px;
+}
+
+.hide {
+	border-radius: 5px;
+	border: 1px solid grey;
+	padding: 5px;
+	color: grey;
+	display: none;
+	background: white;
+	position: absolute;
+}
+
+.mark:hover + .hide {
+	display: flex;
+	flex-direction: column;
+}
+
 

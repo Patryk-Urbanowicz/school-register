@@ -20,11 +20,9 @@ public class StudentScheduleView extends VerticalLayout {
     public StudentScheduleView(){
 		sampleData();
         setSizeFull();
-        Div div = new Div();
         ScheduleTable st = new ScheduleTable(blocks);
-        div.add(st);
-        div.setClassName("tableFixedSize");
-		add(div);
+        ResponsiveTableWrapper wrapper = new ResponsiveTableWrapper(st);
+		add(wrapper);
     }
 
     private void sampleData(){

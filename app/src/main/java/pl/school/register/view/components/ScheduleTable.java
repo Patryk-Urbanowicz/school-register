@@ -1,6 +1,7 @@
 package pl.school.register.view.components;
 
 import com.vaadin.flow.component.Tag;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import pl.school.register.model.LessonBlock;
 import pl.school.register.model.enumerations.WeekDay;
@@ -11,9 +12,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Tag(value = "table")
-public class ScheduleTable extends HorizontalLayout {
+public class ScheduleTable extends Div {
     public ScheduleTable(List<LessonBlock> lessons) {
-        setSpacing(false);
         addClassName("schedule-table");
         List<String> lessonHours = List.of("8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00");
         List<WeekDay> days = Arrays.stream(WeekDay.values()).collect(Collectors.toList());
