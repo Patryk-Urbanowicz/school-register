@@ -5,7 +5,7 @@ import com.vaadin.flow.server.AppShellSettings;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
-@Theme(themeClass = Lumo.class, variant = Lumo.DARK)
+@Theme(themeClass = Lumo.class, variant = Lumo.LIGHT)
 public class AppShell implements AppShellConfigurator {
     @Override
     public void configurePage(AppShellSettings settings) {
