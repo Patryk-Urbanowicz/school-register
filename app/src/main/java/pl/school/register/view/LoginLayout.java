@@ -1,7 +1,10 @@
 package pl.school.register.view;
 
+import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.login.LoginForm;
+import com.vaadin.flow.component.login.LoginOverlay;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,18 +13,23 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.annotation.security.PermitAll;
-import java.security.Principal;
 import java.util.Collection;
 
 @Route(value = "login")
 @PermitAll
+@CssImport(value = "./themes/login.css")
 public class LoginLayout extends VerticalLayout implements BeforeEnterObserver {
     private final LoginForm form = new LoginForm();
     public LoginLayout(){
+        setClassName("login-page");
+        form.setForgotPasswordButtonVisible(false);
         form.setAction("login");
+        Div box = new Div();
+        box.setClassName("login-box");
+        box.add(form);
         add(
-                new H1("Awooga"),
-                form
+                new H1("Log in to the School Register"),
+                box
         );
     }
 
