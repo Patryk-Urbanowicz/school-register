@@ -5,6 +5,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.ParentLayout;
 import com.vaadin.flow.router.RouterLayout;
+import com.vaadin.flow.router.RouterLink;
 import pl.school.register.view.components.*;
 import static com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyContentMode.*;
 
@@ -20,8 +21,8 @@ public class AccountNestedLayout extends HorizontalLayout implements RouterLayou
         VerticalLayout leftPanel = new VerticalLayout();
 		Card choiceCard = new Card("200px");
 		choiceCard.add(	
-                new Link("Schedule", StudentScheduleView.class),
-                new Link("Marks", StudentMarksView.class)
+                new RouterLink("Schedule", StudentScheduleView.class),
+                new RouterLink("Marks", StudentMarksView.class)
         );
         Card recent = new Card("300px");
         Label label = new Label("Recent");

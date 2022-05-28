@@ -1,87 +1,98 @@
 body {
-	background: #2B4F33;
+    background: #2B4F33;
 }
 
-navbar{
-  background: #192122;
-  width: 100%;
-  display: flex;
-  justify-content: end;
-  padding: 15px;
-  color: white;
+navbar {
+    background: #192122;
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding: 15px;
+	font-size: 20px;
+	font-weight: bold;
 }
+
 .left-panel-card {
-	padding: 10px;
-	background: white;
-	border-radius: 2px;
+    padding: 10px;
+    background: white;
+    border-radius: 2px;
 }
 
-.link {
-	padding: 10px;
-	text-align: center;
-	color: #141414;
+a {
+    padding: 10px;
+    text-align: center;
+    color: #141414;
 }
 
 .column-label {
-	height: 25px;
-	align-items: center;
-	padding: 0px;
-	background: #696969;
-	border-style: solid;
-	border-width: 1px;
-	border-color: black;
-	text-transform: lowercase;
+    height: 25px;
+    align-items: center;
+    padding: 0px;
+    background: #696969;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    text-transform: lowercase;
 }
 
 .column-label::first-letter {
-	text-transform: uppercase;
+    text-transform: uppercase;
 }
 
 .row-segment {
-	width: 150px;
-	height: 60px;
-	padding: 2px;
-	border-style: solid;
-	border-width: 1px;
-	border-color: black;
-	color: black;
-	font-size: 15px;
+    width: 150px;
+    height: 60px;
+    padding: 2px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    color: black;
+    font-size: 15px;
 }
 
 table {
-	border-collapse: collapse;
+    border-collapse: collapse;
 }
 
 .schedule-segment {
-	width: 148px;
-	height: 60px;
-	color: black;
-	font-size: 13px;
-	padding: 5px;
-	align-items: center;
-	border-style: solid;
-	border-width: 1px;
-	border-color: black;
-	text-align: center;
+    width: 148px;
+    height: 60px;
+    color: black;
+    font-size: 13px;
+    padding: 5px;
+    align-items: center;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    text-align: center;
 }
 
 .hour-segment {
-	width: 75px;
-	height: 60px;
-	color: black;
-	font-weight: bold;
-	font-size: 13px;
-	padding: 3px;
-	background: #3f6f6f;
-	border-style: solid;
-	border-width: 1px;
-	border-color: black;
+    width: 75px;
+    height: 60px;
+    color: black;
+    font-weight: bold;
+    font-size: 13px;
+    padding: 3px;
+    background: #3f6f6f;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
 }
 
-.schedule-segment > .bottom-element{
-	display: flex;
-	justify-content: space-between;
-	width: 100%;
+.schedule-segment > .bottom-element {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.teacher-drawer {
+    background: #efefef;
+}
+
+vaadin-accordion-panel {
+    color: #192122;
 }
 
 
