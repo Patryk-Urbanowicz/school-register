@@ -1,24 +1,21 @@
 package pl.school.register.view;
 
-import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.BeforeEvent;
-import com.vaadin.flow.router.HasUrlParameter;
-import com.vaadin.flow.router.Route;
-import pl.school.register.model.Account;
+import com.vaadin.flow.router.*;
 import pl.school.register.model.SchoolClass;
 import pl.school.register.model.Student;
 import pl.school.register.view.components.ScheduleTable;
 
 import java.util.*;
 
-@Route(value = "teacher/class", layout = TeacherLayout.class)
-public class TeacherSchoolClassView extends VerticalLayout implements HasUrlParameter<String> {
+@Route(value = "teacher/class/:classId/subject/:subjectId", layout = TeacherLayout.class)
+public class TeacherSchoolClassView extends VerticalLayout implements BeforeEnterObserver {
     private SchoolClass schoolClass;
     public TeacherSchoolClassView(){
         setClassName("school-class-view");
+        removeAll();
         sampleData();
-        add(new ScheduleTable(Collections.EMPTY_LIST));
     }
 
     private void sampleData(){
@@ -32,8 +29,20 @@ public class TeacherSchoolClassView extends VerticalLayout implements HasUrlPara
         schoolClass.setStudents(Set.of(s1, s2, s3));
     }
 
+
     @Override
-    public void setParameter(BeforeEvent beforeEvent, String s) {
-        System.out.println(s);
+    public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
+        removeAll(); //A very bad way of "refreshing" components on page
+
+        RouteParameters params = beforeEnterEvent.getRouteParameters();
+        Optional<String> subjectId = params.get("subjectId");
+        Optional<String> classId = params.get("classId");
+        if (subjectId.isPresent() && classId.isPresent()){
+            String subjectIdString = subjectId.get();
+            String classIdString = classId.get();
+            add(new H1("Class: " + classIdString +  " Subject: " + subjectIdString ));
+            add(new ScheduleTable(Collections.EMPTY_LIST));
+        }
+
     }
 }
