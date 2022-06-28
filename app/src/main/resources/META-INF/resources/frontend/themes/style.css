@@ -1,6 +1,34 @@
 body {
     background: #2B4F33;
 }
+@media (max-width: 800px){
+	navbar{
+		position: sticky;
+		position: -webkit-sticky;
+	}
+	.main{
+		display: flex;
+		flex-direction: column;
+	}
+	.tableFixedSize{
+		width: auto;
+		height: auto;
+	}
+	.left-panel{
+		width: 100% !important;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+	}
+	.left-panel-card{
+		height: 300px !important;
+	}
+}
+
+.left-panel{
+	display: flex;
+	justify-content: space-around;
+}
 
 navbar {
     background: #192122;
@@ -14,26 +42,83 @@ navbar {
 }
 
 .left-panel-card {
-    padding: 10px;
+	padding: 10px;
+	background: white;
+	width: 50%;
+	border-radius: 2px;
+}
+
+.middle-panel{
+	background: #efefef;
+	margin: 10px;
+	height: 100%;
+}
+
+a {
+	padding: 10px;
+	text-align: center;
+	color: #141414;
     background: white;
     border-radius: 2px;
 }
 
-a {
-    padding: 10px;
-    text-align: center;
-    color: #141414;
+
+.tableFixedSize {
+	height: 100%;
+	width: 100%;
+	overflow-x: auto;
+	overflow-y: auto;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table .table-head th{
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+}
+
+th:after{
+	content:'';
+	position:absolute;
+	left: 0;
+	bottom: 0;
+	width:100%;
+	border: 0.2px solid rgb(0, 0, 0, .36);
+}
+
+.column-label:after{
+	content:'';
+	position:absolute;
+	left: 0;
+	bottom: 0;
+	width:100%;
+	border: 0.2px solid rgb(0, 0, 0, .36);
+}
+
+.hour-segment:after{
+	content:'';
+	position:absolute;
+	left: 0;
+	bottom: 0;
+	width:100%;
+	border: 0.2px solid rgb(0, 0, 0, .36);
 }
 
 .column-label {
-    height: 25px;
-    align-items: center;
-    padding: 0px;
-    background: #696969;
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
-    text-transform: lowercase;
+	height: 25px;
+	align-items: center;
+	padding: 0px;
+	background: #696969;
+	color: white;
+	position: sticky;
+	top: 0;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	text-transform: lowercase;
 }
 
 .column-label::first-letter {
@@ -41,46 +126,47 @@ a {
 }
 
 .row-segment {
-    width: 150px;
-    height: 60px;
-    padding: 2px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
-    color: black;
-    font-size: 15px;
+	width: 150px;
+	height: 40px;
+	padding: 2px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	color: black;
+	font-size: 15px;
 }
 
-table {
-    border-collapse: collapse;
-}
 
 .schedule-segment {
-    width: 148px;
-    height: 60px;
-    color: black;
-    font-size: 13px;
-    padding: 5px;
-    align-items: center;
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
-    text-align: center;
+	width: 148px;
+	color: black;
+	font-size: 13px;
+	padding: 5px;
+	align-items: center;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	text-align: center;
 }
 
 .hour-segment {
-    width: 75px;
-    height: 60px;
-    color: black;
-    font-weight: bold;
-    font-size: 13px;
-    padding: 3px;
-    background: #3f6f6f;
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
+	width: 75px;
+	color: white;
+	font-weight: bold;
+	font-size: 13px;
+	padding: 3px;
+	left: 0;
+	position: sticky;
+	z-index: 10;
+	background: #696969;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
 }
 
+table {
+	border-collapse: collapse;
+}
 .schedule-segment > .bottom-element {
     display: flex;
     justify-content: space-between;
@@ -93,6 +179,26 @@ table {
 
 vaadin-accordion-panel {
     color: #192122;
+}
+
+.mark {
+	color: black;
+	padding: 10px;
+}
+
+.hide {
+	border-radius: 5px;
+	border: 1px solid grey;
+	padding: 5px;
+	color: grey;
+	display: none;
+	background: white;
+	position: absolute;
+}
+
+.mark:hover + .hide {
+	display: flex;
+	flex-direction: column;
 }
 
 
