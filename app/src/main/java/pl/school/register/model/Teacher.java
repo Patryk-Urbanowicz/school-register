@@ -54,7 +54,11 @@ public class Teacher extends Account {
         this.subjects = subjects;
     }
 
-    public Set<Mark> getMarks() { return marks; }
+    public Set<Mark> getMarks() {
+        return marks;
+    }
 
-    public void setMarks(Set<Mark> marks) { this.marks = marks; }
+    public void setMarks(Set<Mark> marks) {
+        this.marks = marks;
+    }
 }
