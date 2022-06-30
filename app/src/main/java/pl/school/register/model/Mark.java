@@ -15,9 +15,6 @@ public class Mark {
     @ManyToOne
     private Teacher teacher;
 
-    @ManyToOne
-    private Meeting meeting;
-
     private Integer value;
     private Integer weight;
 
@@ -25,6 +22,9 @@ public class Mark {
     private String description;
 
     private Timestamp timestamp;
+
+    @ManyToOne
+    private Lesson lesson;
 
     public Long getId() {
         return id;
@@ -66,14 +66,6 @@ public class Mark {
         this.weight = weight;
     }
 
-    public Meeting getMeeting() {
-        return meeting;
-    }
-
-    public void setMeeting(Meeting meeting) {
-        this.meeting = meeting;
-    }
-
     public String getLabel() {
         return label;
     }
@@ -96,5 +88,13 @@ public class Mark {
 
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public Lesson getLesson() {
+        return lesson;
+    }
+
+    public void setLesson(Lesson lesson) {
+        this.lesson = lesson;
     }
 }
