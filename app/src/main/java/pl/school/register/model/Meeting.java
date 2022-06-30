@@ -15,10 +15,10 @@ public class Meeting {
     Lesson lesson;
 
     @OneToMany(mappedBy = "meeting")
-    Set<Mark> mark = new HashSet<>();
-
-    @OneToMany(mappedBy = "meeting")
     Set<Attendance> attendances = new HashSet<>();
+
+    @ManyToOne
+    Teacher teacher;
 
     LocalDateTime time;
     String topic;
@@ -37,14 +37,6 @@ public class Meeting {
 
     public void setLesson(Lesson lesson) {
         this.lesson = lesson;
-    }
-
-    public Set<Mark> getMark() {
-        return mark;
-    }
-
-    public void setMark(Set<Mark> mark) {
-        this.mark = mark;
     }
 
     public LocalDateTime getTime() {
@@ -69,5 +61,13 @@ public class Meeting {
 
     public void setAttendances(Set<Attendance> attendances) {
         this.attendances = attendances;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 }
