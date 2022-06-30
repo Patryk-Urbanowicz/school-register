@@ -1,6 +1,7 @@
 package pl.school.register.model;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 public class Mark {
@@ -12,10 +13,18 @@ public class Mark {
     private Student student;
 
     @ManyToOne
+    private Teacher teacher;
+
+    @ManyToOne
     private Meeting meeting;
 
     private Integer value;
     private Integer weight;
+
+    private String label;
+    private String description;
+
+    private Timestamp timestamp;
 
     public Long getId() {
         return id;
@@ -31,6 +40,14 @@ public class Mark {
 
     public void setStudent(Student student) {
         this.student = student;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 
     public Integer getValue() {
@@ -55,5 +72,29 @@ public class Mark {
 
     public void setMeeting(Meeting meeting) {
         this.meeting = meeting;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 }
