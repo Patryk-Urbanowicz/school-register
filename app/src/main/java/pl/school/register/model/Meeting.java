@@ -23,6 +23,8 @@ public class Meeting {
     LocalDateTime time;
     String topic;
 
+    String room;
+
     public Long getId() {
         return id;
     }
@@ -69,5 +71,13 @@ public class Meeting {
 
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
+    }
+
+    public String getRoom() {
+        return room;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
     }
 }
