@@ -102,7 +102,7 @@ public class BootStrapData implements CommandLineRunner {
         Mark mark = new Mark();
         mark.setStudent(student);
         mark.setTeacher(teacher);
-        mark.setMeeting(meeting);
+        mark.setLesson(lesson);
         mark.setTimestamp(Timestamp.valueOf("2022-06-20 16:44:00"));
         mark.setLabel("Zadanie");
         mark.setDescription("ocena za zadanie z krzywej beziera");
