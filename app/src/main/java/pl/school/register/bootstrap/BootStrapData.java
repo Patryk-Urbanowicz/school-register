@@ -121,6 +121,8 @@ public class BootStrapData implements CommandLineRunner {
         markRepository.save(mark);
         attendanceRepository.save(attendance);
         List<LessonBlock> lsnblk = lessonBlockRepository.findLessonBlocksByTeacherId(1L);
+        List<LessonBlock> lsnblk2 = lessonBlockRepository.findLessonBlocksBySchoolClassId(1L);
         lsnblk.forEach(b -> System.out.println(b.getLesson().getSubject().getSubjectName()));
+        lsnblk2.forEach(b -> System.out.println(b.getLesson().getSubject().getSubjectName()));
     }
 }
