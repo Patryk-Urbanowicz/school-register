@@ -34,6 +34,11 @@ public class LessonBlockService {
         return lessonBlockRepository.findLessonBlocksByLessonId(id);
     }
 
+    public List<LessonBlock> getByTeacherId(Long teacher_id){
+        return lessonBlockRepository.findLessonBlocksByTeacherId(teacher_id);
+    }
 
-
+    public List<LessonBlock> getBySchoolClassId(Long school_class_id){
+        return lessonBlockRepository.findLessonBlocksBySchoolClassId(school_class_id);
+    }
 }

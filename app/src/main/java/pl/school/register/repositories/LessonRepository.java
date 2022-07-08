@@ -16,9 +16,6 @@ public interface LessonRepository extends JpaRepository<Lesson, Long> {
     @Query(value = "SELECT * FROM lesson WHERE school_class_id = :school_class_id", nativeQuery = true)
     List<Lesson> findLessonBySchoolClassId(@Param("school_class_id") Long school_class_id);
 
-    @Query(value = "SELECT * FROM lesson WHERE teacher_id = :teacher_id", nativeQuery = true)
-    List<Lesson> findLessonByTeacherId(@Param("teacher_id") Long teacher_id);
-
     @Query(value = "SELECT * FROM lesson WHERE subject_id = :subject_id", nativeQuery = true)
     List<Lesson> findLessonBySubjectId(@Param("subject_id") Long subject_id);
 

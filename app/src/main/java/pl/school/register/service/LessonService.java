@@ -34,13 +34,12 @@ public class LessonService {
         return lessonRepository.findLessonBySchoolClassId(id);
     }
 
-    public List<Lesson> getLessonByTeacherId(Long id){
-        return lessonRepository.findLessonByTeacherId(id);
+    public List<Lesson> getLessonByTeacherId(Long teacher_id){
+        return lessonRepository.findAllByTeacherId(teacher_id);
     }
 
     public List<Lesson> getLessonBySubjectId(Long id){
         return lessonRepository.findLessonBySubjectId(id);
     }
-
 
 }
