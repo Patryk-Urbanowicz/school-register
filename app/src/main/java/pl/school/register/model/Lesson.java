@@ -25,6 +25,9 @@ public class Lesson {
     @OneToMany(mappedBy = "lesson")
     private Set<Meeting> meetings = new HashSet<>();
 
+    @OneToMany(mappedBy = "lesson")
+    private Set<Mark> marks = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -71,5 +74,13 @@ public class Lesson {
 
     public void setMeetings(Set<Meeting> meetings) {
         this.meetings = meetings;
+    }
+
+    public Set<Mark> getMarks() {
+        return marks;
+    }
+
+    public void setMarks(Set<Mark> marks) {
+        this.marks = marks;
     }
 }

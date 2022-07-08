@@ -8,8 +8,8 @@ import pl.school.register.model.enumerations.AttendanceStatus;
 import pl.school.register.model.enumerations.WeekDay;
 import pl.school.register.repositories.*;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.List;
 
 @Component
@@ -105,7 +105,11 @@ public class BootStrapData implements CommandLineRunner {
 
         Mark mark = new Mark();
         mark.setStudent(student);
-        mark.setMeeting(meeting);
+        mark.setTeacher(teacher);
+        mark.setLesson(lesson);
+        mark.setTimestamp(Timestamp.valueOf("2022-06-20 16:44:00"));
+        mark.setLabel("Zadanie");
+        mark.setDescription("ocena za zadanie z krzywej beziera");
         mark.setValue(2);
         mark.setWeight(5);
 

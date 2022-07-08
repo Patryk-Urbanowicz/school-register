@@ -107,7 +107,7 @@ public class StudentScheduleView extends VerticalLayout {
         Mark p = new Mark();
         p.setValue(1);
         p.setStudent(student1);
-        p.setMeeting(meeting);
+        p.setLesson(lesson);
         p.setWeight(4);
 
         marks.add(p);
@@ -115,7 +115,7 @@ public class StudentScheduleView extends VerticalLayout {
         Mark bdb = new Mark();
         p.setValue(5);
         p.setStudent(student1);
-        p.setMeeting(meeting);
+        p.setLesson(lesson);
         p.setWeight(2);
         marks.add(bdb);
         student1.setMarks(new HashSet<>(marks));
