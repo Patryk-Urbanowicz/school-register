@@ -15,7 +15,7 @@ public class SchoolClass {
     @OneToOne
     private Teacher homeroomTeacher;
 
-    @OneToMany(mappedBy = "schoolClass")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "schoolClass")
     private Set<Lesson> lessons = new HashSet<>();
 
     @OneToMany(mappedBy = "schoolClass")
