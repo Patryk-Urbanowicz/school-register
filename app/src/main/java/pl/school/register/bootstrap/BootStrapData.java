@@ -10,6 +10,7 @@ import pl.school.register.repositories.*;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 
 @Component
 public class BootStrapData implements CommandLineRunner {
@@ -119,5 +120,7 @@ public class BootStrapData implements CommandLineRunner {
         meetingRepository.save(meeting);
         markRepository.save(mark);
         attendanceRepository.save(attendance);
+        List<LessonBlock> lsnblk = lessonBlockRepository.findLessonBlocksByTeacherId(1L);
+        lsnblk.forEach(b -> System.out.println(b.getLesson().getSubject().getSubjectName()));
     }
 }
