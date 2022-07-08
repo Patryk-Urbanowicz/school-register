@@ -1,6 +1,7 @@
 package pl.school.register.bootstrap;
 
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import pl.school.register.model.*;
 import pl.school.register.model.enumerations.AttendanceStatus;
@@ -24,11 +25,12 @@ public class BootStrapData implements CommandLineRunner {
     private final MeetingRepository meetingRepository;
     private final LessonBlockRepository lessonBlockRepository;
     private final MarkRepository markRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public BootStrapData(StudentRepository studentRepository, ParentRepository parentRepository, TeacherRepository teacherRepository, SchoolClassRepository schoolClassRepository,
                          Student_ClassRepository student_classRepository, SubjectRepository subjectRepository,
                          LessonRepository lessonRepository, AttendanceRepository attendanceRepository,
-                         LessonBlockRepository lessonBlockRepository, MeetingRepository meetingRepository, MarkRepository markRepository) {
+                         LessonBlockRepository lessonBlockRepository, MeetingRepository meetingRepository, MarkRepository markRepository, PasswordEncoder passwordEncoder) {
         this.studentRepository = studentRepository;
         this.parentRepository = parentRepository;
         this.teacherRepository = teacherRepository;
@@ -40,6 +42,7 @@ public class BootStrapData implements CommandLineRunner {
         this.meetingRepository = meetingRepository;
         this.lessonBlockRepository = lessonBlockRepository;
         this.markRepository = markRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -48,7 +51,7 @@ public class BootStrapData implements CommandLineRunner {
         teacher.setFirstName("Pan");
         teacher.setLastName("Kleks");
         teacher.setLogin("mrKleks");
-        teacher.setPassword("childLabor");
+        teacher.setPassword(passwordEncoder.encode("childLabor"));
 
         SchoolClass schoolClass = new SchoolClass();
         schoolClass.setClassName("Kleks class");
@@ -59,14 +62,14 @@ public class BootStrapData implements CommandLineRunner {
         student.setFirstName("Adas");
         student.setLastName("Niezgodka");
         student.setLogin("adas69PL");
-        student.setPassword("DzikiDzikus");
+        student.setPassword(passwordEncoder.encode("DzikiDzikus"));
         student.setSchoolClass(schoolClass);
 
         Parent parent = new Parent();
         parent.setFirstName("Leosia");
         parent.setLastName("Yung");
         parent.setLogin("YungStar");
-        parent.setPassword("ytDestroyer");
+        parent.setPassword(passwordEncoder.encode("ytDestroyer"));
         parent.getChildren().add(student);
 
         Student_Class studentClass = new Student_Class();
