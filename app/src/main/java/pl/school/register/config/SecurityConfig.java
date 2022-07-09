@@ -10,9 +10,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import pl.school.register.filter.AuthenticationFilter;
+import pl.school.register.filter.AuthorizationFilter;
 import pl.school.register.service.AccountDetailsService;
-import pl.school.register.service.AccountService;
 
 @EnableWebSecurity
 public class SecurityConfig {
@@ -30,15 +33,26 @@ public class SecurityConfig {
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
+            AuthenticationFilter filter = new AuthenticationFilter(authenticationManagerBean());
+            filter.setFilterProcessesUrl("/api/account/login");
             http
                     .csrf().disable()
                     .formLogin().disable()
-                    .antMatcher("/api/**");
+                    .antMatcher("/api/**")
+                    .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    .and()
+                    .authorizeRequests()
+                    .antMatchers("/api/student/**").hasAuthority("STUDENT")
+                    .and()
+                    .addFilter(filter)
+                    .addFilterBefore(new AuthorizationFilter(accountDetailsService), UsernamePasswordAuthenticationFilter.class);
+
         }
 
         @Override
         public void configure(WebSecurity web) throws Exception {
-            web.ignoring().antMatchers("/images/**");
+            web.ignoring().antMatchers("/images/**",
+                    "/api/example");
         }
 
         @Override
