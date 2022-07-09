@@ -5,10 +5,13 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
+import pl.school.register.config.JWTConfig;
 import pl.school.register.service.AccountDetailsService;
 
 import javax.servlet.FilterChain;
@@ -23,10 +26,13 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+@PropertySource("classpath:application.properties")
 public class AuthorizationFilter extends OncePerRequestFilter {
-    final private AccountDetailsService accountDetailsService;
-    public AuthorizationFilter(AccountDetailsService accountDetailsService){
+    private final AccountDetailsService accountDetailsService;
+    private final JWTConfig jwtConfig;
+    public AuthorizationFilter(AccountDetailsService accountDetailsService, JWTConfig jwtConfig){
         this.accountDetailsService = accountDetailsService;
+        this.jwtConfig = jwtConfig;
     }
 
     @Override
@@ -37,8 +43,9 @@ public class AuthorizationFilter extends OncePerRequestFilter {
             String authHeader = request.getHeader(AUTHORIZATION);
             if (authHeader != null && authHeader.startsWith("Bearer ")) {
                 try {
-                    String token = authHeader.substring("Bearer ".length());
-                    Algorithm algorithm = Algorithm.HMAC512("very_secure_secret".getBytes());
+                    String token = authHeader.substring(jwtConfig.getPrefix().length());
+                    System.out.println(jwtConfig.getSecret());
+                    Algorithm algorithm = Algorithm.HMAC512(jwtConfig.getSecret().getBytes());
                     JWTVerifier verifier = JWT.require(algorithm).build();
                     DecodedJWT decodedJWT = verifier.verify(token);
                     String username = decodedJWT.getSubject();

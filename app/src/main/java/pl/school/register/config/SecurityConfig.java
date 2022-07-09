@@ -23,17 +23,19 @@ public class SecurityConfig {
     @Configuration
     class RESTSecurityConfig extends WebSecurityConfigurerAdapter{
 
-        private AccountDetailsService accountDetailsService;
-        private PasswordEncoder passwordEncoder;
+        private final AccountDetailsService accountDetailsService;
+        private final PasswordEncoder passwordEncoder;
+        private final JWTConfig jwtConfig;
 
-        public RESTSecurityConfig(AccountDetailsService accountDetailsService, PasswordEncoder passwordEncoder) {
+        public RESTSecurityConfig(AccountDetailsService accountDetailsService, PasswordEncoder passwordEncoder, JWTConfig jwtConfig) {
             this.accountDetailsService = accountDetailsService;
             this.passwordEncoder = passwordEncoder;
+            this.jwtConfig = jwtConfig;
         }
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
-            AuthenticationFilter filter = new AuthenticationFilter(authenticationManagerBean());
+            AuthenticationFilter filter = new AuthenticationFilter(authenticationManagerBean(), jwtConfig);
             filter.setFilterProcessesUrl("/api/account/login");
             http
                     .csrf().disable()
@@ -45,7 +47,7 @@ public class SecurityConfig {
                     .antMatchers("/api/student/**").hasAuthority("STUDENT")
                     .and()
                     .addFilter(filter)
-                    .addFilterBefore(new AuthorizationFilter(accountDetailsService), UsernamePasswordAuthenticationFilter.class);
+                    .addFilterBefore(new AuthorizationFilter(accountDetailsService, jwtConfig), UsernamePasswordAuthenticationFilter.class);
 
         }
 
