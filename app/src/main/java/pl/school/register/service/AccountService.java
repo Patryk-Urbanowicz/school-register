@@ -33,4 +33,8 @@ public class AccountService {
     public AccountInfo getAccountInfo(Long id) {
         return accountRepository.findAccountInfoById(id);
     }
+
+    public AccountInfo getInfoByLogin(String login){
+        return accountRepository.findAccountInfoByLogin(login);
+    }
 }
