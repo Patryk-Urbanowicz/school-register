@@ -17,7 +17,7 @@ import java.security.Principal;
 @RequestMapping(value = "/api")
 public class ExampleController {
 
-    final private AccountService accountService;
+    private final AccountService accountService;
     ExampleController(AccountService accountService){
         this.accountService = accountService;
     }
