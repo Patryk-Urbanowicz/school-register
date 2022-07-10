@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.Length;
 import pl.school.register.model.enumerations.Role;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -17,6 +18,9 @@ abstract public class Account {
     @NotNull(message = "first name cannot be null")
     @NotBlank(message = "first name cannot be blank")
     private String firstName;
+
+    @NotNull(message = "first name cannot be null")
+    @NotBlank(message = "first name cannot be blank")
     private String lastName;
     @NotNull(message = "login cannot be null")
     @NotBlank(message = "login cannot be blank")

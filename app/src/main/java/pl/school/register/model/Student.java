@@ -3,6 +3,7 @@ package pl.school.register.model;
 import pl.school.register.model.enumerations.Role;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +15,7 @@ public class Student extends Account {
     private Set<Parent> parents;
 
     @ManyToOne
+    @NotNull
     private SchoolClass schoolClass;
 
     @OneToMany(mappedBy = "student")

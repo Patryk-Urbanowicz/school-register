@@ -78,6 +78,7 @@ public class BootStrapData implements CommandLineRunner {
         studentClass.setSchoolClass(schoolClass);
         studentClass.setIndex(1L);
 
+
         Subject subject = new Subject();
         subject.setSubjectName("Math");
         teacher.getSubjects().add(subject);
@@ -91,6 +92,8 @@ public class BootStrapData implements CommandLineRunner {
         meeting.setTime(LocalDateTime.now());
         meeting.setTopic("Lekcja 1: Krzywa Beziera");
         meeting.setLesson(lesson);
+        meeting.setTeacher(teacher);
+        meeting.setRoom("L3");
 
         LessonBlock lessonBlock = new LessonBlock();
         lessonBlock.setLesson(lesson);
