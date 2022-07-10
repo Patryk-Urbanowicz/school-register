@@ -1,6 +1,8 @@
 package pl.school.register.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,12 +13,15 @@ public class Lesson {
     private Long id;
 
     @ManyToOne
+    @NotNull
     private Teacher teacher;
 
     @ManyToOne
+    @NotNull
     private SchoolClass schoolClass;
 
     @ManyToOne
+    @NotNull
     private Subject subject;
 
     @OneToMany(mappedBy = "lesson")
