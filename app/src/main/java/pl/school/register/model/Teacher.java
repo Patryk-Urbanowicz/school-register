@@ -10,7 +10,7 @@ import java.util.Set;
 @DiscriminatorValue(Role.Values.TEACHER)
 public class Teacher extends Account {
 
-    @OneToOne
+    @OneToOne(mappedBy = "homeroomTeacher")
     private SchoolClass schoolClass;
 
     @OneToMany(mappedBy = "teacher")
@@ -23,7 +23,6 @@ public class Teacher extends Account {
     @JoinTable(name = "teacher_subject",
     joinColumns = @JoinColumn(name = "teacher_id"),
     inverseJoinColumns = @JoinColumn(name = "subject_id"))
-
     private Set<Subject> subjects = new HashSet<>();
 
     @OneToMany(mappedBy = "teacher")

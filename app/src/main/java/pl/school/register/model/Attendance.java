@@ -3,6 +3,7 @@ package pl.school.register.model;
 import pl.school.register.model.enumerations.AttendanceStatus;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,6 +20,7 @@ public class Attendance {
 
     @Enumerated
     @Column(name = "status")
+    @NotNull
     private AttendanceStatus attendanceStatus;
 
     public Long getId() {

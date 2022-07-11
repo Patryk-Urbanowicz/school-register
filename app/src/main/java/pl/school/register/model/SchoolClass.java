@@ -1,6 +1,10 @@
 package pl.school.register.model;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,13 +13,22 @@ public class SchoolClass {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
+    @NotBlank
+    @Length(max = 255)
     private String className;
+
+    @NotNull
+    @NotBlank
+    @Length(max = 255)
     private String profile;
 
     @OneToOne
+    @NotNull
     private Teacher homeroomTeacher;
 
-    @OneToMany(mappedBy = "schoolClass")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "schoolClass")
     private Set<Lesson> lessons = new HashSet<>();
 
     @OneToMany(mappedBy = "schoolClass")

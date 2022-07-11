@@ -1,6 +1,7 @@
 package pl.school.register.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,6 +12,7 @@ public class Meeting {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @ManyToOne
     Lesson lesson;
 
@@ -18,11 +20,14 @@ public class Meeting {
     Set<Attendance> attendances = new HashSet<>();
 
     @ManyToOne
+    @NotNull
     Teacher teacher;
 
+    @NotNull
     LocalDateTime time;
     String topic;
 
+    @NotNull
     String room;
 
     public Long getId() {
