@@ -115,6 +115,16 @@ public class BootStrapData implements CommandLineRunner {
         mark.setValue(2);
         mark.setWeight(5);
 
+        Mark mark2 = new Mark();
+        mark2.setStudent(student);
+        mark2.setTeacher(teacher);
+        mark2.setLesson(lesson);
+        mark2.setTimestamp(Timestamp.valueOf("2022-06-20 16:44:00"));
+        mark2.setLabel("Zadanie");
+        mark2.setDescription("ocena za zadanie z krzywej beziera");
+        mark2.setValue(3);
+        mark2.setWeight(3);
+
         subjectRepository.save(subject);
         teacherRepository.save(teacher);
         schoolClassRepository.save(schoolClass);
@@ -125,6 +135,7 @@ public class BootStrapData implements CommandLineRunner {
         lessonBlockRepository.save(lessonBlock);
         meetingRepository.save(meeting);
         markRepository.save(mark);
+        markRepository.save(mark2);
         attendanceRepository.save(attendance);
     }
 }

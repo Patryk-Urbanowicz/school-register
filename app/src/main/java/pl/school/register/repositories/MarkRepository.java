@@ -17,4 +17,9 @@ public interface MarkRepository extends JpaRepository<Mark, Long> {
     List<Mark> findAllByStudentId(@Param("student_id") Long student_id);
 
     List<Mark> findAllByStudentIdAndLessonId(@Param("student_id") Long student_id, @Param("lesson_id") Long subject_id);
+
+    @Query(value = "SELECT \n" +
+            "    cast(sum(m.value * m.weight) AS float) / sum(m.weight) as w_avg \n" +
+            "FROM mark AS m WHERE student_id=:student_id AND lesson_id=:lesson_id", nativeQuery = true)
+    Optional<Float> findWeightedAverageByStudentIdAndLessonId(@Param("student_id") Long student_id, @Param("lesson_id") Long lesson_id);
 }

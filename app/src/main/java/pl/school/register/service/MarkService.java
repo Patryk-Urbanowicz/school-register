@@ -37,4 +37,10 @@ public class MarkService {
     public List<Mark> getAllByStudentIdAndSubjectId(Long student_id, Long lesson_id){
         return markRepository.findAllByStudentIdAndLessonId(student_id, lesson_id);
     }
+
+    public Float getWeightedAverageByStudentIdAndLessonId(Long student_id, Long lesson_id) throws Exception {
+        Optional<Float> chck = markRepository.findWeightedAverageByStudentIdAndLessonId(student_id, lesson_id);
+        if(chck.isEmpty()) throw new Exception("Couldn't estimate the average");
+        return chck.get();
+    }
 }
