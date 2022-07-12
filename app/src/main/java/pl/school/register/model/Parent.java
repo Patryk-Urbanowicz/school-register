@@ -10,7 +10,7 @@ import java.util.Set;
 @DiscriminatorValue(Role.Values.PARENT)
 public class Parent extends Account {
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "parent_student",
     joinColumns = @JoinColumn(name = "parent_id"),
     inverseJoinColumns = @JoinColumn(name = "student_id"))
