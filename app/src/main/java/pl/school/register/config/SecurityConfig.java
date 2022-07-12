@@ -22,7 +22,6 @@ public class SecurityConfig {
     @Order(1)
     @Configuration
     class RESTSecurityConfig extends WebSecurityConfigurerAdapter{
-
         private final AccountDetailsService accountDetailsService;
         private final PasswordEncoder passwordEncoder;
         private final JWTConfig jwtConfig;
@@ -72,7 +71,6 @@ public class SecurityConfig {
     @Order(2)
     @Configuration
     class VaadinSecurityConfig extends VaadinWebSecurityConfigurerAdapter{
-
         private AccountDetailsService accountDetailsService;
         private PasswordEncoder passwordEncoder;
 

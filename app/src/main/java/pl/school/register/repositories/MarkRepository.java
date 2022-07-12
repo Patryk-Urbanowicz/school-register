@@ -14,10 +14,7 @@ import java.util.Optional;
 
 @Repository
 public interface MarkRepository extends JpaRepository<Mark, Long> {
+    List<Mark> findAllByStudentId(@Param("student_id") Long student_id);
 
-   @Query(value = "SELECT * FROM mark WHERE student_id = :student_id", nativeQuery = true)
-    List<Mark> findMarksForStudentId(@Param("student_id") Long student_id);
-
-    @Query(value = "SELECT * FROM mark WHERE student_id = :student_id AND subject_id = :subject_id", nativeQuery = true)
-    List<Mark> findMarksForStudentIdAndSubjectId(@Param("student_id") Long student_id, @Param("subject_id") Long subject_id);
+    List<Mark> findAllByStudentIdAndLessonId(@Param("student_id") Long student_id, @Param("lesson_id") Long subject_id);
 }

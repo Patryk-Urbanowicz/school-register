@@ -12,22 +12,21 @@ import java.util.Optional;
 
 @Service
 public class TeacherService {
-
     private final TeacherRepository teacherRepository;
 
     public TeacherService(TeacherRepository teacherRepository) {
         this.teacherRepository = teacherRepository;
     }
 
-    public void addTeacher(Teacher teacher){
+    public void addNew(Teacher teacher){
         teacherRepository.save(teacher);
     }
 
-    public List<Teacher> getTeachers(){
+    public List<Teacher> getAll(){
         return teacherRepository.findAll();
     }
 
-    public Optional<Teacher> getTeacherById(Long id){
+    public Optional<Teacher> getById(Long id){
         return teacherRepository.findById(id);
     }
 }

@@ -12,7 +12,6 @@ import java.util.Optional;
 
 @Service
 public class AccountService {
-
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -21,17 +20,17 @@ public class AccountService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void addAccount(Account account){
+    public void addNew(Account account){
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         accountRepository.save(account);
     }
 
-    public Optional<Account> getAccount(Long id) {
+    public Optional<Account> getById(Long id) {
         return accountRepository.findById(id);
     }
 
-    public AccountInfo getAccountInfo(Long id) {
-        return accountRepository.findAccountInfoById(id);
+    public AccountInfo getInfoById(Long id) {
+        return accountRepository.findInfoById(id);
     }
 
     public AccountInfo getInfoByLogin(String login){

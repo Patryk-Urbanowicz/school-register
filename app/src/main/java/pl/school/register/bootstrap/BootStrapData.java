@@ -14,7 +14,6 @@ import java.util.List;
 
 @Component
 public class BootStrapData implements CommandLineRunner {
-
     private final StudentRepository studentRepository;
     private final ParentRepository parentRepository;
     private final TeacherRepository teacherRepository;
@@ -127,10 +126,10 @@ public class BootStrapData implements CommandLineRunner {
         meetingRepository.save(meeting);
         markRepository.save(mark);
         attendanceRepository.save(attendance);
-        List<LessonBlock> lsnblk = lessonBlockRepository.findLessonBlocksByTeacherId(1L);
-        List<LessonBlock> lsnblk2 = lessonBlockRepository.findLessonBlocksBySchoolClassId(1L);
+        List<LessonBlock> lsnblk = lessonBlockRepository.findAllByTeacherId(1L);
+        List<LessonBlock> lsnblk2 = lessonBlockRepository.findAllBySchoolClassId(1L);
         List<Lesson> lsn = lessonRepository.findAllByTeacherId(1L);
-        SchoolClass scl = schoolClassRepository.findSchoolClassByHomeroomTeacherId(1L).get();
+        SchoolClass scl = schoolClassRepository.findByHomeroomTeacherId(1L).get();
         lsnblk.forEach(b -> System.out.println(b.getLesson().getSubject().getSubjectName()));
         lsnblk2.forEach(b -> System.out.println(b.getLesson().getSubject().getSubjectName()));
         lsn.forEach(b -> System.out.println(b.getSubject().getSubjectName()));

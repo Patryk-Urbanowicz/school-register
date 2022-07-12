@@ -13,30 +13,29 @@ import java.util.Optional;
 
 @Service
 public class AttendanceService {
-
     private final AttendanceRepository attendanceRepository;
 
     public AttendanceService(AttendanceRepository attendanceRepository) {
         this.attendanceRepository = attendanceRepository;
     }
 
-    public void addAttendance(Attendance attendance){
+    public void addNew(Attendance attendance){
         attendanceRepository.save(attendance);
     }
 
-    public List<Attendance> getAttendances(){
+    public List<Attendance> getAll(){
          return attendanceRepository.findAll();
     }
 
-    public Optional<Attendance> getAttendanceById(Long id){
+    public Optional<Attendance> getById(Long id){
         return attendanceRepository.findById(id);
     }
 
-    public List<Attendance> getAttendancesByStudentId(Long id){
-        return attendanceRepository.findAttendancesByStudentId(id);
+    public List<Attendance> getAllByStudentId(Long id){
+        return attendanceRepository.findAllByStudentId(id);
     }
 
-    public List<Attendance> getAttendancesByLessonId(Long id){
-        return attendanceRepository.findAttendancesByLessonId(id);
+    public List<Attendance> getAllByLessonId(Long id){
+        return attendanceRepository.findAllByMeetingId(id);
     }
 }

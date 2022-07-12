@@ -11,34 +11,33 @@ import java.util.Optional;
 
 @Service
 public class LessonBlockService {
-
     private final LessonBlockRepository lessonBlockRepository;
 
     public LessonBlockService(LessonBlockRepository lessonBlockRepository) {
         this.lessonBlockRepository = lessonBlockRepository;
     }
 
-    public void addLessonBlock(LessonBlock lessonBlock){
+    public void addNew(LessonBlock lessonBlock){
         lessonBlockRepository.save(lessonBlock);
     }
 
-    public List<LessonBlock> getLessonBlocks(){
+    public List<LessonBlock> getAll(){
         return lessonBlockRepository.findAll();
     }
 
-    public Optional<LessonBlock> getLessonBlockById(Long id){
+    public Optional<LessonBlock> getById(Long id){
         return lessonBlockRepository.findById(id);
     }
 
-    public List<LessonBlock> getLessonBlocksByLessonId(Long id){
-        return lessonBlockRepository.findLessonBlocksByLessonId(id);
+    public List<LessonBlock> getAllByLessonId(Long id){
+        return lessonBlockRepository.findAllByLessonId(id);
     }
 
-    public List<LessonBlock> getByTeacherId(Long teacher_id){
-        return lessonBlockRepository.findLessonBlocksByTeacherId(teacher_id);
+    public List<LessonBlock> getAllByTeacherId(Long teacher_id){
+        return lessonBlockRepository.findAllByTeacherId(teacher_id);
     }
 
-    public List<LessonBlock> getBySchoolClassId(Long school_class_id){
-        return lessonBlockRepository.findLessonBlocksBySchoolClassId(school_class_id);
+    public List<LessonBlock> getAllBySchoolClassId(Long school_class_id){
+        return lessonBlockRepository.findAllBySchoolClassId(school_class_id);
     }
 }

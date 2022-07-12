@@ -12,7 +12,5 @@ import java.util.Optional;
 
 @Repository
 public interface SchoolClassRepository extends JpaRepository<SchoolClass, Long> {
-
-    @Query(value = "SELECT * FROM school_class WHERE homeroom_teacher_id = :homeroom_teacher_id", nativeQuery = true)
-    Optional<SchoolClass> findSchoolClassByHomeroomTeacherId(@Param("homeroom_teacher_id") Long homeroom_teacher_id);
+    Optional<SchoolClass> findByHomeroomTeacherId(@Param("homeroom_teacher_id") Long homeroom_teacher_id);
 }

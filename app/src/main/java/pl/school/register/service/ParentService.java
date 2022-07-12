@@ -12,26 +12,21 @@ import java.util.Optional;
 
 @Service
 public class ParentService {
-
-    public final ParentRepository parentRepository;
+    private final ParentRepository parentRepository;
 
     public ParentService(ParentRepository parentRepository) {
         this.parentRepository = parentRepository;
     }
 
-    public void addParent(Parent parent){
+    public void addNew(Parent parent){
         parentRepository.save(parent);
     }
 
-    public List<Parent> getParents(){
+    public List<Parent> getAll(){
         return parentRepository.findAll();
     }
 
-    public Optional<Parent> getParentById(Long id){
+    public Optional<Parent> getById(Long id){
         return parentRepository.findById(id);
-    }
-
-    public Optional<Parent> getParentByStudentId(Long id){
-        return parentRepository.findByStudentId(id);
     }
 }

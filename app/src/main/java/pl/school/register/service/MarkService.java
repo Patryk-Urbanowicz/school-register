@@ -12,31 +12,29 @@ import java.util.Optional;
 
 @Service
 public class MarkService {
-
     private final MarkRepository markRepository;
 
     public MarkService(MarkRepository markRepository) {
         this.markRepository = markRepository;
     }
 
-    public void addMark(Mark mark){
+    public void addNew(Mark mark){
         markRepository.save(mark);
     }
 
-    public List<Mark> getMarks(){
+    public List<Mark> getAll(){
         return markRepository.findAll();
     }
 
-    public Optional<Mark> getMarkById(Long id){
+    public Optional<Mark> getById(Long id){
         return markRepository.findById(id);
     }
 
-    public List<Mark> getMarksForStudentId(Long id){
-        return markRepository.findMarksForStudentId(id);
+    public List<Mark> getAllByStudentId(Long id){
+        return markRepository.findAllByStudentId(id);
     }
 
-    public List<Mark> getMarksForStudentIdAndSubjectId(Long student_id, Long subject_id){
-        return markRepository.findMarksForStudentIdAndSubjectId(student_id, subject_id);
+    public List<Mark> getAllByStudentIdAndSubjectId(Long student_id, Long lesson_id){
+        return markRepository.findAllByStudentIdAndLessonId(student_id, lesson_id);
     }
-
 }

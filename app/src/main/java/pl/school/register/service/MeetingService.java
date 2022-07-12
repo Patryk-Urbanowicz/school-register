@@ -11,22 +11,21 @@ import java.util.Optional;
 
 @Service
 public class MeetingService {
-
-    public final MeetingRepository meetingRepository;
+    private final MeetingRepository meetingRepository;
 
     public MeetingService(MeetingRepository meetingRepository) {
         this.meetingRepository = meetingRepository;
     }
 
-    public void addMeeting(Meeting meeting){
+    public void addNew(Meeting meeting){
         meetingRepository.save(meeting);
     }
 
-    public List<Meeting> getMeetings(){
+    public List<Meeting> getAll(){
         return meetingRepository.findAll();
     }
 
-    public Optional<Meeting> getMeetingById(Long id){
+    public Optional<Meeting> getById(Long id){
         return meetingRepository.findById(id);
     }
 }

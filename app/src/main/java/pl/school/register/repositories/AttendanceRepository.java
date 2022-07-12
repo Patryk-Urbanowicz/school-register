@@ -12,12 +12,7 @@ import java.util.Optional;
 
 @Repository
 public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
+    List<Attendance> findAllByStudentId(@Param("student_id") Long student_id);
 
-    @Query(value = "SELECT * FROM attendance WHERE student_id = :student_id", nativeQuery = true)
-    List<Attendance> findAttendancesByStudentId(@Param("student_id") Long student_id);
-
-    @Query(value = "SELECT * FROM attendance WHERE lesson_id = :lesson_id", nativeQuery = true)
-    List<Attendance> findAttendancesByLessonId(@Param("lesson_id") Long lesson_id);
-
-
+    List<Attendance> findAllByMeetingId(@Param("meeting_id") Long meeting_id);
 }
