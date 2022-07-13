@@ -1,25 +1,110 @@
 body {
-	background: #2B4F33;
+    background: #2B4F33;
+}
+@media (max-width: 800px){
+	navbar{
+		position: sticky;
+		position: -webkit-sticky;
+	}
+	.main{
+		display: flex;
+		flex-direction: column;
+	}
+	.tableFixedSize{
+		width: auto;
+		height: auto;
+	}
+	.left-panel{
+		width: 100% !important;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+	}
+	.left-panel-card{
+		height: 300px !important;
+	}
 }
 
-navbar{
-  background: #192122;
-  width: 100%;
-  display: flex;
-  justify-content: end;
-  padding: 15px;
-  color: white;
+.left-panel{
+	display: flex;
+	justify-content: space-around;
 }
+
+navbar {
+    background: #192122;
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding: 15px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
 .left-panel-card {
 	padding: 10px;
 	background: white;
+	width: 50%;
 	border-radius: 2px;
 }
 
-.link {
+.middle-panel{
+	background: #efefef;
+	margin: 10px;
+	height: 100%;
+}
+
+a {
 	padding: 10px;
 	text-align: center;
 	color: #141414;
+    background: white;
+    border-radius: 2px;
+}
+
+
+.tableFixedSize {
+	height: 100%;
+	width: 100%;
+	overflow-x: auto;
+	overflow-y: auto;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table .table-head th{
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+}
+
+th:after{
+	content:'';
+	position:absolute;
+	left: 0;
+	bottom: 0;
+	width:100%;
+	border: 0.2px solid rgb(0, 0, 0, .36);
+}
+
+.column-label:after{
+	content:'';
+	position:absolute;
+	left: 0;
+	bottom: 0;
+	width:100%;
+	border: 0.2px solid rgb(0, 0, 0, .36);
+}
+
+.hour-segment:after{
+	content:'';
+	position:absolute;
+	left: 0;
+	bottom: 0;
+	width:100%;
+	border: 0.2px solid rgb(0, 0, 0, .36);
 }
 
 .column-label {
@@ -27,6 +112,9 @@ navbar{
 	align-items: center;
 	padding: 0px;
 	background: #696969;
+	color: white;
+	position: sticky;
+	top: 0;
 	border-style: solid;
 	border-width: 1px;
 	border-color: black;
@@ -34,12 +122,12 @@ navbar{
 }
 
 .column-label::first-letter {
-	text-transform: uppercase;
+    text-transform: uppercase;
 }
 
 .row-segment {
 	width: 150px;
-	height: 60px;
+	height: 40px;
 	padding: 2px;
 	border-style: solid;
 	border-width: 1px;
@@ -48,13 +136,9 @@ navbar{
 	font-size: 15px;
 }
 
-table {
-	border-collapse: collapse;
-}
 
 .schedule-segment {
 	width: 148px;
-	height: 60px;
 	color: black;
 	font-size: 13px;
 	padding: 5px;
@@ -67,21 +151,54 @@ table {
 
 .hour-segment {
 	width: 75px;
-	height: 60px;
-	color: black;
+	color: white;
 	font-weight: bold;
 	font-size: 13px;
 	padding: 3px;
-	background: #3f6f6f;
+	left: 0;
+	position: sticky;
+	z-index: 10;
+	background: #696969;
 	border-style: solid;
 	border-width: 1px;
 	border-color: black;
 }
 
-.schedule-segment > .bottom-element{
+table {
+	border-collapse: collapse;
+}
+.schedule-segment > .bottom-element {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.teacher-drawer {
+    background: #efefef;
+}
+
+vaadin-accordion-panel {
+    color: #192122;
+}
+
+.mark {
+	color: black;
+	padding: 10px;
+}
+
+.hide {
+	border-radius: 5px;
+	border: 1px solid grey;
+	padding: 5px;
+	color: grey;
+	display: none;
+	background: white;
+	position: absolute;
+}
+
+.mark:hover + .hide {
 	display: flex;
-	justify-content: space-between;
-	width: 100%;
+	flex-direction: column;
 }
 
 

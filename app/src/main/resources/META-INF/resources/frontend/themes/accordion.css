@@ -1,0 +1,19 @@
+[part="toggle"]{
+    color:#192122;
+}
+
+[part="toggle"] > span:hover{
+    color:#192122;
+}
+
+[part="summary"]{
+    color:black;
+}
+
+:host(:not([disabled])) [part="summary"]:hover, :host(:not([disabled])) [part="summary"]:hover [part="toggle"]{
+    color: #192122;
+}
+
+[part="summary"] > span:hover{
+    color:black;
+}

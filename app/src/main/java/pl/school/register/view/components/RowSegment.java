@@ -11,6 +11,7 @@ public class RowSegment extends Div {
 	}
 
 	public RowSegment(String labelText){
+		addClassName("row-segment");
 		addClassName("hour-segment");
 		Label label = new Label(labelText);
 		add(label);
