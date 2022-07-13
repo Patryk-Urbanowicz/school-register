@@ -17,7 +17,7 @@ public class StudentMarksView extends VerticalLayout {
     public StudentMarksView(){
         sampleData();
         Map<Subject, List<Mark>> map = marks.stream().collect(Collectors.groupingBy(mark
-                -> mark.getMeeting().getLesson().getSubject()));
+                -> mark.getLesson().getSubject()));
         MarkTable mt = new MarkTable(map);
         ResponsiveTableWrapper wrapper = new ResponsiveTableWrapper(mt);
         add(wrapper);
@@ -69,14 +69,14 @@ public class StudentMarksView extends VerticalLayout {
         Mark p = new Mark();
         p.setValue(1);
         p.setStudent(student1);
-        p.setMeeting(meeting);
+        p.setLesson(lesson);
         p.setWeight(4);
         marks.add(p);
 
         Mark bdb = new Mark();
         bdb.setValue(5);
         bdb.setStudent(student1);
-        bdb.setMeeting(meeting);
+        bdb.setLesson(lesson);
         bdb.setWeight(2);
         marks.add(bdb);
         student1.setMarks(new HashSet<>(marks));

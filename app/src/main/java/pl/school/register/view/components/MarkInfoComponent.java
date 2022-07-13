@@ -10,9 +10,8 @@ public class MarkInfoComponent extends VerticalLayout {
         setClassName("hide");
         setSizeUndefined();
         Label value = new Label(String.format("Mark: %d", mark.getValue()));
-        Label subject = new Label(String.format("Subject: %s", mark.getMeeting().getLesson().getSubject().getSubjectName()));
-        Label byWhom = new Label(String.format("Teacher: %s", getTeacherFirstAndLastName(mark.getMeeting()
-                                                                                .getLesson().getTeacher())));
+        Label subject = new Label(String.format("Subject: %s", mark.getLesson().getSubject().getSubjectName()));
+        Label byWhom = new Label(String.format("Teacher: %s", getTeacherFirstAndLastName(mark.getLesson().getTeacher())));
 
         add(value, subject, byWhom);
     }
