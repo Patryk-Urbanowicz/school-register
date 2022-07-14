@@ -4,13 +4,13 @@ import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.*;
 import pl.school.register.model.*;
-import pl.school.register.repositories.LessonBlockRepository;
-import pl.school.register.service.LessonBlockService;
+import pl.school.register.model.projections.MeetingInWeek;
 import pl.school.register.service.MeetingService;
 import pl.school.register.view.components.ResponsiveTableWrapper;
 import pl.school.register.view.components.ScheduleTable;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
@@ -48,17 +48,21 @@ public class TeacherSchoolClassView extends VerticalLayout implements BeforeEnte
             List<MeetingInWeek> meetingsInWeek = meetingService
                     .getWithWeekDayByTeacherIdAndSchoolClassId(1L, classIdL, subjectIdL,
                                                                 monday, friday);
-            //TODO: Doesn't work, getMeeting is always null;
-            Meeting me = meetingsInWeek.get(0).getMeeting();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-dd");
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
             List<LessonBlock> blocks = meetingsInWeek.stream().map(m -> {
-                LessonBlock l = new LessonBlock();
-                Meeting meeting = m.getMeeting();
-                l.setWeekDay(m.getWeekDay());
-                l.setLesson(meeting.getLesson());
-                l.setStartTime(meeting.getTime().format(formatter));
-
-                return l;
+                LessonBlock lb = new LessonBlock();
+                Subject subject = new Subject();
+                subject.setSubjectName(m.getSubjectName());
+                Lesson l = new Lesson();
+                Teacher teacher = new Teacher();
+                teacher.setFirstName(m.getTeacherFirstName());
+                teacher.setLastName(m.getTeacherLastName());
+                l.setTeacher(teacher);
+                lb.setWeekDay(m.getWeekDay());
+                LocalDateTime time = m.getLessonStartTime();
+                lb.setStartTime(time.format(dtf));
+                lb.setLesson(l);
+                return lb;
             }).collect(Collectors.toList());
 
             add(new H1("Class: " + classIdL +  " Subject: " + subjectIdL ));

@@ -2,11 +2,10 @@ package pl.school.register.service;
 
 import org.springframework.stereotype.Service;
 import pl.school.register.model.Meeting;
-import pl.school.register.model.MeetingInWeek;
+import pl.school.register.model.projections.MeetingInWeek;
 import pl.school.register.repositories.MeetingRepository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
