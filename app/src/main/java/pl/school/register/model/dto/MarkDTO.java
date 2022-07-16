@@ -27,4 +27,17 @@ public class MarkDTO {
         this.timestamp = mark.getTimestamp();
         this.lessonId = mark.getLesson().getId();
     }
+
+    public MarkDTO(Long id, Long studentId, Long teacherId, Integer value, Integer weight, String label,
+                   String description, Timestamp timestamp, Long lessonId) {
+        this.id = id;
+        this.studentId = studentId;
+        this.teacherId = teacherId;
+        this.value = value;
+        this.weight = weight;
+        this.label = label;
+        this.description = description;
+        this.timestamp = timestamp;
+        this.lessonId = lessonId;
+    }
 }
