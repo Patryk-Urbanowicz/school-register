@@ -16,7 +16,7 @@ public class Teacher extends Account {
     @OneToMany(mappedBy = "teacher")
     private Set<Lesson> lessons = new HashSet<>();
 
-    @OneToMany(mappedBy = "teacher")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "teacher")
     private Set<Mark> marks = new HashSet<>();
 
     @ManyToMany()

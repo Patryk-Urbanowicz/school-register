@@ -33,4 +33,8 @@ public class SchoolClassService {
     public Optional<SchoolClass> getByHomeroomTeacherId(Long id){
         return schoolClassRepository.findByHomeroomTeacherId(id);
     }
+
+    public List<SchoolClass> getAllByTeacherWhoHasLessonsWith(Long teacher_id){
+        return schoolClassRepository.findAllByForTeacherWhoHasLessonsWith(teacher_id);
+    }
 }

@@ -40,4 +40,8 @@ public class LessonBlockService {
     public List<LessonBlock> getAllBySchoolClassId(Long school_class_id){
         return lessonBlockRepository.findAllBySchoolClassId(school_class_id);
     }
+
+    public List<LessonBlock> getAllByTeacherIdAndSchoolClassId(Long teacher_id, Long school_class_id){
+        return lessonBlockRepository.findAllByTeacherIdAndSchoolClassId(teacher_id, school_class_id);
+    }
 }

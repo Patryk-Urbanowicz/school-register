@@ -22,5 +22,11 @@ public interface LessonBlockRepository extends JpaRepository<LessonBlock, Long> 
             "    (SELECT * FROM lesson WHERE school_class_id = :school_class_id) AS lsns\n" +
             "    ON lesson_block.lesson_id = lsns.id", nativeQuery = true)
     List<LessonBlock> findAllBySchoolClassId(@Param("school_class_id") Long school_class_id);
+
+    @Query(value = "SELECT * FROM lesson_block JOIN\n" +
+            "    (SELECT * FROM lesson WHERE teacher_id = :teacher_id AND school_class_id = :school_class_id) AS lsns\n" +
+            "    ON lesson_block.lesson_id = lsns.id", nativeQuery = true)
+    List<LessonBlock> findAllByTeacherIdAndSchoolClassId(@Param("teacher_id") Long teacher_id,
+                                                         @Param("school_class_id") Long school_class_id);
 }
 

@@ -21,7 +21,7 @@ public class Student extends Account {
     @OneToMany(mappedBy = "student")
     private Set<Attendance> attendances = new HashSet<>();
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "student")
     private Set<Mark> marks = new HashSet<>();
 
     @OneToOne(mappedBy = "student")

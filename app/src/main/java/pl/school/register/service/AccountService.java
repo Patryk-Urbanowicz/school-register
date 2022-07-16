@@ -1,11 +1,9 @@
 package pl.school.register.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 import pl.school.register.model.Account;
-import pl.school.register.model.AccountInfo;
+import pl.school.register.model.projections.AccountInfo;
 import pl.school.register.repositories.AccountRepository;
 
 import java.util.Optional;

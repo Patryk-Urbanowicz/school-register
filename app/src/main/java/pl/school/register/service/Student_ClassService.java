@@ -30,4 +30,8 @@ public class Student_ClassService {
         return student_classRepository.findById(id);
     }
 
+    public List<Student_Class> getAllBySchoolClassId(Long school_class_id){
+        return student_classRepository.findAllBySchoolClassIdOrderByIndex(school_class_id);
+    }
+
 }

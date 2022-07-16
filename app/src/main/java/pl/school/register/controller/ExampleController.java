@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.school.register.model.AccountInfo;
+import pl.school.register.model.projections.AccountInfo;
 import pl.school.register.service.AccountService;
 @RestController()
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
