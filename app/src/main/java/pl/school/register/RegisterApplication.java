@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import pl.school.register.model.dto.mapper.MappingUtils;
 
 @SpringBootApplication
 public class RegisterApplication {
@@ -19,8 +20,8 @@ public class RegisterApplication {
 	}
 
 	@Bean
-	public ModelMapper modelMapper(){
-		return new ModelMapper();
+	public MappingUtils mappingUtils() {
+		return new MappingUtils();
 	}
 
 }

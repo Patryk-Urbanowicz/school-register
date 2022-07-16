@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import pl.school.register.model.Mark;
 import pl.school.register.model.SubjectAvgPair;
 import pl.school.register.model.dto.MarkDTO;
+import pl.school.register.model.dto.mapper.MappingUtils;
 import pl.school.register.repositories.MarkRepository;
 
 import java.util.List;
@@ -17,15 +18,15 @@ import java.util.Optional;
 @Service
 public class MarkService {
     private final MarkRepository markRepository;
-    private final ModelMapper modelMapper;
+    private final MappingUtils mappingUtils;
 
-    public MarkService(MarkRepository markRepository, ModelMapper modelMapper) {
+    public MarkService(MarkRepository markRepository, MappingUtils mappingUtils) {
         this.markRepository = markRepository;
-        this.modelMapper = modelMapper;
+        this.mappingUtils = mappingUtils;
     }
 
-    public void addNew(Mark mark){
-        markRepository.save(mark);
+    public Mark addNew(Mark mark){
+        return markRepository.save(mark);
     }
 
     public List<Mark> getAll(){
@@ -55,10 +56,6 @@ public class MarkService {
     }
 
     public Mark mapDTOToModel(MarkDTO markDTO){
-        modelMapper.getConfiguration()
-                .setMatchingStrategy(MatchingStrategies.LOOSE);
-        Mark mark = new Mark();
-        mark = modelMapper.map(markDTO, Mark.class);
-        return mark;
+        return mappingUtils.mapFromDTO(markDTO, Mark.class);
     }
 }

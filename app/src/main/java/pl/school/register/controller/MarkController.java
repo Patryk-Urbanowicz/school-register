@@ -22,7 +22,7 @@ public class MarkController {
     @PostMapping(value = "/new", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> addNewMark(@RequestBody MarkDTO markDTO){
         Mark mark = markService.mapDTOToModel(markDTO);
-        markService.addNew(mark);
-        return ResponseEntity.ok(1L);
+        Mark newMark = markService.addNew(mark);
+        return ResponseEntity.ok(newMark.getId());
     }
 }
