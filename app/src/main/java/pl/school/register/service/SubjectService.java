@@ -12,22 +12,21 @@ import java.util.Optional;
 
 @Service
 public class SubjectService {
-
     private final SubjectRepository subjectRepository;
 
     public SubjectService(SubjectRepository subjectRepository) {
         this.subjectRepository = subjectRepository;
     }
 
-    public void addSubject(Subject subject){
+    public void addNew(Subject subject){
         subjectRepository.save(subject);
     }
 
-    public List<Subject> getSubjects(){
+    public List<Subject> getAll(){
         return subjectRepository.findAll();
     }
 
-    public Optional<Subject> getSubjectById(Long id){
+    public Optional<Subject> getById(Long id){
         return subjectRepository.findById(id);
     }
 }

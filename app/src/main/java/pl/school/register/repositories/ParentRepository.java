@@ -13,9 +13,4 @@ import java.util.Optional;
 
 @Repository
 public interface ParentRepository extends JpaRepository<Parent, Long> {
-
-    @Query(value = "SELECT * FROM parent_student WHERE student_id = :student_id", nativeQuery = true)
-    Optional<Parent> findByStudentId(@Param("student_id") Long student_id);
-
-
 }

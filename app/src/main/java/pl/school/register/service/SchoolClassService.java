@@ -12,27 +12,26 @@ import java.util.Optional;
 
 @Service
 public class SchoolClassService {
-
-    public final SchoolClassRepository schoolClassRepository;
+    private final SchoolClassRepository schoolClassRepository;
 
     public SchoolClassService(SchoolClassRepository schoolClassRepository) {
         this.schoolClassRepository = schoolClassRepository;
     }
 
-    public void addSchoolClass(SchoolClass schoolClass){
+    public void addNew(SchoolClass schoolClass){
         schoolClassRepository.save(schoolClass);
     }
 
-    public List<SchoolClass> getSchoolClasses(){
+    public List<SchoolClass> getAll(){
         return schoolClassRepository.findAll();
     }
 
-    public Optional<SchoolClass> getSchoolClassById(Long id){
+    public Optional<SchoolClass> getById(Long id){
         return schoolClassRepository.findById(id);
     }
 
-    public Optional<SchoolClass> getSchoolClassByHomeroomTeacherId(Long id){
-        return schoolClassRepository.findSchoolClassByHomeroomTeacherId(id);
+    public Optional<SchoolClass>getByHomeroomTeacherId(Long id){
+        return schoolClassRepository.findByHomeroomTeacherId(id);
     }
 
     public List<SchoolClass> getAllByTeacherWhoHasLessonsWith(Long teacher_id){

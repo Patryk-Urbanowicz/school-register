@@ -7,9 +7,9 @@ import pl.school.register.model.Account;
 import pl.school.register.model.projections.AccountInfo;
 
 public interface AccountRepository extends JpaRepository<Account, Long> {
+    AccountInfo findInfoById(@Param("id") Long id);
 
-    @Query(value = "SELECT role, first_name, last_name, login FROM account WHERE id = :id", nativeQuery = true)
-    AccountInfo findAccountInfoById(@Param("id") Long id);
+    AccountInfo findInfoByLogin(@Param("id") Long id);
 
     AccountInfo findAccountInfoByLogin(String login);
 

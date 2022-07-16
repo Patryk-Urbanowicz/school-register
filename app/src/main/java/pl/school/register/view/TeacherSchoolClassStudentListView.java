@@ -32,7 +32,7 @@ public class TeacherSchoolClassStudentListView extends VerticalLayout implements
         RouteParameters parameters = beforeEnterEvent.getRouteParameters();
         Optional<String> classIdOptional = parameters.get("classId");
         //TODO: change when merged with kkocieniewski
-        Teacher teacher = teacherService.getTeacherById(1L).get();
+        Teacher teacher = teacherService.getById(2L).get();
         List<String> labels = teacher.getMarks()
                 .stream()
                 .filter( distinctByKey(Mark::getLabel) )

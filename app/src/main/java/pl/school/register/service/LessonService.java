@@ -11,35 +11,34 @@ import java.util.Optional;
 
 @Service
 public class LessonService {
-
     private final LessonRepository lessonRepository;
 
     public LessonService(LessonRepository lessonRepository) {
         this.lessonRepository = lessonRepository;
     }
 
-    public void addLessons(Lesson lesson){
+    public void addNew(Lesson lesson){
         lessonRepository.save(lesson);
     }
 
-    public List<Lesson> getLessons(){
+    public List<Lesson> getAll(){
        return lessonRepository.findAll();
     }
 
-    public Optional<Lesson> getLessonById(Long id){
+    public Optional<Lesson> getById(Long id){
         return lessonRepository.findById(id);
     }
 
-    public List<Lesson> getLessonBySchoolClassId(Long id){
-        return lessonRepository.findLessonBySchoolClassId(id);
+    public List<Lesson> getAllBySchoolClassId(Long id){
+        return lessonRepository.findAllBySchoolClassId(id);
     }
 
-    public List<Lesson> getLessonByTeacherId(Long teacher_id){
+    public List<Lesson> getAllByTeacherId(Long teacher_id){
         return lessonRepository.findAllByTeacherId(teacher_id);
     }
 
-    public List<Lesson> getLessonBySubjectId(Long id){
-        return lessonRepository.findLessonBySubjectId(id);
+    public List<Lesson> getAllBySubjectId(Long id){
+        return lessonRepository.findAllBySubjectId(id);
     }
 
 }

@@ -13,23 +13,25 @@ import java.util.Optional;
 
 @Service
 public class StudentService {
-
-    public final StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
 
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
 
-
-    public void addStudent(Student student){
+    public void addNew(Student student){
         studentRepository.save(student);
     }
 
-    public List<Student> getStudent_Classes(){
+    public List<Student> getAll(){
         return studentRepository.findAll();
     }
 
-    public Optional<Student> getStudent_ClassById(Long id){
+    public Optional<Student> getById(Long id){
         return studentRepository.findById(id);
+    }
+
+    public Student getByLogin(String login){
+        return studentRepository.findByLogin(login);
     }
 }

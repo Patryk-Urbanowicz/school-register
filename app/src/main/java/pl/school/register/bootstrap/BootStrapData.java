@@ -14,7 +14,6 @@ import java.util.List;
 
 @Component
 public class BootStrapData implements CommandLineRunner {
-
     private final StudentRepository studentRepository;
     private final ParentRepository parentRepository;
     private final TeacherRepository teacherRepository;
@@ -116,6 +115,16 @@ public class BootStrapData implements CommandLineRunner {
         mark.setValue(2);
         mark.setWeight(5);
 
+        Mark mark2 = new Mark();
+        mark2.setStudent(student);
+        mark2.setTeacher(teacher);
+        mark2.setLesson(lesson);
+        mark2.setTimestamp(Timestamp.valueOf("2022-06-20 16:44:00"));
+        mark2.setLabel("Zadanie");
+        mark2.setDescription("ocena za zadanie z krzywej beziera");
+        mark2.setValue(3);
+        mark2.setWeight(3);
+
         subjectRepository.save(subject);
         teacherRepository.save(teacher);
         schoolClassRepository.save(schoolClass);
@@ -126,14 +135,7 @@ public class BootStrapData implements CommandLineRunner {
         lessonBlockRepository.save(lessonBlock);
         meetingRepository.save(meeting);
         markRepository.save(mark);
+        markRepository.save(mark2);
         attendanceRepository.save(attendance);
-        List<LessonBlock> lsnblk = lessonBlockRepository.findLessonBlocksByTeacherId(1L);
-        List<LessonBlock> lsnblk2 = lessonBlockRepository.findLessonBlocksBySchoolClassId(1L);
-        List<Lesson> lsn = lessonRepository.findAllByTeacherId(1L);
-        SchoolClass scl = schoolClassRepository.findSchoolClassByHomeroomTeacherId(1L).get();
-        lsnblk.forEach(b -> System.out.println(b.getLesson().getSubject().getSubjectName()));
-        lsnblk2.forEach(b -> System.out.println(b.getLesson().getSubject().getSubjectName()));
-        lsn.forEach(b -> System.out.println(b.getSubject().getSubjectName()));
-        scl.getLessons().forEach(b -> System.out.println(b.getSubject().getSubjectName()));
     }
 }
