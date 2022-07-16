@@ -30,7 +30,7 @@ public class SchoolClassService {
         return schoolClassRepository.findById(id);
     }
 
-    public Optional<SchoolClass> getByHomeroomTeacherId(Long id){
+    public Optional<SchoolClass>getByHomeroomTeacherId(Long id){
         return schoolClassRepository.findByHomeroomTeacherId(id);
     }
 
