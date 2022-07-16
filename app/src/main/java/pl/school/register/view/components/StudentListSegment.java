@@ -6,8 +6,9 @@ import pl.school.register.model.Student;
 
 @Tag("td")
 public class StudentListSegment extends RowSegment{
-    public StudentListSegment(String  studentNameString){
+    public StudentListSegment(String  studentNameString, Long index){
         Label name = new Label(studentNameString);
-        add(name);
+        Label idx = new Label(index.toString());
+        add(name, idx);
     }
 }

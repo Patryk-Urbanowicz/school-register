@@ -15,11 +15,11 @@ import java.util.Set;
 
 @Tag("tr")
 public class StudentRow extends Div {
-    public StudentRow(Student student, List<String> columns){
+    public StudentRow(Student student, List<String> columns, Long index){
         Set<Mark> marks = student.getMarks();
         Deque<Mark> marksDeque = new ArrayDeque(marks);
         String fullName = String.format("%s %s", student.getFirstName(), student.getLastName());
-        add(new StudentListSegment(fullName));
+        add(new StudentListSegment(fullName, index));
         for (int i=0; i < columns.size(); i++){
             if (!marksDeque.isEmpty()){
                 Mark mark = marksDeque.peek();

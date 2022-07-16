@@ -1,4 +1,4 @@
-package pl.school.register.model;
+package pl.school.register.model.projections;
 
 import pl.school.register.model.enumerations.Role;
 
