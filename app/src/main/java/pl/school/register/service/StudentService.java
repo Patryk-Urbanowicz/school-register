@@ -19,7 +19,6 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-
     public void addNew(Student student){
         studentRepository.save(student);
     }
@@ -30,5 +29,9 @@ public class StudentService {
 
     public Optional<Student> getById(Long id){
         return studentRepository.findById(id);
+    }
+
+    public Student getByLogin(String login){
+        return studentRepository.findByLogin(login);
     }
 }

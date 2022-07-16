@@ -7,4 +7,5 @@ import pl.school.register.model.Student;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
+    Student findByLogin(String login);
 }
