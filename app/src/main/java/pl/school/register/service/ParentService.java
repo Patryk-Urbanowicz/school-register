@@ -18,8 +18,8 @@ public class ParentService {
         this.parentRepository = parentRepository;
     }
 
-    public void addNew(Parent parent){
-        parentRepository.save(parent);
+    public Parent addNew(Parent parent){
+        return parentRepository.save(parent);
     }
 
     public List<Parent> getAll(){

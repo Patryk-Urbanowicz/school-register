@@ -17,8 +17,8 @@ public class LessonService {
         this.lessonRepository = lessonRepository;
     }
 
-    public void addNew(Lesson lesson){
-        lessonRepository.save(lesson);
+    public Lesson addNew(Lesson lesson){
+        return lessonRepository.save(lesson);
     }
 
     public List<Lesson> getAll(){

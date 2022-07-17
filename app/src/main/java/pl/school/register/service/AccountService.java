@@ -18,9 +18,9 @@ public class AccountService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void addNew(Account account){
+    public Account addNew(Account account){
         account.setPassword(passwordEncoder.encode(account.getPassword()));
-        accountRepository.save(account);
+        return accountRepository.save(account);
     }
 
     public Optional<Account> getById(Long id) {
