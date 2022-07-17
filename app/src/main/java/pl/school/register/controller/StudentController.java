@@ -43,16 +43,6 @@ public class StudentController {
         return ResponseEntity.ok(accountInfo);
     }
 
-    @GetMapping("/{login}/marks")
-    public ResponseEntity<List<MarkDTO>> findMarksByLogin(@PathVariable("login") String login){
-        Student student = studentService.getByLogin(login);
-        if(student == null){
-            return ResponseEntity.badRequest().build();
-        }
-        List<MarkDTO> marks = student.getMarks().stream().map(MarkDTO::new).collect(Collectors.toList());
-        return ResponseEntity.ok(marks);
-    }
-
     @GetMapping("/{login}/schedule")
     public ResponseEntity<List<LessonBlockDTO>> findLessonBlocksByLogin(@PathVariable("login") String login){
         Student student = studentService.getByLogin(login);
