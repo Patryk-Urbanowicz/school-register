@@ -13,4 +13,5 @@ import java.util.Optional;
 
 @Repository
 public interface ParentRepository extends JpaRepository<Parent, Long> {
+    Parent findByLogin(String login);
 }
