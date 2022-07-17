@@ -19,8 +19,8 @@ public class AttendanceService {
         this.attendanceRepository = attendanceRepository;
     }
 
-    public void addNew(Attendance attendance){
-        attendanceRepository.save(attendance);
+    public Attendance addNew(Attendance attendance){
+        return attendanceRepository.save(attendance);
     }
 
     public List<Attendance> getAll(){

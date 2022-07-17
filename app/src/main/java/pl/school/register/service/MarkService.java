@@ -41,7 +41,7 @@ public class MarkService {
         return markRepository.findAllByStudentId(id);
     }
 
-    public List<Mark> getAllByStudentIdAndSubjectId(Long student_id, Long lesson_id){
+    public List<Mark> getAllByStudentIdAndLessonId(Long student_id, Long lesson_id){
         return markRepository.findAllByStudentIdAndLessonId(student_id, lesson_id);
     }
 

@@ -18,8 +18,8 @@ public class ParentService {
         this.parentRepository = parentRepository;
     }
 
-    public void addNew(Parent parent){
-        parentRepository.save(parent);
+    public Parent addNew(Parent parent){
+        return parentRepository.save(parent);
     }
 
     public List<Parent> getAll(){
@@ -28,5 +28,9 @@ public class ParentService {
 
     public Optional<Parent> getById(Long id){
         return parentRepository.findById(id);
+    }
+
+    public Parent getByLogin(String login){
+        return parentRepository.findByLogin(login);
     }
 }

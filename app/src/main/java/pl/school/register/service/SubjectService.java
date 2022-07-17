@@ -18,8 +18,8 @@ public class SubjectService {
         this.subjectRepository = subjectRepository;
     }
 
-    public void addNew(Subject subject){
-        subjectRepository.save(subject);
+    public Subject addNew(Subject subject){
+        return subjectRepository.save(subject);
     }
 
     public List<Subject> getAll(){
