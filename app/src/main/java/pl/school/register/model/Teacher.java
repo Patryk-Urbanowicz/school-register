@@ -1,5 +1,6 @@
 package pl.school.register.model;
 
+import lombok.Data;
 import pl.school.register.model.enumerations.Role;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import java.util.Set;
 
 @Entity
 @DiscriminatorValue(Role.Values.TEACHER)
+@Data
 public class Teacher extends Account {
 
     @OneToOne(mappedBy = "homeroomTeacher")
@@ -30,45 +32,5 @@ public class Teacher extends Account {
 
     public Teacher() {
         this.setRole(Role.TEACHER);
-    }
-
-    public SchoolClass getSchoolClass() {
-        return schoolClass;
-    }
-
-    public void setSchoolClass(SchoolClass schoolClass) {
-        this.schoolClass = schoolClass;
-    }
-
-    public Set<Lesson> getLessons() {
-        return lessons;
-    }
-
-    public void setLessons(Set<Lesson> lessons) {
-        this.lessons = lessons;
-    }
-
-    public Set<Subject> getSubjects() {
-        return subjects;
-    }
-
-    public void setSubjects(Set<Subject> subjects) {
-        this.subjects = subjects;
-    }
-
-    public Set<Mark> getMarks() {
-        return marks;
-    }
-
-    public void setMarks(Set<Mark> marks) {
-        this.marks = marks;
-    }
-
-    public Set<Meeting> getMeetings() {
-        return meetings;
-    }
-
-    public void setMeetings(Set<Meeting> meetings) {
-        this.meetings = meetings;
     }
 }
