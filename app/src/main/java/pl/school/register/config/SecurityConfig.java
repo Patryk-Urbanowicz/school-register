@@ -43,6 +43,7 @@ public class SecurityConfig {
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and()
                     .authorizeRequests()
+                    .antMatchers("/api/student/**/schedule").hasAuthority("PARENT")
                     .antMatchers("/api/student/**", "/api/mark/").hasAuthority("STUDENT")
                     .antMatchers("/api/mark/**").hasAuthority("TEACHER")
                     .and()

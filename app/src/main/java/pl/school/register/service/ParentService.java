@@ -29,4 +29,8 @@ public class ParentService {
     public Optional<Parent> getById(Long id){
         return parentRepository.findById(id);
     }
+
+    public Parent getByLogin(String login){
+        return parentRepository.findByLogin(login);
+    }
 }
