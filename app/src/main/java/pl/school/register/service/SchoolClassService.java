@@ -18,8 +18,8 @@ public class SchoolClassService {
         this.schoolClassRepository = schoolClassRepository;
     }
 
-    public void addNew(SchoolClass schoolClass){
-        schoolClassRepository.save(schoolClass);
+    public SchoolClass addNew(SchoolClass schoolClass){
+        return schoolClassRepository.save(schoolClass);
     }
 
     public List<SchoolClass> getAll(){

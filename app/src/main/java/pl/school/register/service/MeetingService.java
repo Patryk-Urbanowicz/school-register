@@ -17,8 +17,8 @@ public class MeetingService {
         this.meetingRepository = meetingRepository;
     }
 
-    public void addNew(Meeting meeting){
-        meetingRepository.save(meeting);
+    public Meeting addNew(Meeting meeting){
+        return meetingRepository.save(meeting);
     }
 
     public List<Meeting> getAll(){

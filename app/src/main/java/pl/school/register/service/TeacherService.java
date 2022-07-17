@@ -18,8 +18,8 @@ public class TeacherService {
         this.teacherRepository = teacherRepository;
     }
 
-    public void addNew(Teacher teacher){
-        teacherRepository.save(teacher);
+    public Teacher addNew(Teacher teacher){
+        return teacherRepository.save(teacher);
     }
 
     public List<Teacher> getAll(){
@@ -28,5 +28,9 @@ public class TeacherService {
 
     public Optional<Teacher> getById(Long id){
         return teacherRepository.findById(id);
+    }
+
+    public Teacher getByLogin(String login){
+        return teacherRepository.findByLogin(login);
     }
 }
