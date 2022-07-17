@@ -1,12 +1,8 @@
 package pl.school.register.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 import pl.school.register.model.Student;
-import pl.school.register.model.Student_Class;
 import pl.school.register.repositories.StudentRepository;
-import pl.school.register.repositories.Student_ClassRepository;
 
 import java.util.List;
 import java.util.Optional;

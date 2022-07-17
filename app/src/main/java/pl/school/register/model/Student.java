@@ -26,8 +26,7 @@ public class Student extends Account {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "student")
     private Set<Mark> marks = new HashSet<>();
 
-    @OneToOne(mappedBy = "student")
-    private Student_Class studentClass;
+    private Long Index;
 
     public Student() {
         this.setRole(Role.STUDENT);

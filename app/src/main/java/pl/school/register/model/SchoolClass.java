@@ -35,7 +35,4 @@ public class SchoolClass {
 
     @OneToMany(mappedBy = "schoolClass")
     private Set<Student> students = new HashSet<>();
-
-    @OneToMany(mappedBy = "schoolClass")
-    private Set<Student_Class> studentClasses = new HashSet<>();
 }
