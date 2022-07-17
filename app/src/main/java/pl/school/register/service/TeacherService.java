@@ -29,4 +29,8 @@ public class TeacherService {
     public Optional<Teacher> getById(Long id){
         return teacherRepository.findById(id);
     }
+
+    public Teacher getByLogin(String login){
+        return teacherRepository.findByLogin(login);
+    }
 }

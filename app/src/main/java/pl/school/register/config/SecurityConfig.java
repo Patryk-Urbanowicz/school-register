@@ -43,7 +43,8 @@ public class SecurityConfig {
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/api/student/**").hasAuthority("STUDENT")
+                    .antMatchers("/api/student/**", "/api/mark/").hasAuthority("STUDENT")
+                    .antMatchers("/api/mark/**").hasAuthority("TEACHER")
                     .and()
                     .addFilter(filter)
                     .addFilterBefore(new AuthorizationFilter(accountDetailsService, jwtConfig), UsernamePasswordAuthenticationFilter.class);
