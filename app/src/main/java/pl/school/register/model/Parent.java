@@ -1,5 +1,6 @@
 package pl.school.register.model;
 
+import lombok.Data;
 import pl.school.register.model.enumerations.Role;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import java.util.Set;
 
 @Entity
 @DiscriminatorValue(Role.Values.PARENT)
+@Data
 public class Parent extends Account {
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -18,13 +20,5 @@ public class Parent extends Account {
 
     public Parent() {
         this.setRole(Role.PARENT);
-    }
-
-    public Set<Student> getChildren() {
-        return children;
-    }
-
-    public void setChildren(Set<Student> children) {
-        this.children = children;
     }
 }
