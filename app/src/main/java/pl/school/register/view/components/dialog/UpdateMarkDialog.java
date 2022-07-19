@@ -4,9 +4,11 @@ import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.select.Select;
 import pl.school.register.model.Mark;
+
 
 public class UpdateMarkDialog extends Dialog {
     private Button confirm, cancel;
@@ -24,7 +26,9 @@ public class UpdateMarkDialog extends Dialog {
         select.addValueChangeListener(listener -> {
            data.setValue(select.getValue());
         });
-        layout.add(select);
+        Label why = new Label(data.getLabel());
+        Label who = new Label(String.format("%s %s", data.getStudent().getFirstName(), data.getStudent().getLastName()));
+        layout.add(why, who, select);
         return layout;
     }
 

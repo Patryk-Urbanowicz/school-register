@@ -13,10 +13,12 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteParameters;
 import lombok.NoArgsConstructor;
 import pl.school.register.model.*;
+import pl.school.register.service.LessonService;
 import pl.school.register.service.MarkService;
 import pl.school.register.service.StudentService;
 import pl.school.register.service.TeacherService;
 import pl.school.register.view.components.RowSegment;
+import pl.school.register.view.components.dialog.NewMarkDialog;
 import pl.school.register.view.components.dialog.UpdateMarkDialog;
 
 import java.util.*;
@@ -30,13 +32,19 @@ public class TeacherSchoolClassMarkListView extends VerticalLayout implements Be
     private StudentService studentService;
     private TeacherService teacherService;
     private MarkService markService;
+    private LessonService lessonService;
+    private Teacher teacher;
+    private Lesson currentLesson;
     private Long classId, lessonId;
     public TeacherSchoolClassMarkListView(StudentService studentService,
                                           TeacherService teacherService,
-                                          MarkService markService){
+                                          MarkService markService,
+                                          LessonService lessonService){
         this.studentService = studentService;
         this.teacherService = teacherService;
+        this.lessonService = lessonService;
         this.markService = markService;
+        teacher = teacherService.getById(1L).get();
     }
     @Override
     public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
@@ -47,6 +55,7 @@ public class TeacherSchoolClassMarkListView extends VerticalLayout implements Be
         if (classIdOptional.isPresent() && lessonIdOptional.isPresent()) {
             classId = Long.parseLong(classIdOptional.get());
             lessonId = Long.parseLong(lessonIdOptional.get());
+            currentLesson = lessonService.getById(lessonId).get();
             drawLayout();
         }
     }
@@ -90,6 +99,8 @@ public class TeacherSchoolClassMarkListView extends VerticalLayout implements Be
                 }
                 add(new StudentListMarkSegment());
             }
+            add(new StudentListMarkSegment(student));
+
         }
 
         public StudentRow(List<String> labels){
@@ -138,8 +149,28 @@ public class TeacherSchoolClassMarkListView extends VerticalLayout implements Be
         }
 
         public StudentListMarkSegment(){
-            Button addNew = new Button(new Icon(VaadinIcon.PLUS));
-            add(addNew);
+            Button addNewExisting = new Button(new Icon(VaadinIcon.PLUS));
+            add(addNewExisting);
+        }
+
+        public StudentListMarkSegment(Student student){
+            Button addNewMarkButton = new Button(new Icon(VaadinIcon.PLUS));
+            addNewMarkButton.addClickListener(listener -> {
+                NewMarkDialog newMarkDialog = new NewMarkDialog();
+                Mark mark = new Mark();
+                mark.setStudent(student);
+                mark.setTeacher(teacher);
+                mark.setLesson(currentLesson);
+                newMarkDialog.setData(mark);
+                newMarkDialog.setOnConfirmAction(nlistener -> {
+                    markService.update(mark);
+                    drawLayout();
+                    newMarkDialog.close();
+                });
+                newMarkDialog.build();
+                newMarkDialog.open();
+            });
+            add(addNewMarkButton);
         }
     }
 

@@ -39,6 +39,7 @@ public class Mark {
     @Min(0)
     private Integer weight;
 
+    @NotNull
     private String label;
     private String description;
 
