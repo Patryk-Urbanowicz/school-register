@@ -1,6 +1,7 @@
 package pl.school.register.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import pl.school.register.model.enumerations.Role;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ public class Teacher extends Account {
     private SchoolClass schoolClass;
 
     @OneToMany(mappedBy = "teacher")
+    @EqualsAndHashCode.Exclude
     private Set<Lesson> lessons = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "teacher")
@@ -25,9 +27,11 @@ public class Teacher extends Account {
     @JoinTable(name = "teacher_subject",
     joinColumns = @JoinColumn(name = "teacher_id"),
     inverseJoinColumns = @JoinColumn(name = "subject_id"))
+    @EqualsAndHashCode.Exclude
     private Set<Subject> subjects = new HashSet<>();
 
     @OneToMany(mappedBy = "teacher")
+    @EqualsAndHashCode.Exclude
     Set<Meeting> meetings = new HashSet<>();
 
     public Teacher() {
