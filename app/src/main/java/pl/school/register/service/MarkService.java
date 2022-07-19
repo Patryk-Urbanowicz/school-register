@@ -1,10 +1,6 @@
 package pl.school.register.service;
 
-import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 import pl.school.register.model.Mark;
 import pl.school.register.model.SubjectAvgPair;
 import pl.school.register.model.dto.MarkDTO;
@@ -42,7 +38,19 @@ public class MarkService {
     }
 
     public List<Mark> getAllByStudentIdAndLessonId(Long student_id, Long lesson_id){
-        return markRepository.findAllByStudentIdAndLessonId(student_id, lesson_id);
+        return markRepository.findAllByStudentIdAndLessonIdOrderById(student_id, lesson_id);
+    }
+
+    public List<Mark> getAllByTeacherIdAndLessonId(Long teacher_id, Long lesson_id){
+        return markRepository.findAllByTeacherIdAndLessonIdOrderByTimestamp(teacher_id, lesson_id);
+    }
+
+    public void deleteById(Long id){
+        markRepository.deleteById(id);
+    }
+
+    public void update(Mark mark){
+        markRepository.save(mark);
     }
 
     public Float getWeightedAverageByStudentIdAndLessonId(Long student_id, Long lesson_id) throws Exception {

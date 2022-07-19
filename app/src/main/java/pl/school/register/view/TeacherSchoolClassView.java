@@ -17,7 +17,7 @@ import java.time.temporal.WeekFields;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Route(value = "teacher/class/:classId/subject/:subjectId", layout = TeacherLayout.class)
+@Route(value = "teacher/class/:classId/lesson/:lessonId/schedule", layout = TeacherLayout.class)
 public class TeacherSchoolClassView extends VerticalLayout implements BeforeEnterObserver {
     private SchoolClass schoolClass;
     private MeetingService meetingService;
@@ -32,21 +32,19 @@ public class TeacherSchoolClassView extends VerticalLayout implements BeforeEnte
         removeAll(); //A very bad way of "refreshing" components on page
 
         RouteParameters params = beforeEnterEvent.getRouteParameters();
-        Optional<String> subjectId = params.get("subjectId");
+        Optional<String> lessonId = params.get("lessonId");
         Optional<String> classId = params.get("classId");
-        if (subjectId.isPresent() && classId.isPresent()){
+        if (lessonId.isPresent() && classId.isPresent()){
             LocalDate now = LocalDate.now();
             TemporalField fieldISO = WeekFields.of(Locale.GERMANY).dayOfWeek();
-            System.out.println(now.with(fieldISO, 1));
-            System.out.println(now.with(fieldISO, 5));
 
             LocalDate monday = now.with(fieldISO, 1);
             LocalDate friday = now.with(fieldISO, 5);
 
-            Long subjectIdL = Long.parseLong(subjectId.get());
+            Long lessonIdL = Long.parseLong(lessonId.get());
             Long classIdL = Long.parseLong(classId.get());
             List<MeetingInWeek> meetingsInWeek = meetingService
-                    .getWithWeekDayByTeacherIdAndSchoolClassId(1L, classIdL, subjectIdL,
+                    .getWithWeekDayByTeacherIdAndSchoolClassId(1L, classIdL, lessonIdL,
                                                                 monday, friday);
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
             List<LessonBlock> blocks = meetingsInWeek.stream().map(m -> {
@@ -65,7 +63,7 @@ public class TeacherSchoolClassView extends VerticalLayout implements BeforeEnte
                 return lb;
             }).collect(Collectors.toList());
 
-            add(new H1("Class: " + classIdL +  " Subject: " + subjectIdL ));
+            add(new H1("Class: " + classIdL +  " Lesson: " + lessonIdL ));
             add(new ResponsiveTableWrapper(new ScheduleTable(blocks)));
         }
 

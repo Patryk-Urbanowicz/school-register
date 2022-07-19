@@ -7,11 +7,9 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteParameters;
 import com.vaadin.flow.router.RouterLink;
-import pl.school.register.model.Lesson;
 import pl.school.register.model.SchoolClass;
 import pl.school.register.model.Subject;
 import pl.school.register.model.Teacher;
-import pl.school.register.repositories.SchoolClassRepository;
 import pl.school.register.service.SchoolClassService;
 import pl.school.register.view.components.TeacherNavBar;
 
@@ -39,18 +37,26 @@ public class TeacherLayout extends AppLayout {
             Accordion accordion = new Accordion();
             accordion.setClassName("accordion");
             VerticalLayout accordionLinks = new VerticalLayout();
-            RouterLink listOfStudents = new RouterLink("Students",
-                                    TeacherSchoolClassStudentListView.class,
-                                    new RouteParameters(Map.of("classId", _class.getId().toString())));
-            accordionLinks.add(listOfStudents);
+//            RouterLink listOfStudents = new RouterLink("Students",
+//                                    TeacherSchoolClassStudentListView.class,
+//                                    new RouteParameters(Map.of("classId", _class.getId().toString())));
+//            accordionLinks.add(listOfStudents);
             _class.getLessons().forEach(lesson -> {
+                Accordion markScheduleAccordion = new Accordion();
+                VerticalLayout markSchedulePair = new VerticalLayout();
                 Map<String, String> params = new HashMap<>();
+                Subject subject = lesson.getSubject();
                 params.put("classId", lesson.getSchoolClass().getId().toString());
-                params.put("subjectId", lesson.getSubject().getId().toString());
-                RouterLink link = new RouterLink(lesson.getSubject().getSubjectName(),
+                params.put("lessonId", lesson.getId().toString());
+                RouterLink schedule = new RouterLink("Meetings",
                         TeacherSchoolClassView.class,
                         new RouteParameters(params));
-                accordionLinks.add(link);
+                RouterLink marks = new RouterLink("Marks",
+                        TeacherSchoolClassMarkListView.class,
+                        new RouteParameters(params));
+                markSchedulePair.add(schedule, marks);
+                markScheduleAccordion.add(subject.getSubjectName(), markSchedulePair);
+                accordionLinks.add(markScheduleAccordion);
             });
             accordion.add(_class.getClassName(), accordionLinks);
             links.add(accordion);

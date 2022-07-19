@@ -126,6 +126,7 @@ th:after{
 }
 
 .row-segment {
+	background: white;
 	width: 150px;
 	height: 40px;
 	padding: 2px;
