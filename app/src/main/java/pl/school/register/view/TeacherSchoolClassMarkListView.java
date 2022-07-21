@@ -17,6 +17,7 @@ import pl.school.register.service.LessonService;
 import pl.school.register.service.MarkService;
 import pl.school.register.service.StudentService;
 import pl.school.register.service.TeacherService;
+import pl.school.register.view.components.ResponsiveTableWrapper;
 import pl.school.register.view.components.RowSegment;
 import pl.school.register.view.components.dialog.NewMarkDialog;
 import pl.school.register.view.components.dialog.UpdateMarkDialog;
@@ -63,22 +64,30 @@ public class TeacherSchoolClassMarkListView extends VerticalLayout implements Be
     private void drawLayout(){
         removeAll();
         List<Mark> teacherMarks = markService.getAllByTeacherIdAndLessonId(1L, lessonId);
-        List<String> labels = teacherMarks
-                .stream()
-                .filter( distinctByKey(Mark::getLabel) )
-                .map(Mark::getLabel)
-                .collect(Collectors.toList());
         List<Student> students = studentService.getAllBySchoolClassId(classId);
-        add(new StudentRow(labels));
-        students.forEach(s ->{
-            List<Mark> marks = markService.getAllByStudentIdAndLessonId(s.getId(), lessonId);
-            add(new StudentRow(s, marks, labels));
-        });
+
+        add(new ResponsiveTableWrapper(new StudentMarkTable(teacherMarks, students)));
     }
 
     private <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor){
         Map<Object, Boolean> map = new ConcurrentHashMap<>();
         return t -> map.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
+    }
+
+    @Tag("table")
+    private class StudentMarkTable extends Div {
+        public StudentMarkTable(List<Mark> marks, List<Student> students){
+            List<String> labels = marks
+                    .stream()
+                    .filter( distinctByKey(Mark::getLabel) )
+                    .map(Mark::getLabel)
+                    .collect(Collectors.toList());
+            add(new StudentRow(labels));
+            students.forEach(s ->{
+                List<Mark> m = markService.getAllByStudentIdAndLessonId(s.getId(), lessonId);
+                add(new StudentRow(s, m, labels));
+            });
+        }
     }
 
     @Tag("tr")
@@ -107,6 +116,7 @@ public class TeacherSchoolClassMarkListView extends VerticalLayout implements Be
             add(new StudentListSegment("Index"));
             add(new StudentListSegment("Student"));
             labels.forEach(label -> add(new StudentListSegment(label)));
+            add(new StudentListSegment("New mark"));
         }
     }
 

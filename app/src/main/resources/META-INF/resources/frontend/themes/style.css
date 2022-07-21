@@ -182,6 +182,10 @@ vaadin-accordion-panel {
     color: #192122;
 }
 
+navbar {
+	color: white;
+}
+
 .mark {
 	color: black;
 	padding: 10px;
