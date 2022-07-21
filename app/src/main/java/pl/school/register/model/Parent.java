@@ -1,6 +1,7 @@
 package pl.school.register.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import pl.school.register.model.enumerations.Role;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ public class Parent extends Account {
     @JoinTable(name = "parent_student",
     joinColumns = @JoinColumn(name = "parent_id"),
     inverseJoinColumns = @JoinColumn(name = "student_id"))
+    @EqualsAndHashCode.Exclude
     private Set<Student> children = new HashSet<>();
 
     public Parent() {

@@ -1,6 +1,8 @@
 package pl.school.register.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -18,10 +20,14 @@ public class Mark {
 
     @ManyToOne
     @NotNull
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Student student;
 
     @ManyToOne
     @NotNull
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Teacher teacher;
 
     @NotNull
@@ -33,6 +39,7 @@ public class Mark {
     @Min(0)
     private Integer weight;
 
+    @NotNull
     private String label;
     private String description;
 
@@ -41,5 +48,7 @@ public class Mark {
 
     @ManyToOne
     @NotNull
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Lesson lesson;
 }

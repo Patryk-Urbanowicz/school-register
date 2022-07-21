@@ -2,10 +2,8 @@ package pl.school.register.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import pl.school.register.model.Lesson;
 import pl.school.register.model.Mark;
 import pl.school.register.model.SubjectAvgPair;
 
@@ -17,7 +15,9 @@ import java.util.Optional;
 public interface MarkRepository extends JpaRepository<Mark, Long> {
     List<Mark> findAllByStudentId(@Param("student_id") Long student_id);
 
-    List<Mark> findAllByStudentIdAndLessonId(@Param("student_id") Long student_id, @Param("lesson_id") Long subject_id);
+    List<Mark> findAllByStudentIdAndLessonIdOrderById(Long student_id, Long lesson_id);
+
+    List<Mark> findAllByTeacherIdAndLessonIdOrderByTimestamp(Long teacher_id, Long lesson_id);
 
     @Query(value = "SELECT \n" +
             "    cast(sum(m.value * m.weight) AS float) / sum(m.weight) as w_avg \n" +
@@ -35,4 +35,7 @@ public interface MarkRepository extends JpaRepository<Mark, Long> {
     List<SubjectAvgPair> findAllWeightedAverageForStudentGroupingBySubject(
             @Param("school_class_id") Long school_class_id,
             @Param("student_id") Long student_id);
+
+    void deleteById(Long id);
+
 }

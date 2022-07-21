@@ -1,6 +1,8 @@
 package pl.school.register.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -28,11 +30,16 @@ public class SchoolClass {
 
     @OneToOne
     @NotNull
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Teacher homeroomTeacher;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "schoolClass")
+    @EqualsAndHashCode.Exclude
     private Set<Lesson> lessons = new HashSet<>();
 
     @OneToMany(mappedBy = "schoolClass")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<Student> students = new HashSet<>();
 }

@@ -127,6 +127,7 @@ th:after{
 }
 
 .row-segment {
+	background: white;
 	width: 150px;
 	height: 40px;
 	padding: 2px;
@@ -180,6 +181,10 @@ table {
 
 vaadin-accordion-panel {
     color: #192122;
+}
+
+navbar {
+	color: white;
 }
 
 .mark {

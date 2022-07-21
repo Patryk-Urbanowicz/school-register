@@ -1,6 +1,7 @@
 package pl.school.register.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -20,8 +21,10 @@ public class Subject {
     private String subjectName;
 
     @OneToMany(mappedBy = "subject")
+    @EqualsAndHashCode.Exclude
     private Set<Lesson> lessons = new HashSet<>();
 
     @ManyToMany(mappedBy = "subjects")
+    @EqualsAndHashCode.Exclude
     private Set<Teacher> teachers = new HashSet<>();
 }
