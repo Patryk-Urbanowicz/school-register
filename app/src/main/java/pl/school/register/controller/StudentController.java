@@ -6,11 +6,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import pl.school.register.model.LessonBlock;
-import pl.school.register.model.Mark;
 import pl.school.register.model.Parent;
 import pl.school.register.model.Student;
 import pl.school.register.model.dto.LessonBlockDTO;
-import pl.school.register.model.dto.MarkDTO;
 import pl.school.register.model.enumerations.Role;
 import pl.school.register.model.projections.AccountInfo;
 import pl.school.register.service.AccountService;
@@ -18,7 +16,6 @@ import pl.school.register.service.LessonBlockService;
 import pl.school.register.service.ParentService;
 import pl.school.register.service.StudentService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -44,7 +41,7 @@ public class StudentController {
         if(accountInfo == null){
             return ResponseEntity.badRequest().build();
         }
-        if(!accountInfo.getRole().equals(Role.STUDENT)){
+        if(!accountInfo.getRole().equals(Role.ROLE_STUDENT)){
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(accountInfo);
@@ -80,7 +77,7 @@ public class StudentController {
         if(accountInfo == null){
             return ResponseEntity.badRequest().build();
         }
-        if(!accountInfo.getRole().equals(Role.STUDENT)){
+        if(!accountInfo.getRole().equals(Role.ROLE_STUDENT)){
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(accountInfo);

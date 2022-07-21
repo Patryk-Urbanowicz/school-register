@@ -4,6 +4,8 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import pl.school.register.service.StudentService;
 
+import javax.annotation.security.RolesAllowed;
+
 @Route(value = "teacher/class/:classId/subject", layout = TeacherLayout.class)
 public class TeacherSchoolClassStudentListView extends VerticalLayout {
     private StudentService studentService;

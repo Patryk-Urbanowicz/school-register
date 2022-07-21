@@ -13,9 +13,12 @@ import pl.school.register.model.Teacher;
 import pl.school.register.service.SchoolClassService;
 import pl.school.register.view.components.TeacherNavBar;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import java.util.*;
 
 @Route(value = "teacher")
+@RolesAllowed(value = {"TEACHER"})
 @CssImport(value = "./themes/accordion.css", themeFor = "vaadin-accordion-panel")
 public class TeacherLayout extends AppLayout {
     private SchoolClassService schoolClassService;

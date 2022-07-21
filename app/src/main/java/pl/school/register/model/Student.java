@@ -2,7 +2,6 @@ package pl.school.register.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.apache.commons.lang3.builder.HashCodeExclude;
 import pl.school.register.model.enumerations.Role;
 
 import javax.persistence.*;
@@ -12,7 +11,7 @@ import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@DiscriminatorValue(Role.Values.STUDENT)
+@DiscriminatorValue(Role.Values.ROLE_STUDENT)
 @Data
 public class Student extends Account {
 
@@ -35,6 +34,6 @@ public class Student extends Account {
     private Long Index;
 
     public Student() {
-        this.setRole(Role.STUDENT);
+        this.setRole(Role.ROLE_STUDENT);
     }
 }

@@ -18,7 +18,7 @@ import java.util.Collection;
 @Route(value = "login")
 @PermitAll
 @CssImport(value = "./themes/login.css")
-public class LoginLayout extends VerticalLayout implements BeforeEnterObserver {
+public class LoginLayout extends VerticalLayout {
     private final LoginForm form = new LoginForm();
     public LoginLayout(){
         setClassName("login-page");
@@ -33,21 +33,21 @@ public class LoginLayout extends VerticalLayout implements BeforeEnterObserver {
         );
     }
 
-    @Override
-    public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
-        if(beforeEnterEvent.getLocation().getQueryParameters().getParameters().containsKey("error")){
-            form.setError(true);
-        }
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails){
-            UserDetails userDetails = (UserDetails) principal;
-            Collection<? extends GrantedAuthority> authorityCollection = userDetails.getAuthorities();
-            if (authorityCollection.contains(new SimpleGrantedAuthority("ROLE_STUDENT"))){
-                beforeEnterEvent.forwardTo(StudentScheduleView.class);
-            }else if (authorityCollection.contains(new SimpleGrantedAuthority("TEACHER"))){
-                beforeEnterEvent.rerouteTo("/teacher");
-            }
-        }
-
-    }
+//    @Override
+//    public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
+//        if(beforeEnterEvent.getLocation().getQueryParameters().getParameters().containsKey("error")){
+//            form.setError(true);
+//        }
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        if (principal instanceof UserDetails){
+//            UserDetails userDetails = (UserDetails) principal;
+//            Collection<? extends GrantedAuthority> authorityCollection = userDetails.getAuthorities();
+//            if (authorityCollection.contains(new SimpleGrantedAuthority("ROLE_STUDENT"))){
+//                beforeEnterEvent.forwardTo(StudentScheduleView.class);
+//            }else if (authorityCollection.contains(new SimpleGrantedAuthority("TEACHER"))){
+//                beforeEnterEvent.rerouteTo(TeacherLayout.class);
+//            }
+//        }
+//
+//    }
 }

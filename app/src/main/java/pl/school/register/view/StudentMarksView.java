@@ -7,9 +7,11 @@ import pl.school.register.model.enumerations.WeekDay;
 import pl.school.register.view.components.MarkTable;
 import pl.school.register.view.components.ResponsiveTableWrapper;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@RolesAllowed(value = {"STUDENT"})
 @Route(value = "account/marks", layout = AccountMiddlePanelNestedLayout.class)
 public class StudentMarksView extends VerticalLayout {
     Student student1 = new Student();

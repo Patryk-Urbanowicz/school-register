@@ -1,9 +1,9 @@
 package pl.school.register.model.enumerations;
 
 public enum Role {
-    TEACHER(Values.TEACHER),
-    STUDENT(Values.STUDENT),
-    PARENT(Values.PARENT);
+    ROLE_TEACHER(Values.ROLE_TEACHER),
+    ROLE_STUDENT(Values.ROLE_STUDENT),
+    ROLE_PARENT(Values.ROLE_PARENT);
 
     private final String value;
 
@@ -12,8 +12,8 @@ public enum Role {
     }
 
     public static class Values {
-        public static final String TEACHER = "TEACHER";
-        public static final String STUDENT = "STUDENT";
-        public static final String PARENT = "PARENT";
+        public static final String ROLE_TEACHER = "ROLE_TEACHER";
+        public static final String ROLE_STUDENT = "ROLE_STUDENT";
+        public static final String ROLE_PARENT = "ROLE_PARENT";
     }
 }

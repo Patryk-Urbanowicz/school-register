@@ -91,11 +91,21 @@ public class SecurityConfig {
 
         @Override
         public void configure(WebSecurity web) throws Exception {
-            web.ignoring().antMatchers("/images/**");
+            web.ignoring().antMatchers("/images/**",
+                    // the robots exclusion standard
+                    "/robots.txt",
+
+                    // Vaadin Flow static resources
+                    "/VAADIN/**",
+
+                    // the standard favicon URI
+                    "/favicon.ico");
+
         }
 
         @Override
         protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+            super.configure(auth);
             auth.userDetailsService(accountDetailsService).passwordEncoder(passwordEncoder);
         }
     }

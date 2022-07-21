@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@DiscriminatorValue(Role.Values.PARENT)
+@DiscriminatorValue(Role.Values.ROLE_PARENT)
 @Data
 public class Parent extends Account {
 
@@ -21,6 +21,6 @@ public class Parent extends Account {
     private Set<Student> children = new HashSet<>();
 
     public Parent() {
-        this.setRole(Role.PARENT);
+        this.setRole(Role.ROLE_PARENT);
     }
 }

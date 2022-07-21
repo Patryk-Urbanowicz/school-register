@@ -9,6 +9,7 @@ import pl.school.register.service.MeetingService;
 import pl.school.register.view.components.ResponsiveTableWrapper;
 import pl.school.register.view.components.ScheduleTable;
 
+import javax.annotation.security.RolesAllowed;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -17,6 +18,7 @@ import java.time.temporal.WeekFields;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@RolesAllowed(value = {"TEACHER"})
 @Route(value = "teacher/class/:classId/lesson/:lessonId/schedule", layout = TeacherLayout.class)
 public class TeacherSchoolClassView extends VerticalLayout implements BeforeEnterObserver {
     private SchoolClass schoolClass;

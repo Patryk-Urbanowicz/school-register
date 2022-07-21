@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@DiscriminatorValue(Role.Values.TEACHER)
+@DiscriminatorValue(Role.Values.ROLE_TEACHER)
 @Data
 public class Teacher extends Account {
 
@@ -35,6 +35,6 @@ public class Teacher extends Account {
     Set<Meeting> meetings = new HashSet<>();
 
     public Teacher() {
-        this.setRole(Role.TEACHER);
+        this.setRole(Role.ROLE_TEACHER);
     }
 }

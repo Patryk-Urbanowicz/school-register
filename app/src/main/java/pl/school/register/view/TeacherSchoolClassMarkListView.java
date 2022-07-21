@@ -22,12 +22,14 @@ import pl.school.register.view.components.RowSegment;
 import pl.school.register.view.components.dialog.NewMarkDialog;
 import pl.school.register.view.components.dialog.UpdateMarkDialog;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+@RolesAllowed(value = {"TEACHER"})
 @Route(value = "teacher/class/:classId/lesson/:lessonId/mark", layout = TeacherLayout.class)
 public class TeacherSchoolClassMarkListView extends VerticalLayout implements BeforeEnterObserver {
     private StudentService studentService;
