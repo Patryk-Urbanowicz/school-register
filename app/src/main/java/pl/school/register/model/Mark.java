@@ -1,59 +1,45 @@
 package pl.school.register.model;
 
+import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 
 @Entity
+@Data
 public class Mark {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
+    @NotNull
     private Student student;
 
     @ManyToOne
-    private Meeting meeting;
+    @NotNull
+    private Teacher teacher;
 
+    @NotNull
+    @Min(1)
+    @Max(6)
     private Integer value;
+
+    @NotNull
+    @Min(0)
     private Integer weight;
 
-    public Long getId() {
-        return id;
-    }
+    private String label;
+    private String description;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @CreationTimestamp
+    private Timestamp timestamp;
 
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
-
-    public Integer getValue() {
-        return value;
-    }
-
-    public void setValue(Integer value) {
-        this.value = value;
-    }
-
-    public Integer getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Integer weight) {
-        this.weight = weight;
-    }
-
-    public Meeting getMeeting() {
-        return meeting;
-    }
-
-    public void setMeeting(Meeting meeting) {
-        this.meeting = meeting;
-    }
+    @ManyToOne
+    @NotNull
+    private Lesson lesson;
 }
