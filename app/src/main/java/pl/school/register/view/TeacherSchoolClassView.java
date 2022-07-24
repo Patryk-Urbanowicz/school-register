@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 @RolesAllowed(value = {"TEACHER"})
 @Route(value = "teacher/class/:classId/lesson/:lessonId/schedule", layout = TeacherLayout.class)
 public class TeacherSchoolClassView extends VerticalLayout implements BeforeEnterObserver {
-    private SchoolClass schoolClass;
     private MeetingService meetingService;
     public TeacherSchoolClassView(MeetingService meetingService){
         this.meetingService = meetingService;
@@ -41,7 +40,9 @@ public class TeacherSchoolClassView extends VerticalLayout implements BeforeEnte
             TemporalField fieldISO = WeekFields.of(Locale.GERMANY).dayOfWeek();
 
             LocalDate monday = now.with(fieldISO, 1);
-            LocalDate friday = now.with(fieldISO, 5);
+            LocalDate friday = now.with(fieldISO, 6);
+            System.out.println(monday);
+            System.out.println(friday);
 
             Long lessonIdL = Long.parseLong(lessonId.get());
             Long classIdL = Long.parseLong(classId.get());
@@ -49,24 +50,24 @@ public class TeacherSchoolClassView extends VerticalLayout implements BeforeEnte
                     .getWithWeekDayByTeacherIdAndSchoolClassId(1L, classIdL, lessonIdL,
                                                                 monday, friday);
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
-            List<LessonBlock> blocks = meetingsInWeek.stream().map(m -> {
-                LessonBlock lb = new LessonBlock();
-                Subject subject = new Subject();
-                subject.setSubjectName(m.getSubjectName());
-                Lesson l = new Lesson();
-                Teacher teacher = new Teacher();
-                teacher.setFirstName(m.getTeacherFirstName());
-                teacher.setLastName(m.getTeacherLastName());
-                l.setTeacher(teacher);
-                lb.setWeekDay(m.getWeekDay());
-                LocalDateTime time = m.getLessonStartTime();
-                lb.setStartTime(time.format(dtf));
-                lb.setLesson(l);
-                return lb;
-            }).collect(Collectors.toList());
+//            List<LessonBlock> blocks = meetingsInWeek.stream().map(m -> {
+//                LessonBlock lb = new LessonBlock();
+//                Subject subject = new Subject();
+//                subject.setSubjectName(m.getSubjectName());
+//                Lesson l = new Lesson();
+//                Teacher teacher = new Teacher();
+//                teacher.setFirstName(m.getTeacherFirstName());
+//                teacher.setLastName(m.getTeacherLastName());
+//                l.setTeacher(teacher);
+//                lb.setWeekDay(m.getWeekDay());
+//                LocalDateTime time = m.getLessonStartTime();
+//                lb.setStartTime(time.format(dtf));
+//                lb.setLesson(l);
+//                return lb;
+//            }).collect(Collectors.toList());
 
             add(new H1("Class: " + classIdL +  " Lesson: " + lessonIdL ));
-            add(new ResponsiveTableWrapper(new ScheduleTable(blocks)));
+            add(new ResponsiveTableWrapper(new ScheduleTable(meetingsInWeek)));
         }
 
     }

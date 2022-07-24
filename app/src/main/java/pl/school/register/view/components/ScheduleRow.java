@@ -4,28 +4,28 @@ import pl.school.register.model.Lesson;
 import pl.school.register.model.LessonBlock;
 import pl.school.register.model.Teacher;
 import pl.school.register.model.enumerations.WeekDay;
+import pl.school.register.model.projections.MeetingInWeek;
 
 import java.util.Deque;
 import java.util.Locale;
 
 public class ScheduleRow extends Row{
-    public ScheduleRow(Deque<LessonBlock> lessonBlocks, String hour){
+    public ScheduleRow(Deque<MeetingInWeek> meetings, String hour){
         int hourInt = Integer.parseInt(hour.split(":")[0]);
         String hourString = String.format("%s-%d:%d", hour, hourInt, 55);
         add(new RowSegment(hourString));
         for (int i=0; i < 5; i++){
-            if (!lessonBlocks.isEmpty()){
-                LessonBlock block = lessonBlocks.peek();
+            if (!meetings.isEmpty()){
+                MeetingInWeek meeting = meetings.peek();
                 WeekDay currentDay = WeekDay.values()[i];
-                if (currentDay.equals(block.getWeekDay())){
-                    Lesson lesson = block.getLesson();
+                if (currentDay.equals(meeting.getWeekDay())){
                     add(new ScheduleSegment(
                             "#00FF00",
-                            lesson.getSubject().getSubjectName(),
-                            "1",
-                            getTeacherShort(lesson.getTeacher())
+                            meeting.getSubjectName(),
+                            meeting.getRoom(),
+                            getTeacherShort(meeting.getTeacherFirstName(), meeting.getTeacherLastName())
                     ));
-                    lessonBlocks.pop();
+                    meetings.pop();
                     continue;
                 }
             }
@@ -33,8 +33,8 @@ public class ScheduleRow extends Row{
         }
     }
 
-    private String getTeacherShort(Teacher teacher) {
-        return (String.format("%s%s", teacher.getFirstName().charAt(0), teacher.getLastName().charAt(0))).toUpperCase(Locale.ROOT);
+    private String getTeacherShort(String first, String last) {
+        return (String.format("%s%s", first.charAt(0), last.charAt(0))).toUpperCase(Locale.ROOT);
     }
 
     private String getHoursString(String hour){

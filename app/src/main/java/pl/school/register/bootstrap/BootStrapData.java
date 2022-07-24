@@ -1,6 +1,7 @@
 package pl.school.register.bootstrap;
 
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import pl.school.register.model.*;
@@ -10,6 +11,7 @@ import pl.school.register.repositories.*;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Component
@@ -81,7 +83,8 @@ public class BootStrapData implements CommandLineRunner {
         lesson.setTeacher(teacher);
 
         Meeting meeting = new Meeting();
-        meeting.setTime(LocalDateTime.now());
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        meeting.setTime(LocalDateTime.parse("2022-07-22 09:00", dtf));
         meeting.setTopic("Lekcja 1: Krzywa Beziera");
         meeting.setLesson(lesson);
         meeting.setTeacher(teacher);
@@ -91,7 +94,7 @@ public class BootStrapData implements CommandLineRunner {
         lessonBlock.setLesson(lesson);
         lessonBlock.setDuration(45);
         lessonBlock.setStartTime("9:00");
-        lessonBlock.setWeekDay(WeekDay.MONDAY);
+        lessonBlock.setWeekDay(WeekDay.FRIDAY);
 
         Attendance attendance = new Attendance();
         attendance.setStudent(student);

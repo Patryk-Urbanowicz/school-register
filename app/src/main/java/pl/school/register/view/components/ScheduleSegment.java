@@ -15,4 +15,5 @@ public class ScheduleSegment extends RowSegment {
 			bottom.add(classroom, teacherShortLabel);
 			add(lessonNameLabel, bottom);
 	}
+
 }

@@ -5,6 +5,7 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import pl.school.register.model.LessonBlock;
 import pl.school.register.model.enumerations.WeekDay;
+import pl.school.register.model.projections.MeetingInWeek;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Tag(value = "table")
 public class ScheduleTable extends Div {
-    public ScheduleTable(List<LessonBlock> lessons) {
+    public ScheduleTable(List<MeetingInWeek> meetings) {
         addClassName("schedule-table");
         List<String> lessonHours = List.of("8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00");
         List<WeekDay> days = Arrays.stream(WeekDay.values()).collect(Collectors.toList());
@@ -23,10 +24,10 @@ public class ScheduleTable extends Div {
         thead.addClassName("table-head");
         add(thead);
         lessonHours.forEach(hour -> {
-                    List<LessonBlock> lessonOnThisHour = lessons.stream()
-                            .filter(lessonBlock -> hour.equals(lessonBlock.getStartTime()))
+                    List<MeetingInWeek> meetings2 = meetings.stream()
+                            .filter(meeting -> hour.equals(meeting.getStartTime()))
                             .collect(Collectors.toList());
-                    add(new ScheduleRow(new ArrayDeque<>(lessonOnThisHour), hour));
+                    add(new ScheduleRow(new ArrayDeque<>(meetings2), hour));
                 });
     }
 }

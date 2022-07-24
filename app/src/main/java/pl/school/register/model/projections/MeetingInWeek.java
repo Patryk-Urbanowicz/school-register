@@ -12,6 +12,6 @@ public interface MeetingInWeek {
     LocalDateTime getLessonStartTime();
     String getSubjectName();
     WeekDay getWeekDay();
-
-
+    String getStartTime();
+    String getRoom();
 }

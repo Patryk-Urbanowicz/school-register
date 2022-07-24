@@ -36,4 +36,10 @@ public class MeetingService {
                                                                          LocalDate end){
         return meetingRepository.findAllTeacherMeetingsInWeek(teacher_id, school_class_id, subject_id, start, end);
     }
+
+    public List<MeetingInWeek> getWithWeekDayByTSchoolClassId(Long school_class_id,
+                                                                         LocalDate start,
+                                                                         LocalDate end){
+        return meetingRepository.findAllSchoolClassMeetingsInWeek(school_class_id, start, end);
+    }
 }
