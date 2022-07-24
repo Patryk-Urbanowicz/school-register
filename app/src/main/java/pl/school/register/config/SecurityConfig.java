@@ -44,9 +44,9 @@ public class SecurityConfig {
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/api/student/**/schedule").hasAuthority("PARENT")
-                    .antMatchers("/api/student/**", "/api/mark/").hasAuthority("STUDENT")
-                    .antMatchers("/api/mark/**").hasAuthority("TEACHER")
+                    .antMatchers("/api/student/**/schedule", "/api/parent/children").hasAuthority("ROLE_PARENT")
+                    .antMatchers("/api/student/**", "/api/mark/", "/api/attendance/").hasAuthority("ROLE_STUDENT")
+                    .antMatchers("/api/mark/**", "/api/attendance/**").hasAuthority("ROLE_TEACHER")
                     .and()
                     .addFilter(filter)
                     .addFilterBefore(new AuthorizationFilter(accountDetailsService, jwtConfig), UsernamePasswordAuthenticationFilter.class);
