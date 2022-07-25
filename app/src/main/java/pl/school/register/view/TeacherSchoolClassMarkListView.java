@@ -12,6 +12,9 @@ import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteParameters;
 import lombok.NoArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import pl.school.register.model.*;
 import pl.school.register.service.LessonService;
 import pl.school.register.service.MarkService;
@@ -47,7 +50,9 @@ public class TeacherSchoolClassMarkListView extends VerticalLayout implements Be
         this.teacherService = teacherService;
         this.lessonService = lessonService;
         this.markService = markService;
-        teacher = teacherService.getById(1L).get();
+        UserDetails userDetails = (UserDetails) ((UsernamePasswordAuthenticationToken) SecurityContextHolder
+                .getContext().getAuthentication()).getPrincipal();
+        teacher = teacherService.getByLogin(userDetails.getUsername());
     }
     @Override
     public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {

@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 public interface MeetingRepository extends JpaRepository<Meeting, Long> {
-    @Query(value = "SELECT account.first_name AS teacherFirstName," +
+    @Query(value = "SELECT m.id , account.first_name AS teacherFirstName," +
                     " account.last_name AS teacherLastName," +
                     " m.time AS lessonStartTime,  " +
                     " m.room AS room, " +
@@ -31,7 +31,7 @@ public interface MeetingRepository extends JpaRepository<Meeting, Long> {
                                                  @Param("start") LocalDate start,
                                                  @Param("end") LocalDate end);
 
-    @Query(value = "SELECT account.first_name AS teacherFirstName," +
+    @Query(value = "SELECT m.id, account.first_name AS teacherFirstName," +
             " account.last_name AS teacherLastName," +
             " m.time AS lessonStartTime,  " +
             " m.room AS room, " +

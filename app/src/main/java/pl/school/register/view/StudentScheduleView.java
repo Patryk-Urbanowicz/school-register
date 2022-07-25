@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import pl.school.register.model.*;
 import pl.school.register.model.enumerations.WeekDay;
 import pl.school.register.model.projections.MeetingInWeek;
+import pl.school.register.service.AttendanceService;
 import pl.school.register.service.LessonBlockService;
 import pl.school.register.service.MeetingService;
 import pl.school.register.service.StudentService;
@@ -26,7 +27,7 @@ import java.util.*;
 public class StudentScheduleView extends VerticalLayout {
     private StudentService studentService;
     private MeetingService meetingService;
-    public StudentScheduleView(StudentService studentService, MeetingService meetingService){
+    public StudentScheduleView(StudentService studentService, MeetingService meetingService, AttendanceService attendanceService){
         this.studentService = studentService;
         this.meetingService = meetingService;
         setSizeFull();
@@ -43,7 +44,7 @@ public class StudentScheduleView extends VerticalLayout {
                 student.getSchoolClass().getId(),
                 monday,
                 friday);
-        ScheduleTable st = new ScheduleTable(meetings);
+        ScheduleTable st = new ScheduleTable(meetings, meetingService, studentService, attendanceService);
         ResponsiveTableWrapper wrapper = new ResponsiveTableWrapper(st);
 		add(wrapper);
     }

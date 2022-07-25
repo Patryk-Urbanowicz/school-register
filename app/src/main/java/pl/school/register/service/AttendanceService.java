@@ -38,4 +38,12 @@ public class AttendanceService {
     public List<Attendance> getAllByLessonId(Long id){
         return attendanceRepository.findAllByMeetingId(id);
     }
+
+    public List<Attendance> getAllByMeetingId(Long id){
+        return attendanceRepository.findAllByMeetingId(id);
+    }
+
+    public void addAll(List<Attendance> attendances){
+        attendanceRepository.saveAll(attendances);
+    }
 }

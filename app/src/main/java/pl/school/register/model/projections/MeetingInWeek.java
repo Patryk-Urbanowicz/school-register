@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 //horrible name
 public interface MeetingInWeek {
+    Long getId();
     String getTeacherFirstName();
     String getTeacherLastName();
     LocalDateTime getLessonStartTime();

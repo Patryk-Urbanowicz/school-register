@@ -84,7 +84,7 @@ public class BootStrapData implements CommandLineRunner {
 
         Meeting meeting = new Meeting();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        meeting.setTime(LocalDateTime.parse("2022-07-22 09:00", dtf));
+        meeting.setTime(LocalDateTime.parse("2022-07-29 09:00", dtf));
         meeting.setTopic("Lekcja 1: Krzywa Beziera");
         meeting.setLesson(lesson);
         meeting.setTeacher(teacher);
