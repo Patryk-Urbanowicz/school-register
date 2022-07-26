@@ -18,6 +18,9 @@ public interface MarkRepository extends JpaRepository<Mark, Long> {
     List<Mark> findAllByStudentIdAndLessonIdOrderById(Long student_id, Long lesson_id);
 
     List<Mark> findAllByTeacherIdAndLessonIdOrderByTimestamp(Long teacher_id, Long lesson_id);
+    List<Mark> findAllByTeacherId(Long teacher_id);
+    List<Mark> findAllByTeacherIdAndStudentId(Long teacher_id, Long student_id);
+    List<Mark> findAllByTeacherIdAndStudentIdAndLessonIdOrderByLessonId(Long teacher_id, Long student_id, Long lesson_id);
 
     @Query(value = "SELECT \n" +
             "    cast(sum(m.value * m.weight) AS float) / sum(m.weight) as w_avg \n" +
