@@ -51,6 +51,12 @@ public class BootStrapData implements CommandLineRunner {
         teacher.setLogin("mrKleks");
         teacher.setPassword(passwordEncoder.encode("childLabor"));
 
+        Teacher teacher2 = new Teacher();
+        teacher2.setFirstName("Anna");
+        teacher2.setLastName("Kowalska");
+        teacher2.setLogin("miniAnia");
+        teacher2.setPassword(passwordEncoder.encode("wyzimskiJednorozec"));
+
         SchoolClass schoolClass = new SchoolClass();
         schoolClass.setClassName("Kleks class");
         schoolClass.setProfile("Magic-Creativity");
@@ -63,6 +69,14 @@ public class BootStrapData implements CommandLineRunner {
         student.setPassword(passwordEncoder.encode("DzikiDzikus"));
         student.setSchoolClass(schoolClass);
         student.setIndex(1L);
+
+        Student student2 = new Student();
+        student2.setFirstName("Michal");
+        student2.setLastName("Bak");
+        student2.setLogin("bananowySamuraj");
+        student2.setPassword(passwordEncoder.encode("Ratatouille"));
+        student2.setSchoolClass(schoolClass);
+        student2.setIndex(2L);
 
         Parent parent = new Parent();
         parent.setFirstName("Leosia");
@@ -93,6 +107,12 @@ public class BootStrapData implements CommandLineRunner {
         lessonBlock.setStartTime("9:00");
         lessonBlock.setWeekDay(WeekDay.MONDAY);
 
+        LessonBlock lessonBlock2 = new LessonBlock();
+        lessonBlock2.setLesson(lesson);
+        lessonBlock2.setDuration(45);
+        lessonBlock2.setStartTime("11:00");
+        lessonBlock2.setWeekDay(WeekDay.FRIDAY);
+
         Attendance attendance = new Attendance();
         attendance.setStudent(student);
         attendance.setAttendanceStatus(AttendanceStatus.ATTENDED);
@@ -120,11 +140,14 @@ public class BootStrapData implements CommandLineRunner {
 
         subjectRepository.save(subject);
         teacherRepository.save(teacher);
+        teacherRepository.save(teacher2);
         schoolClassRepository.save(schoolClass);
         lessonRepository.save(lesson);
         studentRepository.save(student);
+        studentRepository.save(student2);
         parentRepository.save(parent);
         lessonBlockRepository.save(lessonBlock);
+        lessonBlockRepository.save(lessonBlock2);
         meetingRepository.save(meeting);
         markRepository.save(mark);
         markRepository.save(mark2);
