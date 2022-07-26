@@ -51,6 +51,12 @@ public class BootStrapData implements CommandLineRunner {
         teacher.setLogin("mrKleks");
         teacher.setPassword(passwordEncoder.encode("childLabor"));
 
+        Teacher teacher1 = new Teacher();
+        teacher1.setFirstName("Jan");
+        teacher1.setLastName("Burczymucha");
+        teacher1.setLogin("JanuszMucha");
+        teacher1.setPassword(passwordEncoder.encode("BurczyBrzucha"));
+
         Teacher teacher2 = new Teacher();
         teacher2.setFirstName("Anna");
         teacher2.setLastName("Kowalska");
@@ -140,6 +146,7 @@ public class BootStrapData implements CommandLineRunner {
 
         subjectRepository.save(subject);
         teacherRepository.save(teacher);
+        teacherRepository.save(teacher1);
         teacherRepository.save(teacher2);
         schoolClassRepository.save(schoolClass);
         lessonRepository.save(lesson);
