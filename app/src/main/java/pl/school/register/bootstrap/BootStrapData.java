@@ -142,13 +142,13 @@ public class BootStrapData implements CommandLineRunner {
 
         Parent parent1 = new Parent();
         parent1.setFirstName("Leopold");
-        parent.setLastName("Staff");
-        parent.setLogin("LeoRzeczy");
-        parent.setPassword(passwordEncoder.encode("WielkiPisarz"));
-        parent.getChildren().add(student);
-        parent.getChildren().add(student1);
-        parent.getChildren().add(student2);
-        parent.getChildren().add(student6);
+        parent1.setLastName("Staff");
+        parent1.setLogin("LeoRzeczy");
+        parent1.setPassword(passwordEncoder.encode("WielkiPisarz"));
+        parent1.getChildren().add(student);
+        parent1.getChildren().add(student1);
+        parent1.getChildren().add(student2);
+        parent1.getChildren().add(student6);
 
         Subject subject = new Subject();
         subject.setSubjectName("Math");
@@ -184,17 +184,55 @@ public class BootStrapData implements CommandLineRunner {
         meeting.setTeacher(teacher);
         meeting.setRoom("L3");
 
+        Meeting meeting1 = new Meeting();
+        meeting1.setTime(LocalDateTime.now());
+        meeting1.setTopic("Lekcja2: krzywa B-spline");
+        meeting1.setLesson(lesson);
+        meeting1.setTeacher(teacher);
+        meeting1.setRoom("L3");
+
+        Meeting meeting2 = new Meeting();
+        meeting2.setTime(LocalDateTime.now());
+        meeting2.setTopic("Lekcja 1: Dlaczego Mickiewicz wielkim poetą był");
+        meeting2.setLesson(lesson1);
+        meeting2.setTeacher(teacher);
+        meeting2.setRoom("S2");
+
         LessonBlock lessonBlock = new LessonBlock();
         lessonBlock.setLesson(lesson);
         lessonBlock.setDuration(45);
         lessonBlock.setStartTime("9:00");
         lessonBlock.setWeekDay(WeekDay.MONDAY);
 
+        LessonBlock lessonBlock1 = new LessonBlock();
+        lessonBlock1.setLesson(lesson1);
+        lessonBlock1.setDuration(45);
+        lessonBlock1.setStartTime("11:00");
+        lessonBlock1.setWeekDay(WeekDay.THURSDAY);
+
         LessonBlock lessonBlock2 = new LessonBlock();
-        lessonBlock2.setLesson(lesson);
+        lessonBlock2.setLesson(lesson1);
         lessonBlock2.setDuration(45);
-        lessonBlock2.setStartTime("11:00");
-        lessonBlock2.setWeekDay(WeekDay.FRIDAY);
+        lessonBlock2.setStartTime("13:00");
+        lessonBlock2.setWeekDay(WeekDay.WEDNESDAY);
+
+        LessonBlock lessonBlock3 = new LessonBlock();
+        lessonBlock3.setLesson(lesson1);
+        lessonBlock3.setDuration(90);
+        lessonBlock3.setStartTime("15:00");
+        lessonBlock3.setWeekDay(WeekDay.TUESDAY);
+
+        LessonBlock lessonBlock4 = new LessonBlock();
+        lessonBlock4.setLesson(lesson1);
+        lessonBlock4.setDuration(90);
+        lessonBlock4.setStartTime("13:00");
+        lessonBlock4.setWeekDay(WeekDay.FRIDAY);
+
+        LessonBlock lessonBlock5 = new LessonBlock();
+        lessonBlock5.setLesson(lesson);
+        lessonBlock5.setDuration(90);
+        lessonBlock5.setStartTime("15:00");
+        lessonBlock5.setWeekDay(WeekDay.FRIDAY);
 
         Attendance attendance = new Attendance();
         attendance.setStudent(student);
@@ -240,9 +278,16 @@ public class BootStrapData implements CommandLineRunner {
         studentRepository.save(student5);
         studentRepository.save(student6);
         parentRepository.save(parent);
-        lessonBlockRepository.save(lessonBlock);
-        lessonBlockRepository.save(lessonBlock2);
+        parentRepository.save(parent1);
         meetingRepository.save(meeting);
+        meetingRepository.save(meeting1);
+        meetingRepository.save(meeting2);
+        lessonBlockRepository.save(lessonBlock);
+        lessonBlockRepository.save(lessonBlock1);
+        lessonBlockRepository.save(lessonBlock2);
+        lessonBlockRepository.save(lessonBlock3);
+        lessonBlockRepository.save(lessonBlock4);
+        lessonBlockRepository.save(lessonBlock5);
         markRepository.save(mark);
         markRepository.save(mark2);
         attendanceRepository.save(attendance);
