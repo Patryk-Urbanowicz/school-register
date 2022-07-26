@@ -20,4 +20,6 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
             "    WHERE m.lesson_id=:lesson_id AND attendance.student_id=:student_id", nativeQuery = true)
     List<Attendance> findAttendanceByLessonIdAndStudentId(@Param("lesson_id") Long lesson_id,
                                                           @Param("student_id") Long student_id);
+
+    Attendance findByMeetingIdAndStudentId(Long meeting_id, Long student_id);
 }

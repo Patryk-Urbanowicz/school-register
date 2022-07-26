@@ -2,6 +2,7 @@ package pl.school.register.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import pl.school.register.model.enumerations.WeekDay;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -34,4 +35,12 @@ public class Meeting {
 
     @NotNull
     String room;
+
+    @NotNull
+    private String startTime;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "weekDay")
+    @NotNull
+    private WeekDay weekDay;
 }

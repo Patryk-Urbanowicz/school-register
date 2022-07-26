@@ -17,5 +17,4 @@ public interface MeetingInWeek {
     WeekDay getWeekDay();
     String getStartTime();
     String getRoom();
-    AttendanceStatus getAttendanceStatus();
 }

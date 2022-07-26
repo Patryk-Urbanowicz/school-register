@@ -183,23 +183,56 @@ public class BootStrapData implements CommandLineRunner {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         meeting.setTime(LocalDateTime.parse("2022-07-29 09:00", dtf));
         meeting.setTopic("Lekcja 1: Krzywa Beziera");
+        meeting.setStartTime("09:00");
+        meeting.setWeekDay(WeekDay.FRIDAY);
         meeting.setLesson(lesson);
         meeting.setTeacher(teacher);
         meeting.setRoom("L3");
 
         Meeting meeting1 = new Meeting();
-        meeting1.setTime(LocalDateTime.now());
+        meeting1.setTime(LocalDateTime.parse("2022-07-28 11:00", dtf));
         meeting1.setTopic("Lekcja2: krzywa B-spline");
+        meeting1.setStartTime("11:00");
+        meeting1.setWeekDay(WeekDay.THURSDAY);
         meeting1.setLesson(lesson);
         meeting1.setTeacher(teacher);
         meeting1.setRoom("L3");
 
         Meeting meeting2 = new Meeting();
-        meeting2.setTime(LocalDateTime.now());
+        meeting2.setTime(LocalDateTime.parse("2022-07-27 13:00", dtf));
         meeting2.setTopic("Lekcja 1: Dlaczego Mickiewicz wielkim poetą był");
+        meeting2.setStartTime("13:00");
+        meeting2.setWeekDay(WeekDay.WEDNESDAY);
         meeting2.setLesson(lesson1);
         meeting2.setTeacher(teacher);
         meeting2.setRoom("S2");
+
+        Meeting meeting3 = new Meeting();
+        meeting3.setTime(LocalDateTime.parse("2022-07-26 15:00", dtf));
+        meeting3.setTopic("Lekcja 2: Ferdydurke");
+        meeting3.setStartTime("15:00");
+        meeting3.setWeekDay(WeekDay.TUESDAY);
+        meeting3.setLesson(lesson1);
+        meeting3.setTeacher(teacher);
+        meeting3.setRoom("S2");
+
+        Meeting meeting4 = new Meeting();
+        meeting4.setTime(LocalDateTime.parse("2022-07-26 13:00", dtf));
+        meeting4.setTopic("Lekcja 3: Aaaaaaaaaaaaaaaaaa");
+        meeting4.setStartTime("13:00");
+        meeting4.setWeekDay(WeekDay.TUESDAY);
+        meeting4.setLesson(lesson1);
+        meeting4.setTeacher(teacher);
+        meeting4.setRoom("S3");
+
+        Meeting meeting5 = new Meeting();
+        meeting5.setTime(LocalDateTime.parse("2022-07-25 13:00", dtf));
+        meeting5.setTopic("Lekcja 1: Zawracanie na rondze");
+        meeting5.setStartTime("13:00");
+        meeting5.setWeekDay(WeekDay.MONDAY);
+        meeting5.setLesson(lesson2);
+        meeting5.setTeacher(teacher);
+        meeting5.setRoom("Ulica");
 
         LessonBlock lessonBlock = new LessonBlock();
         lessonBlock.setLesson(lesson);
@@ -221,19 +254,19 @@ public class BootStrapData implements CommandLineRunner {
 
         LessonBlock lessonBlock3 = new LessonBlock();
         lessonBlock3.setLesson(lesson1);
-        lessonBlock3.setDuration(90);
+        lessonBlock3.setDuration(45);
         lessonBlock3.setStartTime("15:00");
         lessonBlock3.setWeekDay(WeekDay.TUESDAY);
 
         LessonBlock lessonBlock4 = new LessonBlock();
-        lessonBlock4.setLesson(lesson1);
-        lessonBlock4.setDuration(90);
+        lessonBlock4.setLesson(lesson2);
+        lessonBlock4.setDuration(45);
         lessonBlock4.setStartTime("13:00");
-        lessonBlock4.setWeekDay(WeekDay.FRIDAY);
+        lessonBlock4.setWeekDay(WeekDay.MONDAY);
 
         LessonBlock lessonBlock5 = new LessonBlock();
         lessonBlock5.setLesson(lesson);
-        lessonBlock5.setDuration(90);
+        lessonBlock5.setDuration(45);
         lessonBlock5.setStartTime("15:00");
         lessonBlock5.setWeekDay(WeekDay.FRIDAY);
 
@@ -285,6 +318,9 @@ public class BootStrapData implements CommandLineRunner {
         meetingRepository.save(meeting);
         meetingRepository.save(meeting1);
         meetingRepository.save(meeting2);
+        meetingRepository.save(meeting3);
+        meetingRepository.save(meeting4);
+        meetingRepository.save(meeting5);
         lessonBlockRepository.save(lessonBlock);
         lessonBlockRepository.save(lessonBlock1);
         lessonBlockRepository.save(lessonBlock2);

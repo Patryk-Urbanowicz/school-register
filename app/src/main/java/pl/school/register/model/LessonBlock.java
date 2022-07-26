@@ -9,6 +9,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
+
+//I don't remember why it exists but apparently it is used in 30 places so I couldn't be bothered to fix all those places
 @Entity
 @Data
 public class LessonBlock {

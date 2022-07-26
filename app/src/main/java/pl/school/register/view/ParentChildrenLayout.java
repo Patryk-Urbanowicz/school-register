@@ -12,10 +12,7 @@ import pl.school.register.model.Parent;
 import pl.school.register.model.Subject;
 import pl.school.register.model.dto.StudentDTO;
 import pl.school.register.model.projections.MeetingInWeek;
-import pl.school.register.service.MarkService;
-import pl.school.register.service.MeetingService;
-import pl.school.register.service.ParentService;
-import pl.school.register.service.StudentService;
+import pl.school.register.service.*;
 import pl.school.register.view.components.MarkTable;
 import pl.school.register.view.components.ResponsiveTableWrapper;
 import pl.school.register.view.components.ScheduleTable;
@@ -36,13 +33,16 @@ public class ParentChildrenLayout extends VerticalLayout {
     private StudentService studentService;
     private MeetingService meetingService;
     private MarkService markService;
+    private AttendanceService attendanceService;
     Select<StudentDTO> select = new Select<>();
     public ParentChildrenLayout(ParentService parentService, StudentService studentService,
                                 MeetingService meetingService,
-                                MarkService markService){
+                                MarkService markService,
+                                AttendanceService attendanceService){
         this.studentService = studentService;
         this.meetingService = meetingService;
         this.markService = markService;
+        this.attendanceService = attendanceService;
         UserDetails userDetails = (UserDetails) ((UsernamePasswordAuthenticationToken) SecurityContextHolder
                 .getContext().getAuthentication()).getPrincipal();
         Parent parent = parentService.getByLogin(userDetails.getUsername());
@@ -64,9 +64,8 @@ public class ParentChildrenLayout extends VerticalLayout {
         TemporalField fieldISO = WeekFields.of(Locale.GERMANY).dayOfWeek();
         LocalDate monday = now.with(fieldISO, 1);
         LocalDate friday = now.with(fieldISO, 6);
-        List<MeetingInWeek> meetings = meetingService.getWithWeekDayByTSchoolClassId(studentDTO.getSchoolClassId(),
-                studentDTO.getId(),monday, friday);
-        add(new ResponsiveTableWrapper(new ScheduleTable(meetings, meetingService, studentService, null, false)));
+        List<MeetingInWeek> meetings = meetingService.getWithWeekDayByTSchoolClassId(studentDTO.getSchoolClassId(),monday, friday);
+        add(new ResponsiveTableWrapper(new ScheduleTable(meetings, meetingService, studentService, attendanceService, false, studentDTO)));
         List<Mark> marks = markService.getAllByStudentId(studentDTO.getId());
         Map<Subject, List<Mark>> map = marks.stream().collect(Collectors.groupingBy(mark
                 -> mark.getLesson().getSubject()));

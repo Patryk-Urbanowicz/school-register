@@ -26,12 +26,13 @@ import java.util.*;
 public class TeacherLayout extends AppLayout {
     private SchoolClassService schoolClassService;
     private TeacherService teacherService;
+    private Teacher teacher;
     public TeacherLayout(SchoolClassService schoolClassService, TeacherService teacherService) {
         this.schoolClassService = schoolClassService;
         this.teacherService = teacherService;
         UserDetails userDetails = (UserDetails) ((UsernamePasswordAuthenticationToken) SecurityContextHolder
                 .getContext().getAuthentication()).getPrincipal();
-        Teacher teacher = teacherService.getByLogin(userDetails.getUsername());
+        teacher = teacherService.getByLogin(userDetails.getUsername());
         addToDrawer(getDrawer());
         addToNavbar(new NavBar(teacher));
     }
@@ -40,7 +41,7 @@ public class TeacherLayout extends AppLayout {
         VerticalLayout links = new VerticalLayout();
         links.setHeightFull();
         links.setClassName("teacher-drawer");
-        List<SchoolClass> classes = schoolClassService.getAllByTeacherWhoHasLessonsWith(1L);
+        List<SchoolClass> classes = schoolClassService.getAllByTeacherWhoHasLessonsWith(teacher.getId());
         classes.forEach(_class -> {
             Accordion accordion = new Accordion();
             accordion.setClassName("accordion");

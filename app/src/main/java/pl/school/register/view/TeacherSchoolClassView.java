@@ -66,7 +66,7 @@ public class TeacherSchoolClassView extends VerticalLayout implements BeforeEnte
                     .getWithWeekDayByTeacherIdAndSchoolClassId(teacher.getId(), classIdL, lessonIdL,
                                                                 monday, friday);
             add(new H1("Class: " + classIdL +  " Lesson: " + lessonIdL ));
-            add(new ResponsiveTableWrapper(new ScheduleTable(meetingsInWeek, meetingService, studentService, attendanceService, true)));
+            add(new ResponsiveTableWrapper(new ScheduleTable(meetingsInWeek, meetingService, studentService, attendanceService, true, null)));
         }
 
     }

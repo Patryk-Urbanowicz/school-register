@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import pl.school.register.model.*;
+import pl.school.register.model.dto.StudentDTO;
 import pl.school.register.model.enumerations.WeekDay;
 import pl.school.register.model.projections.MeetingInWeek;
 import pl.school.register.service.AttendanceService;
@@ -42,10 +43,9 @@ public class StudentScheduleView extends VerticalLayout {
         LocalDate friday = now.with(fieldISO, 6);
         List<MeetingInWeek> meetings = meetingService.getWithWeekDayByTSchoolClassId(
                 student.getSchoolClass().getId(),
-                student.getId(),
                 monday,
                 friday);
-        ScheduleTable st = new ScheduleTable(meetings, meetingService, studentService, attendanceService, false);
+        ScheduleTable st = new ScheduleTable(meetings, meetingService, studentService, attendanceService, false, new StudentDTO(student));
         ResponsiveTableWrapper wrapper = new ResponsiveTableWrapper(st);
 		add(wrapper);
     }

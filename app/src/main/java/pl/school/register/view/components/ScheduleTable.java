@@ -4,8 +4,10 @@ import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import pl.school.register.model.Attendance;
 import pl.school.register.model.Meeting;
 import pl.school.register.model.Student;
+import pl.school.register.model.dto.StudentDTO;
 import pl.school.register.model.enumerations.AttendanceStatus;
 import pl.school.register.model.enumerations.WeekDay;
 import pl.school.register.model.projections.MeetingInWeek;
@@ -23,14 +25,16 @@ public class ScheduleTable extends Div {
     private final StudentService studentService;
     private final AttendanceService attendanceService;
     private final boolean isTeacher;
+    private StudentDTO student;
     public ScheduleTable(List<MeetingInWeek> meetings, MeetingService meetingService,
-                         StudentService studentService, AttendanceService attendanceService, boolean isTeacher) {
+                         StudentService studentService, AttendanceService attendanceService, boolean isTeacher, StudentDTO student) {
         this.meetingService = meetingService;
         this.studentService = studentService;
         this.attendanceService = attendanceService;
         this.isTeacher = isTeacher;
+        this.student = student;
         addClassName("schedule-table");
-        List<String> lessonHours = List.of("8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00");
+        List<String> lessonHours = List.of("08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00");
         List<WeekDay> days = Arrays.stream(WeekDay.values()).collect(Collectors.toList());
         days.remove(WeekDay.SATURDAY);
         days.remove(WeekDay.SUNDAY);
@@ -68,14 +72,19 @@ public class ScheduleTable extends Div {
     private class ScheduleSegment extends RowSegment {
         public ScheduleSegment(MeetingInWeek meeting){
             addClassName("schedule-segment");
-            AttendanceStatus status = meeting.getAttendanceStatus();
-            if (status != null){
-                getStyle().set("background", status == AttendanceStatus.ATTENDED ? "#00ff00": "#ffa500");
+            if (student != null){
+                Attendance attendance = attendanceService.getByMeetingIdAndStudentId(meeting.getId(), student.getId());
+                if (attendance != null){
+                    AttendanceStatus status = attendance.getAttendanceStatus();
+                    if (status != null){
+                        getStyle().set("background", status == AttendanceStatus.ATTENDED ? "#00ff00": "#ffa500");
+                    }
+                }
             }
             Label lessonNameLabel = new Label(meeting.getSubjectName());
             HorizontalLayout bottom = new HorizontalLayout();
             Label classroom = new Label(meeting.getRoom());
-            Label teacherShortLabel = new Label(getTeacherShort(meeting.getTeacherFirstName(), meeting.getTeacherFirstName()));
+            Label teacherShortLabel = new Label(getTeacherShort(meeting.getTeacherFirstName(), meeting.getTeacherLastName()));
             bottom.setClassName("bottom-element");
             bottom.add(classroom, teacherShortLabel);
             if (isTeacher){

@@ -57,6 +57,10 @@ public class AttendanceService {
         return attendanceRepository.findAttendanceByLessonIdAndStudentId(lessonId, studentId);
     }
 
+    public Attendance getByMeetingIdAndStudentId(Long meeting_id, Long student_id){
+        return attendanceRepository.findByMeetingIdAndStudentId(meeting_id, student_id);
+    }
+
     public Attendance mapDTOToModel(AttendanceDTO attendanceDTO){
         return mappingUtils.mapFromDTO(attendanceDTO, Attendance.class);
     }
