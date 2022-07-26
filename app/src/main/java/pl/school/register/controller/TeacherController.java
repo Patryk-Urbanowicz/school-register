@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.school.register.model.Lesson;
 import pl.school.register.model.LessonBlock;
+import pl.school.register.model.Mark;
 import pl.school.register.model.Teacher;
 import pl.school.register.model.dto.LessonBlockDTO;
 import pl.school.register.model.dto.LessonDTO;
+import pl.school.register.model.dto.MarkDTO;
 import pl.school.register.model.enumerations.Role;
 import pl.school.register.model.projections.AccountInfo;
+import pl.school.register.repositories.MarkRepository;
 import pl.school.register.service.AccountService;
 import pl.school.register.service.LessonBlockService;
 import pl.school.register.service.LessonService;
@@ -30,12 +33,14 @@ public class TeacherController {
     private AccountService accountService;
     private LessonBlockService lessonBlockService;
     private LessonService lessonService;
+    private MarkRepository markRepository;
 
-    public TeacherController(TeacherService teacherService, AccountService accountService, LessonBlockService lessonBlockService, LessonService lessonService) {
+    public TeacherController(TeacherService teacherService, AccountService accountService, LessonBlockService lessonBlockService, LessonService lessonService, MarkRepository markRepository) {
         this.teacherService = teacherService;
         this.accountService = accountService;
         this.lessonBlockService = lessonBlockService;
         this.lessonService = lessonService;
+        this.markRepository = markRepository;
     }
 
     @GetMapping("/")
@@ -68,5 +73,27 @@ public class TeacherController {
         List<LessonBlock> lessonBlocks = lessonBlockService.getAllByTeacherId(teacher.getId());
         List<LessonBlockDTO> lessonBlockDTOS = lessonBlocks.stream().map(LessonBlockDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok(lessonBlockDTOS);
+    }
+
+    @GetMapping("/marks")
+    public ResponseEntity<List<MarkDTO>> findMarksByLogin(Authentication auth) {
+        UserDetails userDetails = (UserDetails) auth.getPrincipal();
+        Teacher teacher = teacherService.getByLogin(userDetails.getUsername());
+
+        if (teacher == null) return ResponseEntity.status(400).build();
+        List<Mark> marks = markRepository.findAllByTeacherId(teacher.getId());
+        List<MarkDTO> markDTOS = marks.stream().map(MarkDTO::new).collect(Collectors.toList());
+        return ResponseEntity.ok(markDTOS);
+    }
+
+    @GetMapping("/marks/{studentId}")
+    public ResponseEntity<List<MarkDTO>> findMarksByLoginAndStudentId(@PathVariable("studentId") Long studentId,  Authentication auth) {
+        UserDetails userDetails = (UserDetails) auth.getPrincipal();
+        Teacher teacher = teacherService.getByLogin(userDetails.getUsername());
+
+        if (teacher == null) return ResponseEntity.status(400).build();
+        List<Mark> marks = markRepository.findAllByTeacherIdAndStudentId(teacher.getId(), studentId);
+        List<MarkDTO> markDTOS = marks.stream().map(MarkDTO::new).collect(Collectors.toList());
+        return ResponseEntity.ok(markDTOS);
     }
 }
