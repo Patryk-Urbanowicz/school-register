@@ -76,13 +76,37 @@ public class BootStrapData implements CommandLineRunner {
         student.setSchoolClass(schoolClass);
         student.setIndex(1L);
 
+        Student student1 = new Student();
+        student1.setFirstName("Karolina");
+        student1.setLastName("Koralowa");
+        student1.setLogin("krolowaKorali");
+        student1.setPassword(passwordEncoder.encode("CzerwoneJakWino"));
+        student1.setSchoolClass(schoolClass);
+        student1.setIndex(2L);
+
         Student student2 = new Student();
         student2.setFirstName("Michal");
         student2.setLastName("Bak");
         student2.setLogin("bananowySamuraj");
         student2.setPassword(passwordEncoder.encode("Ratatouille"));
         student2.setSchoolClass(schoolClass);
-        student2.setIndex(2L);
+        student2.setIndex(3L);
+
+        Student student3 = new Student();
+        student3.setFirstName("Jerzy");
+        student3.setLastName("Andrzejewski");
+        student3.setLogin("ShimazuAmarasu");
+        student3.setPassword(passwordEncoder.encode("MangekyoSharingan"));
+        student3.setSchoolClass(schoolClass);
+        student3.setIndex(4L);
+
+        Student student4 = new Student();
+        student4.setFirstName("Michal");
+        student4.setLastName("Szpak");
+        student4.setLogin("Wielkooki");
+        student4.setPassword(passwordEncoder.encode("WielkieOczy"));
+        student4.setSchoolClass(schoolClass);
+        student4.setIndex(5L);
 
         Parent parent = new Parent();
         parent.setFirstName("Leosia");
@@ -151,7 +175,10 @@ public class BootStrapData implements CommandLineRunner {
         schoolClassRepository.save(schoolClass);
         lessonRepository.save(lesson);
         studentRepository.save(student);
+        studentRepository.save(student1);
         studentRepository.save(student2);
+        studentRepository.save(student3);
+        studentRepository.save(student4);
         parentRepository.save(parent);
         lessonBlockRepository.save(lessonBlock);
         lessonBlockRepository.save(lessonBlock2);
