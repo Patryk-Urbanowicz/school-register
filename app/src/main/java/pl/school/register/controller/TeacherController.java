@@ -96,4 +96,15 @@ public class TeacherController {
         List<MarkDTO> markDTOS = marks.stream().map(MarkDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok(markDTOS);
     }
+
+    @GetMapping("/marks/{studentId}/{lessonId}")
+    public ResponseEntity<List<MarkDTO>> findMarksByLoginAndStudentIdAndLessonId(@PathVariable("studentId") Long studentId, @PathVariable("lessonId") Long lessonId, Authentication auth) {
+        UserDetails userDetails = (UserDetails) auth.getPrincipal();
+        Teacher teacher = teacherService.getByLogin(userDetails.getUsername());
+
+        if (teacher == null) return ResponseEntity.status(400).build();
+        List<Mark> marks = markRepository.findAllByTeacherIdAndStudentIdAndLessonIdOrderByLessonId(teacher.getId(), studentId, lessonId);
+        List<MarkDTO> markDTOS = marks.stream().map(MarkDTO::new).collect(Collectors.toList());
+        return ResponseEntity.ok(markDTOS);
+    }
 }
