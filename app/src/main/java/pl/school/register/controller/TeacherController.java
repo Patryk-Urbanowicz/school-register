@@ -48,5 +48,16 @@ public class TeacherController {
         return ResponseEntity.ok(accountInfo);
     }
 
+    @GetMapping("/lessons")
+    public ResponseEntity<List<LessonDTO>> findLessonsByLogin(Authentication auth) {
+        UserDetails userDetails = (UserDetails) auth.getPrincipal();
+        Teacher teacher = teacherService.getByLogin(userDetails.getUsername());
+
+        if (teacher == null) return ResponseEntity.status(400).build();
+        List<Lesson> lessons = lessonService.getAllByTeacherId(teacher.getId());
+        List<LessonDTO> lessonDTOS = lessons.stream().map(LessonDTO::new).collect(Collectors.toList());
+        return ResponseEntity.ok(lessonDTOS);
+    }
+
 
 }
