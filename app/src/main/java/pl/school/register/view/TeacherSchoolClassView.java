@@ -1,12 +1,17 @@
 package pl.school.register.view;
 
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import pl.school.register.model.*;
+import pl.school.register.model.dto.TeacherDTO;
 import pl.school.register.model.projections.MeetingInWeek;
 import pl.school.register.service.AttendanceService;
 import pl.school.register.service.MeetingService;
@@ -32,6 +37,7 @@ public class TeacherSchoolClassView extends VerticalLayout implements BeforeEnte
     private StudentService studentService;
     private AttendanceService attendanceService;
     private Teacher teacher;
+    private Long lessonIdL , classIdL;
     public TeacherSchoolClassView(MeetingService meetingService, TeacherService teacherService,
                                   StudentService studentService, AttendanceService attendanceService){
         this.meetingService = meetingService;
@@ -44,29 +50,30 @@ public class TeacherSchoolClassView extends VerticalLayout implements BeforeEnte
         removeAll();
     }
 
+    private void drawLayout(){
+        removeAll();
+
+
+        add(new H1("Class: " + classIdL +  " Lesson: " + lessonIdL ));
+        add(new ResponsiveTableWrapper(new ScheduleTable(meetingService, studentService,
+                attendanceService, true, null, new TeacherDTO(teacher), classIdL, lessonIdL)));
+    }
+
     @Override
     public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
         removeAll(); //A very bad way of "refreshing" components on page
-
         RouteParameters params = beforeEnterEvent.getRouteParameters();
         Optional<String> lessonId = params.get("lessonId");
         Optional<String> classId = params.get("classId");
         if (lessonId.isPresent() && classId.isPresent()){
-            LocalDate now = LocalDate.now();
+
             TemporalField fieldISO = WeekFields.of(Locale.GERMANY).dayOfWeek();
 
-            LocalDate monday = now.with(fieldISO, 1);
-            LocalDate friday = now.with(fieldISO, 6);
-            System.out.println(monday);
-            System.out.println(friday);
-
-            Long lessonIdL = Long.parseLong(lessonId.get());
-            Long classIdL = Long.parseLong(classId.get());
-            List<MeetingInWeek> meetingsInWeek = meetingService
-                    .getWithWeekDayByTeacherIdAndSchoolClassId(teacher.getId(), classIdL, lessonIdL,
-                                                                monday, friday);
+            lessonIdL = Long.parseLong(lessonId.get());
+            classIdL = Long.parseLong(classId.get());
             add(new H1("Class: " + classIdL +  " Lesson: " + lessonIdL ));
-            add(new ResponsiveTableWrapper(new ScheduleTable(meetingsInWeek, meetingService, studentService, attendanceService, true, null)));
+            add(new ResponsiveTableWrapper(new ScheduleTable(meetingService, studentService,
+                    attendanceService, true, null, new TeacherDTO(teacher), classIdL, lessonIdL)));
         }
 
     }

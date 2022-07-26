@@ -1,5 +1,9 @@
 package pl.school.register.view;
 
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.router.ParentLayout;
@@ -34,7 +38,8 @@ public class ParentChildrenLayout extends VerticalLayout {
     private MeetingService meetingService;
     private MarkService markService;
     private AttendanceService attendanceService;
-    Select<StudentDTO> select = new Select<>();
+    private StudentDTO choosenChild;
+    private Select<StudentDTO> select = new Select<>();
     public ParentChildrenLayout(ParentService parentService, StudentService studentService,
                                 MeetingService meetingService,
                                 MarkService markService,
@@ -51,21 +56,19 @@ public class ParentChildrenLayout extends VerticalLayout {
         select.setItems(children);
         select.setValue(children.get(0));
         select.addValueChangeListener(listener -> {
-            drawLayout(listener.getValue());
+            choosenChild = listener.getValue();
+            drawLayout(choosenChild);
         });
-        drawLayout(children.get(0));
+        choosenChild = children.get(0);
+        drawLayout(choosenChild);
 
     }
 
     private void drawLayout(StudentDTO studentDTO){
         removeAll();
         add(select);
-        LocalDate now = LocalDate.now();
-        TemporalField fieldISO = WeekFields.of(Locale.GERMANY).dayOfWeek();
-        LocalDate monday = now.with(fieldISO, 1);
-        LocalDate friday = now.with(fieldISO, 6);
-        List<MeetingInWeek> meetings = meetingService.getWithWeekDayByTSchoolClassId(studentDTO.getSchoolClassId(),monday, friday);
-        add(new ResponsiveTableWrapper(new ScheduleTable(meetings, meetingService, studentService, attendanceService, false, studentDTO)));
+
+        add(new ResponsiveTableWrapper(new ScheduleTable(meetingService, studentService, attendanceService, false, studentDTO, null, null, null)));
         List<Mark> marks = markService.getAllByStudentId(studentDTO.getId());
         Map<Subject, List<Mark>> map = marks.stream().collect(Collectors.groupingBy(mark
                 -> mark.getLesson().getSubject()));

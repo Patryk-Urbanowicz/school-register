@@ -1,6 +1,10 @@
 package pl.school.register.view;
 
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
@@ -29,24 +33,27 @@ import java.util.*;
 public class StudentScheduleView extends VerticalLayout {
     private StudentService studentService;
     private MeetingService meetingService;
+    private AttendanceService attendanceService;
+
+    private StudentDTO studentDTO;
     public StudentScheduleView(StudentService studentService, MeetingService meetingService, AttendanceService attendanceService){
         this.studentService = studentService;
         this.meetingService = meetingService;
-        setSizeFull();
+        this.attendanceService = attendanceService;
         UserDetails userDetails = (UserDetails) ((UsernamePasswordAuthenticationToken) SecurityContextHolder
                 .getContext().getAuthentication()).getPrincipal();
-         Student student = studentService.getByLogin(userDetails.getUsername());
+        Student student = studentService.getByLogin(userDetails.getUsername());
+        studentDTO = new StudentDTO(student);
+        setSizeFull();
+        drawLayout(studentDTO);
 
-        LocalDate now = LocalDate.now();
-        TemporalField fieldISO = WeekFields.of(Locale.GERMANY).dayOfWeek();
-        LocalDate monday = now.with(fieldISO, 1);
-        LocalDate friday = now.with(fieldISO, 6);
-        List<MeetingInWeek> meetings = meetingService.getWithWeekDayByTSchoolClassId(
-                student.getSchoolClass().getId(),
-                monday,
-                friday);
-        ScheduleTable st = new ScheduleTable(meetings, meetingService, studentService, attendanceService, false, new StudentDTO(student));
+    }
+
+    private void drawLayout(StudentDTO studentDTO){
+        removeAll();
+
+        ScheduleTable st = new ScheduleTable(meetingService, studentService, attendanceService, false, studentDTO, null, null, null);
         ResponsiveTableWrapper wrapper = new ResponsiveTableWrapper(st);
-		add(wrapper);
+        add(wrapper);
     }
 }

@@ -1,13 +1,17 @@
 package pl.school.register.view.components;
 
 import com.vaadin.flow.component.Tag;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import pl.school.register.model.Attendance;
 import pl.school.register.model.Meeting;
 import pl.school.register.model.Student;
 import pl.school.register.model.dto.StudentDTO;
+import pl.school.register.model.dto.TeacherDTO;
 import pl.school.register.model.enumerations.AttendanceStatus;
 import pl.school.register.model.enumerations.WeekDay;
 import pl.school.register.model.projections.MeetingInWeek;
@@ -16,6 +20,9 @@ import pl.school.register.service.MeetingService;
 import pl.school.register.service.StudentService;
 import pl.school.register.view.components.dialog.MeetingDialog;
 
+import java.time.LocalDate;
+import java.time.temporal.TemporalField;
+import java.time.temporal.WeekFields;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -26,14 +33,58 @@ public class ScheduleTable extends Div {
     private final AttendanceService attendanceService;
     private final boolean isTeacher;
     private StudentDTO student;
-    public ScheduleTable(List<MeetingInWeek> meetings, MeetingService meetingService,
-                         StudentService studentService, AttendanceService attendanceService, boolean isTeacher, StudentDTO student) {
+    private TeacherDTO teacher;
+    private LocalDate now;
+    private Button previous, next;
+    private List<MeetingInWeek> meetings;
+    public ScheduleTable(MeetingService meetingService,
+                         StudentService studentService,
+                         AttendanceService attendanceService,
+                         boolean isTeacher,
+                         StudentDTO student,
+                         TeacherDTO teacher, Long classIdL, Long lessonIdL) {
         this.meetingService = meetingService;
         this.studentService = studentService;
         this.attendanceService = attendanceService;
         this.isTeacher = isTeacher;
         this.student = student;
+        this.teacher = teacher;
+        this.now = LocalDate.now();
         addClassName("schedule-table");
+        previous = new Button(new Icon(VaadinIcon.ARROW_CIRCLE_LEFT));
+        next = new Button(new Icon(VaadinIcon.ARROW_CIRCLE_RIGHT));
+        previous.addClickListener(listener -> {
+            now = now.minusDays(7);
+            drawLayout(classIdL, lessonIdL);
+        });
+        next.addClickListener(listener -> {
+            now = now.plusDays(7);
+            drawLayout(classIdL, lessonIdL);
+        });
+
+
+        drawLayout(classIdL, lessonIdL);
+
+    }
+
+    private void drawLayout( Long classIdL, Long lessonIdL){
+        removeAll();
+        add(previous, next);
+        TemporalField fieldISO = WeekFields.of(Locale.GERMANY).dayOfWeek();
+        LocalDate monday = now.with(fieldISO, 1);
+        LocalDate friday = now.with(fieldISO, 6);
+        List<MeetingInWeek> meetings = null;
+        if (isTeacher){
+            meetings = meetingService
+                    .getWithWeekDayByTeacherIdAndSchoolClassId(teacher.getId(), classIdL, lessonIdL,
+                            monday, friday);
+        }else {
+            meetings = meetingService.getWithWeekDayByTSchoolClassId(
+                    student.getSchoolClassId(),
+                    monday,
+                    friday);
+        }
+        add(new Label(String.format("Week: %s - %s", monday.toString(), friday.toString())));
         List<String> lessonHours = List.of("08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00");
         List<WeekDay> days = Arrays.stream(WeekDay.values()).collect(Collectors.toList());
         days.remove(WeekDay.SATURDAY);
@@ -41,12 +92,13 @@ public class ScheduleTable extends Div {
         Row thead = new Row(days.toArray(new WeekDay[1]));
         thead.addClassName("table-head");
         add(thead);
+        List<MeetingInWeek> finalMeetings = meetings;
         lessonHours.forEach(hour -> {
-                    List<MeetingInWeek> meetings2 = meetings.stream()
-                            .filter(meeting -> hour.equals(meeting.getStartTime()))
-                            .collect(Collectors.toList());
-                    add(new ScheduleRow(new ArrayDeque<>(meetings2), hour));
-                });
+            List<MeetingInWeek> meetings2 = finalMeetings.stream()
+                    .filter(meeting -> hour.equals(meeting.getStartTime()))
+                    .collect(Collectors.toList());
+            add(new ScheduleRow(new ArrayDeque<>(meetings2), hour));
+        });
     }
 
     private class ScheduleRow extends Row{
