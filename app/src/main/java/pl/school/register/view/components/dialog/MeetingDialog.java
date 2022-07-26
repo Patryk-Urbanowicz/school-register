@@ -33,6 +33,8 @@ public class MeetingDialog extends Dialog {
     private AttendanceService attendanceService;
     private MeetingService meetingService;
     public MeetingDialog(){
+        this.setWidth("500px");
+        this.setHeight("500px");
         confirm = new Button("Confirm");
         cancel = new Button("Cancel", e -> this.close());
     }
@@ -86,8 +88,6 @@ public class MeetingDialog extends Dialog {
                 });
             }else{
                 attendances = att;
-                System.out.println(att.size());
-                System.out.println(attendances.size());
             }
             grid.addColumn(StudentDTO::getIndex).setHeader("Index");
             grid.addColumn(new ComponentRenderer<>(Label::new, (label, student) -> {

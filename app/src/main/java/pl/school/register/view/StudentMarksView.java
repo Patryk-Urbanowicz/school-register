@@ -17,7 +17,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @RolesAllowed(value = {"STUDENT"})
-@Route(value = "account/marks", layout = AccountMiddlePanelNestedLayout.class)
+@Route(value = "student/marks", layout = AccountMiddlePanelNestedLayout.class)
 public class StudentMarksView extends VerticalLayout {
     Student student1 = new Student();
     private StudentService studentService;

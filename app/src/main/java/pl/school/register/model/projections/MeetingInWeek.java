@@ -1,7 +1,9 @@
 package pl.school.register.model.projections;
 
 import pl.school.register.model.Meeting;
+import pl.school.register.model.enumerations.AttendanceStatus;
 import pl.school.register.model.enumerations.WeekDay;
+import pl.school.register.service.AttendanceService;
 
 import java.time.LocalDateTime;
 
@@ -15,4 +17,5 @@ public interface MeetingInWeek {
     WeekDay getWeekDay();
     String getStartTime();
     String getRoom();
+    AttendanceStatus getAttendanceStatus();
 }

@@ -15,9 +15,8 @@ import pl.school.register.model.Subject;
 import pl.school.register.model.Teacher;
 import pl.school.register.service.SchoolClassService;
 import pl.school.register.service.TeacherService;
-import pl.school.register.view.components.TeacherNavBar;
+import pl.school.register.view.components.NavBar;
 
-import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import java.util.*;
 
@@ -34,7 +33,7 @@ public class TeacherLayout extends AppLayout {
                 .getContext().getAuthentication()).getPrincipal();
         Teacher teacher = teacherService.getByLogin(userDetails.getUsername());
         addToDrawer(getDrawer());
-        addToNavbar(new TeacherNavBar(teacher));
+        addToNavbar(new NavBar(teacher));
     }
 
     private VerticalLayout getDrawer() {

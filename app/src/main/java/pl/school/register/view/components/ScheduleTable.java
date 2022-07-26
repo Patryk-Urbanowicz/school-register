@@ -6,6 +6,7 @@ import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import pl.school.register.model.Meeting;
 import pl.school.register.model.Student;
+import pl.school.register.model.enumerations.AttendanceStatus;
 import pl.school.register.model.enumerations.WeekDay;
 import pl.school.register.model.projections.MeetingInWeek;
 import pl.school.register.service.AttendanceService;
@@ -18,14 +19,10 @@ import java.util.stream.Collectors;
 
 @Tag(value = "table")
 public class ScheduleTable extends Div {
-    private MeetingService meetingService;
-    private StudentService studentService;
-    private AttendanceService attendanceService;
-    private boolean isTeacher;
-    public ScheduleTable(List<MeetingInWeek> meetings, MeetingService meetingService,
-                         StudentService studentService, AttendanceService attendanceService){
-        new ScheduleTable(meetings, meetingService, studentService, attendanceService, false);
-    }
+    private final MeetingService meetingService;
+    private final StudentService studentService;
+    private final AttendanceService attendanceService;
+    private final boolean isTeacher;
     public ScheduleTable(List<MeetingInWeek> meetings, MeetingService meetingService,
                          StudentService studentService, AttendanceService attendanceService, boolean isTeacher) {
         this.meetingService = meetingService;
@@ -71,6 +68,10 @@ public class ScheduleTable extends Div {
     private class ScheduleSegment extends RowSegment {
         public ScheduleSegment(MeetingInWeek meeting){
             addClassName("schedule-segment");
+            AttendanceStatus status = meeting.getAttendanceStatus();
+            if (status != null){
+                getStyle().set("background", status == AttendanceStatus.ATTENDED ? "#00ff00": "#ffa500");
+            }
             Label lessonNameLabel = new Label(meeting.getSubjectName());
             HorizontalLayout bottom = new HorizontalLayout();
             Label classroom = new Label(meeting.getRoom());

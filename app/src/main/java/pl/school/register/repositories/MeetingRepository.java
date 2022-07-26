@@ -37,14 +37,17 @@ public interface MeetingRepository extends JpaRepository<Meeting, Long> {
             " m.room AS room, " +
             " subject.subject_name AS subjectName, " +
             " lb.start_time AS startTime, " +
-            " lb.week_day AS weekday FROM meeting m " +
+            " lb.week_day AS weekday, attendance.status as attendanceStatus " +
+            "FROM meeting m " +
             "JOIN lesson ON m.lesson_id = lesson.id " +
             "JOIN lesson_block lb ON lb.lesson_id = lesson.id " +
             "JOIN subject ON subject.id = lesson.subject_id " +
             "JOIN account ON account.id = lesson.teacher_id " +
+            "JOIN attendance ON m.id = attendance.meeting_id " +
             "WHERE lesson.school_class_id = :school_class_id " +
-            "AND m.time BETWEEN :start AND :end", nativeQuery = true)
+            "AND m.time BETWEEN :start AND :end AND attendance.student_id = :student_id", nativeQuery = true)
     List<MeetingInWeek> findAllSchoolClassMeetingsInWeek(@Param("school_class_id") Long school_class_id,
+                                                     @Param("student_id") Long student_id,
                                                      @Param("start") LocalDate start,
                                                      @Param("end") LocalDate end);
 
