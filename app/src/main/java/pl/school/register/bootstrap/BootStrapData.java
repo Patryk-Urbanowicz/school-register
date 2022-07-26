@@ -68,6 +68,11 @@ public class BootStrapData implements CommandLineRunner {
         schoolClass.setProfile("Magic-Creativity");
         schoolClass.setHomeroomTeacher(teacher);
 
+        SchoolClass schoolClass1 = new SchoolClass();
+        schoolClass1.setClassName("Burczymuszki");
+        schoolClass1.setProfile("Latanie i burczenie");
+        schoolClass1.setHomeroomTeacher(teacher2);
+
         Student student = new Student();
         student.setFirstName("Adas");
         student.setLastName("Niezgodka");
@@ -108,21 +113,69 @@ public class BootStrapData implements CommandLineRunner {
         student4.setSchoolClass(schoolClass);
         student4.setIndex(5L);
 
+        //students from another class
+        Student student5 = new Student();
+        student5.setFirstName("Lola");
+        student5.setLastName("Bola");
+        student5.setLogin("wienerBerlin");
+        student5.setPassword(passwordEncoder.encode("kebsikRollo"));
+        student5.setSchoolClass(schoolClass1);
+        student5.setIndex(6L);
+
+        Student student6 = new Student();
+        student6.setFirstName("Bugs");
+        student6.setLastName("Bunny");
+        student6.setLogin("DoktorekPerkusista");
+        student6.setPassword(passwordEncoder.encode("NoCoTamDoktorku"));
+        student6.setSchoolClass(schoolClass1);
+        student6.setIndex(7L);
+
         Parent parent = new Parent();
         parent.setFirstName("Leosia");
         parent.setLastName("Yung");
         parent.setLogin("YungStar");
         parent.setPassword(passwordEncoder.encode("ytDestroyer"));
         parent.getChildren().add(student);
+        parent.getChildren().add(student3);
+        parent.getChildren().add(student4);
+        parent.getChildren().add(student5);
+
+        Parent parent1 = new Parent();
+        parent1.setFirstName("Leopold");
+        parent.setLastName("Staff");
+        parent.setLogin("LeoRzeczy");
+        parent.setPassword(passwordEncoder.encode("WielkiPisarz"));
+        parent.getChildren().add(student);
+        parent.getChildren().add(student1);
+        parent.getChildren().add(student2);
+        parent.getChildren().add(student6);
 
         Subject subject = new Subject();
         subject.setSubjectName("Math");
         teacher.getSubjects().add(subject);
 
+        Subject subject1 = new Subject();
+        subject1.setSubjectName("Polish Language");
+        teacher.getSubjects().add(subject1);
+
+        Subject subject2 = new Subject();
+        subject2.setSubjectName("Driving class");
+        teacher1.getSubjects().add(subject2);
+
         Lesson lesson = new Lesson();
         lesson.setSchoolClass(schoolClass);
         lesson.setSubject(subject);
         lesson.setTeacher(teacher);
+
+        Lesson lesson1 = new Lesson();
+        lesson1.setSchoolClass(schoolClass);
+        lesson1.setSubject(subject1);
+        lesson1.setTeacher(teacher);
+
+        Lesson lesson2 = new Lesson();
+        lesson2.setSchoolClass(schoolClass1);
+        lesson2.setSubject(subject2);
+        lesson2.setTeacher(teacher2);
 
         Meeting meeting = new Meeting();
         meeting.setTime(LocalDateTime.now());
@@ -169,16 +222,23 @@ public class BootStrapData implements CommandLineRunner {
         mark2.setWeight(3);
 
         subjectRepository.save(subject);
+        subjectRepository.save(subject1);
+        subjectRepository.save(subject2);
         teacherRepository.save(teacher);
         teacherRepository.save(teacher1);
         teacherRepository.save(teacher2);
         schoolClassRepository.save(schoolClass);
+        schoolClassRepository.save(schoolClass1);
         lessonRepository.save(lesson);
+        lessonRepository.save(lesson1);
+        lessonRepository.save(lesson2);
         studentRepository.save(student);
         studentRepository.save(student1);
         studentRepository.save(student2);
         studentRepository.save(student3);
         studentRepository.save(student4);
+        studentRepository.save(student5);
+        studentRepository.save(student6);
         parentRepository.save(parent);
         lessonBlockRepository.save(lessonBlock);
         lessonBlockRepository.save(lessonBlock2);
