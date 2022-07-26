@@ -59,5 +59,14 @@ public class TeacherController {
         return ResponseEntity.ok(lessonDTOS);
     }
 
+    @GetMapping("/schedule")
+    public ResponseEntity<List<LessonBlockDTO>> findLessonBlocksByLogin(Authentication auth) {
+        UserDetails userDetails = (UserDetails) auth.getPrincipal();
+        Teacher teacher = teacherService.getByLogin(userDetails.getUsername());
 
+        if (teacher == null) return ResponseEntity.status(400).build();
+        List<LessonBlock> lessonBlocks = lessonBlockService.getAllByTeacherId(teacher.getId());
+        List<LessonBlockDTO> lessonBlockDTOS = lessonBlocks.stream().map(LessonBlockDTO::new).collect(Collectors.toList());
+        return ResponseEntity.ok(lessonBlockDTOS);
+    }
 }
