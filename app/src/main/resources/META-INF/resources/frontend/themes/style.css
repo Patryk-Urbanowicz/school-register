@@ -27,7 +27,6 @@ body {
 
 .left-panel{
 	display: flex;
-	justify-content: space-around;
 }
 
 navbar {
@@ -52,6 +51,14 @@ navbar {
 	background: #efefef;
 	margin: 10px;
 	height: 100%;
+	width: 100%;
+}
+
+.button {
+	font-size: 21px;
+	background: #efefef;
+	border-radius: 10px;
+	color: black
 }
 
 a {

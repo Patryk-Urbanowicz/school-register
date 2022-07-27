@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface SchoolClassRepository extends JpaRepository<SchoolClass, Long> {
     Optional<SchoolClass> findByHomeroomTeacherId(@Param("homeroom_teacher_id") Long homeroom_teacher_id);
 
-    @Query(value = "SELECT sc.* FROM school_class sc " +
+    @Query(value = "SELECT DISTINCT sc.* FROM school_class sc " +
                     "JOIN lesson l ON sc.id = l.school_class_id " +
                     "WHERE l.teacher_id = :teacher_id", nativeQuery = true)
     List<SchoolClass> findAllByForTeacherWhoHasLessonsWith(@Param("teacher_id") Long teacher_id);

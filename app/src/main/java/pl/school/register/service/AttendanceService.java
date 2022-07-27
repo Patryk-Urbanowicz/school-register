@@ -41,12 +41,21 @@ public class AttendanceService {
         return attendanceRepository.findAllByStudentId(id);
     }
 
-    public List<Attendance> getAllByLessonId(Long id){
-        return attendanceRepository.findAllByMeetingId(id);
+
+    public List<Attendance> getAllByMeetingId(Long id){
+        return attendanceRepository.findAllByMeetingIdOrderById(id);
+    }
+
+    public void addAll(List<Attendance> attendances) {
+        attendanceRepository.saveAll(attendances);
     }
 
     public List<Attendance> getAllAttendancesByLessonIdAndStudentId(Long lessonId, Long studentId){
         return attendanceRepository.findAttendanceByLessonIdAndStudentId(lessonId, studentId);
+    }
+
+    public Attendance getByMeetingIdAndStudentId(Long meeting_id, Long student_id){
+        return attendanceRepository.findByMeetingIdAndStudentId(meeting_id, student_id);
     }
 
     public Attendance mapDTOToModel(AttendanceDTO attendanceDTO){

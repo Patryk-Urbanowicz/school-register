@@ -12,6 +12,7 @@ import java.util.Map;
 public class MarkTable extends Div {
     public MarkTable(Map<Subject, List<Mark>> map){
         add(new MarkTableLabelRow());
+        setWidthFull();
         map.forEach((subject, marks) -> {
             add(new MarkRow(subject, marks));
         });

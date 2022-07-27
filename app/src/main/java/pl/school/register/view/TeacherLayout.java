@@ -7,13 +7,16 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteParameters;
 import com.vaadin.flow.router.RouterLink;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import pl.school.register.model.SchoolClass;
 import pl.school.register.model.Subject;
 import pl.school.register.model.Teacher;
 import pl.school.register.service.SchoolClassService;
-import pl.school.register.view.components.TeacherNavBar;
+import pl.school.register.service.TeacherService;
+import pl.school.register.view.components.NavBar;
 
-import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import java.util.*;
 
@@ -22,28 +25,27 @@ import java.util.*;
 @CssImport(value = "./themes/accordion.css", themeFor = "vaadin-accordion-panel")
 public class TeacherLayout extends AppLayout {
     private SchoolClassService schoolClassService;
-    public TeacherLayout(SchoolClassService schoolClassService) {
+    private TeacherService teacherService;
+    private Teacher teacher;
+    public TeacherLayout(SchoolClassService schoolClassService, TeacherService teacherService) {
         this.schoolClassService = schoolClassService;
-        Teacher teacher = new Teacher();
-        teacher.setFirstName("aaa");
-        teacher.setLastName("aAAAAA");
+        this.teacherService = teacherService;
+        UserDetails userDetails = (UserDetails) ((UsernamePasswordAuthenticationToken) SecurityContextHolder
+                .getContext().getAuthentication()).getPrincipal();
+        teacher = teacherService.getByLogin(userDetails.getUsername());
         addToDrawer(getDrawer());
-        addToNavbar(new TeacherNavBar(teacher));
+        addToNavbar(new NavBar(teacher));
     }
 
     private VerticalLayout getDrawer() {
         VerticalLayout links = new VerticalLayout();
         links.setHeightFull();
         links.setClassName("teacher-drawer");
-        List<SchoolClass> classes = schoolClassService.getAllByTeacherWhoHasLessonsWith(1L);
+        List<SchoolClass> classes = schoolClassService.getAllByTeacherWhoHasLessonsWith(teacher.getId());
         classes.forEach(_class -> {
             Accordion accordion = new Accordion();
             accordion.setClassName("accordion");
             VerticalLayout accordionLinks = new VerticalLayout();
-//            RouterLink listOfStudents = new RouterLink("Students",
-//                                    TeacherSchoolClassStudentListView.class,
-//                                    new RouteParameters(Map.of("classId", _class.getId().toString())));
-//            accordionLinks.add(listOfStudents);
             _class.getLessons().forEach(lesson -> {
                 Accordion markScheduleAccordion = new Accordion();
                 VerticalLayout markSchedulePair = new VerticalLayout();

@@ -1,11 +1,19 @@
 package pl.school.register.view;
 
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.*;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import pl.school.register.model.*;
+import pl.school.register.model.dto.TeacherDTO;
 import pl.school.register.model.projections.MeetingInWeek;
-import pl.school.register.service.MeetingService;
+import pl.school.register.service.*;
 import pl.school.register.view.components.ResponsiveTableWrapper;
 import pl.school.register.view.components.ScheduleTable;
 
@@ -21,10 +29,26 @@ import java.util.stream.Collectors;
 @RolesAllowed(value = {"TEACHER"})
 @Route(value = "teacher/class/:classId/lesson/:lessonId/schedule", layout = TeacherLayout.class)
 public class TeacherSchoolClassView extends VerticalLayout implements BeforeEnterObserver {
-    private SchoolClass schoolClass;
     private MeetingService meetingService;
-    public TeacherSchoolClassView(MeetingService meetingService){
+    private TeacherService teacherService;
+    private LessonService lessonService;
+    private StudentService studentService;
+    private AttendanceService attendanceService;
+    private Teacher teacher;
+    private Long lessonIdL , classIdL;
+    public TeacherSchoolClassView(MeetingService meetingService,
+                                  TeacherService teacherService,
+                                  StudentService studentService,
+                                  AttendanceService attendanceService,
+                                  LessonService lessonService){
         this.meetingService = meetingService;
+        this.studentService = studentService;
+        this.attendanceService = attendanceService;
+        this.lessonService = lessonService;
+        setClassName("middle-panel");
+        UserDetails userDetails = (UserDetails) ((UsernamePasswordAuthenticationToken) SecurityContextHolder
+                .getContext().getAuthentication()).getPrincipal();
+        teacher = teacherService.getByLogin(userDetails.getUsername());
         setClassName("school-class-view");
         removeAll();
     }
@@ -32,41 +56,26 @@ public class TeacherSchoolClassView extends VerticalLayout implements BeforeEnte
     @Override
     public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
         removeAll(); //A very bad way of "refreshing" components on page
-
         RouteParameters params = beforeEnterEvent.getRouteParameters();
         Optional<String> lessonId = params.get("lessonId");
         Optional<String> classId = params.get("classId");
         if (lessonId.isPresent() && classId.isPresent()){
-            LocalDate now = LocalDate.now();
-            TemporalField fieldISO = WeekFields.of(Locale.GERMANY).dayOfWeek();
 
-            LocalDate monday = now.with(fieldISO, 1);
-            LocalDate friday = now.with(fieldISO, 5);
-
-            Long lessonIdL = Long.parseLong(lessonId.get());
-            Long classIdL = Long.parseLong(classId.get());
-            List<MeetingInWeek> meetingsInWeek = meetingService
-                    .getWithWeekDayByTeacherIdAndSchoolClassId(1L, classIdL, lessonIdL,
-                                                                monday, friday);
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
-            List<LessonBlock> blocks = meetingsInWeek.stream().map(m -> {
-                LessonBlock lb = new LessonBlock();
-                Subject subject = new Subject();
-                subject.setSubjectName(m.getSubjectName());
-                Lesson l = new Lesson();
-                Teacher teacher = new Teacher();
-                teacher.setFirstName(m.getTeacherFirstName());
-                teacher.setLastName(m.getTeacherLastName());
-                l.setTeacher(teacher);
-                lb.setWeekDay(m.getWeekDay());
-                LocalDateTime time = m.getLessonStartTime();
-                lb.setStartTime(time.format(dtf));
-                lb.setLesson(l);
-                return lb;
-            }).collect(Collectors.toList());
-
-            add(new H1("Class: " + classIdL +  " Lesson: " + lessonIdL ));
-            add(new ResponsiveTableWrapper(new ScheduleTable(blocks)));
+            lessonIdL = Long.parseLong(lessonId.get());
+            classIdL = Long.parseLong(classId.get());
+            Optional<Lesson> lesson = lessonService.getById(lessonIdL);
+            lesson.ifPresent(value -> {
+                add(new H1("Class: " + value.getSchoolClass().getClassName()),
+                        new H1("Lesson: " + value.getSubject().getSubjectName() ));
+            });
+            ResponsiveTableWrapper wrapper = new ResponsiveTableWrapper(new ScheduleTable(meetingService, studentService,
+                    attendanceService, true, null, new TeacherDTO(teacher), classIdL, lessonIdL));
+            wrapper.getStyle().set("padding", "30px")
+                            .set("background", "#efefef")
+                                    .set("width", "95%")
+                                            .set("display", "flex")
+                                                    .set("justify-content", "center");
+            add(wrapper);
         }
 
     }

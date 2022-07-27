@@ -31,26 +31,19 @@ import java.util.Collection;
 public class AfterLoginRedirectView extends VerticalLayout implements BeforeEnterObserver {
     @Override
     public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
-        /* UserDetails should be obtained from a security service */
-        //TODO: Change later when backed is ready
-        UI jułaj = UI.getCurrent();
         Principal principal = SecurityContextHolder.getContext().getAuthentication();
         if (principal instanceof AnonymousAuthenticationToken){
-//            jułaj.navigate(LoginLayout.class);
             beforeEnterEvent.forwardTo(LoginLayout.class);
             return;
-//            beforeEnterEvent.forwardTo(LoginLayout.class);
         }
         UsernamePasswordAuthenticationToken userDetails = (UsernamePasswordAuthenticationToken) principal;
         Collection<? extends GrantedAuthority> authorityCollection = userDetails.getAuthorities();
         if (authorityCollection.contains(new SimpleGrantedAuthority("ROLE_STUDENT"))){
             beforeEnterEvent.forwardTo(StudentScheduleView.class);
-//            jułaj.navigate(StudentScheduleView.class);
         }else if (authorityCollection.contains(new SimpleGrantedAuthority("ROLE_TEACHER"))){
-            System.out.println("SIGMA");
             beforeEnterEvent.forwardTo(TeacherLayout.class);
-//            jułaj.navigate(TeacherLayout.class);
-//            beforeEnterEvent.rerouteTo(TeacherLayout.class);
+        }else if (authorityCollection.contains(new SimpleGrantedAuthority("ROLE_PARENT"))){
+            beforeEnterEvent.forwardTo(ParentChildrenLayout.class);
         }
     }
 }
