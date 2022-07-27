@@ -2,6 +2,7 @@ package pl.school.register.view.components;
 
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -24,6 +25,7 @@ public class NavBar extends Div {
            VaadinService.getCurrentRequest().getWrappedSession().invalidate();
            getUI().get().getPage().setLocation("/");
         });
+        logout.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         HorizontalLayout horizontalLayout = new HorizontalLayout(logout);
         add(horizontalLayout);
         add(new Label(String.format("%s %s", account.getFirstName(), account.getLastName())));
@@ -36,6 +38,7 @@ public class NavBar extends Div {
             VaadinService.getCurrentRequest().getWrappedSession().invalidate();
             getUI().get().getPage().setLocation("/");
         });
+        logout.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         HorizontalLayout horizontalLayout = new HorizontalLayout(logout);
         add(horizontalLayout);
     }
