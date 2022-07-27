@@ -41,12 +41,9 @@ public class AttendanceService {
         return attendanceRepository.findAllByStudentId(id);
     }
 
-    public List<Attendance> getAllByLessonId(Long id){
-        return attendanceRepository.findAllByMeetingId(id);
-    }
 
     public List<Attendance> getAllByMeetingId(Long id){
-        return attendanceRepository.findAllByMeetingId(id);
+        return attendanceRepository.findAllByMeetingIdOrderById(id);
     }
 
     public void addAll(List<Attendance> attendances) {

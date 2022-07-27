@@ -43,7 +43,12 @@ public class MarkController {
             return ResponseEntity.badRequest().build();
         }
         mark.setTeacher(t1);
-        Mark newMark = markService.addNew(mark);
+        Mark newMark = null;
+        try {
+            newMark = markService.addNew(mark);
+        } catch (Exception e) {
+            return ResponseEntity.status(400).build();
+        }
         return ResponseEntity.ok(newMark.getId());
     }
 
@@ -64,7 +69,11 @@ public class MarkController {
         Teacher t1 = teacherService.getByLogin(userDetails.getUsername());
         if(!Objects.equals(mark2.getTeacher().getId(), t1.getId()))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        markService.addNew(mark2);
+        try {
+            markService.addNew(mark2);
+        } catch (Exception e) {
+            return ResponseEntity.status(400).build();
+        }
         return ResponseEntity.ok(mark2.getId());
     }
 

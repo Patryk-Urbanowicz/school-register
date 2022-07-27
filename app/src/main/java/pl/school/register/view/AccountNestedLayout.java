@@ -22,18 +22,17 @@ public class AccountNestedLayout extends HorizontalLayout implements RouterLayou
         leftPanel.setClassName("left-panel");
         leftPanel.setWidth("50%");
 		Card choiceCard = new Card("200px");
-		choiceCard.add(	
-                new RouterLink("Schedule", StudentScheduleView.class),
-                new RouterLink("Marks", StudentMarksView.class)
-        );
+        RouterLink link = new RouterLink("Schedule", StudentScheduleView.class);
+        link.setClassName("button");
+        RouterLink link2 = new RouterLink("Marks", StudentMarksView.class);
+        link2.setClassName("button");
+		choiceCard.add(link, link2);
         Card recent = new Card("300px");
         Label label = new Label("Recent");
         label.getStyle()
                 .set("color", "black");
         recent.add(label);
-//        leftPanel.setSpacing(true);
-//        leftPanel.setJustifyContentMode(AROUND);
-        leftPanel.add(choiceCard, recent);
+        leftPanel.add(choiceCard);
         return leftPanel;
     }
 }

@@ -4,6 +4,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.router.ParentLayout;
@@ -48,6 +49,7 @@ public class ParentChildrenLayout extends VerticalLayout {
         this.meetingService = meetingService;
         this.markService = markService;
         this.attendanceService = attendanceService;
+        setClassName("middle-panel");
         UserDetails userDetails = (UserDetails) ((UsernamePasswordAuthenticationToken) SecurityContextHolder
                 .getContext().getAuthentication()).getPrincipal();
         Parent parent = parentService.getByLogin(userDetails.getUsername());
@@ -68,10 +70,14 @@ public class ParentChildrenLayout extends VerticalLayout {
         removeAll();
         add(select);
 
-        add(new ResponsiveTableWrapper(new ScheduleTable(meetingService, studentService, attendanceService, false, studentDTO, null, null, null)));
+        HorizontalLayout horizontalLayout = new HorizontalLayout();
+        ResponsiveTableWrapper schedule = new ResponsiveTableWrapper(new ScheduleTable(meetingService, studentService, attendanceService, false, studentDTO, null, null, null));
         List<Mark> marks = markService.getAllByStudentId(studentDTO.getId());
         Map<Subject, List<Mark>> map = marks.stream().collect(Collectors.groupingBy(mark
                 -> mark.getLesson().getSubject()));
-        add(new ResponsiveTableWrapper(new MarkTable(map)));
+        ResponsiveTableWrapper markTable = new ResponsiveTableWrapper(new MarkTable(map));
+        horizontalLayout.add(schedule, markTable);
+        horizontalLayout.setWidthFull();
+        add(horizontalLayout);
     }
 }

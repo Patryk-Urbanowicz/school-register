@@ -15,9 +15,9 @@ import java.util.Optional;
 public interface MarkRepository extends JpaRepository<Mark, Long> {
     List<Mark> findAllByStudentId(@Param("student_id") Long student_id);
 
-    List<Mark> findAllByStudentIdAndLessonIdOrderById(Long student_id, Long lesson_id);
+    List<Mark> findAllByStudentIdAndLessonIdOrderByLabel(Long student_id, Long lesson_id);
 
-    List<Mark> findAllByTeacherIdAndLessonIdOrderByTimestamp(Long teacher_id, Long lesson_id);
+    List<Mark> findAllByTeacherIdAndLessonIdOrderByLabel(Long teacher_id, Long lesson_id);
     List<Mark> findAllByTeacherId(Long teacher_id);
     List<Mark> findAllByTeacherIdAndStudentId(Long teacher_id, Long student_id);
     List<Mark> findAllByTeacherIdAndStudentIdAndLessonIdOrderByLessonId(Long teacher_id, Long student_id, Long lesson_id);
@@ -40,5 +40,10 @@ public interface MarkRepository extends JpaRepository<Mark, Long> {
             @Param("student_id") Long student_id);
 
     void deleteById(Long id);
+
+    @Query(value = "SELECT * FROM mark WHERE label = :label LIMIT 1", nativeQuery = true)
+    Mark findByLabel(@Param("label") String label);
+
+    List<Mark> findByStudentIdAndLabel(Long student_id, String label);
 
 }

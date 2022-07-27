@@ -21,7 +21,11 @@ public class MarkService {
         this.mappingUtils = mappingUtils;
     }
 
-    public Mark addNew(Mark mark){
+    public Mark addNew(Mark mark) throws Exception {
+        if (mark.getId() == null){
+            List<Mark> m = markRepository.findByStudentIdAndLabel(mark.getStudent().getId(), mark.getLabel());
+            if (!m.isEmpty()) throw new Exception("cos nie działa");
+        }
         return markRepository.save(mark);
     }
 
@@ -38,11 +42,15 @@ public class MarkService {
     }
 
     public List<Mark> getAllByStudentIdAndLessonId(Long student_id, Long lesson_id){
-        return markRepository.findAllByStudentIdAndLessonIdOrderById(student_id, lesson_id);
+        return markRepository.findAllByStudentIdAndLessonIdOrderByLabel(student_id, lesson_id);
     }
 
     public List<Mark> getAllByTeacherIdAndLessonId(Long teacher_id, Long lesson_id){
-        return markRepository.findAllByTeacherIdAndLessonIdOrderByTimestamp(teacher_id, lesson_id);
+        return markRepository.findAllByTeacherIdAndLessonIdOrderByLabel(teacher_id, lesson_id);
+    }
+
+    public Mark getByLabel(String label){
+        return markRepository.findByLabel(label);
     }
 
     public void deleteById(Long id){

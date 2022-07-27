@@ -18,7 +18,7 @@ import java.util.List;
 @Tag("navbar")
 public class NavBar extends Div {
     public NavBar(Account account){
-        Button logout = new Button("logout");
+        Button logout = new Button("Logout");
         logout.addClickListener(buttonClickEvent -> {
            getUI().get().getSession().close();
            VaadinService.getCurrentRequest().getWrappedSession().invalidate();
@@ -30,7 +30,7 @@ public class NavBar extends Div {
     }
 
     public NavBar(){
-        Button logout = new Button("logout");
+        Button logout = new Button("Logout");
         logout.addClickListener(buttonClickEvent -> {
             getUI().get().getSession().close();
             VaadinService.getCurrentRequest().getWrappedSession().invalidate();

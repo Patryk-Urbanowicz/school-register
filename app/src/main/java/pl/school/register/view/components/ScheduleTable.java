@@ -19,6 +19,7 @@ import pl.school.register.service.AttendanceService;
 import pl.school.register.service.MeetingService;
 import pl.school.register.service.StudentService;
 import pl.school.register.view.components.dialog.MeetingDialog;
+import pl.school.register.view.components.dialog.MeetingInfoDialog;
 
 import java.time.LocalDate;
 import java.time.temporal.TemporalField;
@@ -69,7 +70,7 @@ public class ScheduleTable extends Div {
 
     private void drawLayout( Long classIdL, Long lessonIdL){
         removeAll();
-        add(previous, next);
+        HorizontalLayout hl = new HorizontalLayout();
         TemporalField fieldISO = WeekFields.of(Locale.GERMANY).dayOfWeek();
         LocalDate monday = now.with(fieldISO, 1);
         LocalDate friday = now.with(fieldISO, 6);
@@ -84,7 +85,12 @@ public class ScheduleTable extends Div {
                     monday,
                     friday);
         }
-        add(new Label(String.format("Week: %s - %s", monday.toString(), friday.toString())));
+        Label weeklabel = new Label(String.format("Week: %s - %s", monday.toString(), friday.toString()));
+        hl.add(previous, weeklabel, next);
+        hl.setWidth("370%");
+        hl.getStyle().set("display", "flex")
+                        .set("justify-content", "space-between");
+        add(hl);
         List<String> lessonHours = List.of("08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00");
         List<WeekDay> days = Arrays.stream(WeekDay.values()).collect(Collectors.toList());
         days.remove(WeekDay.SATURDAY);
@@ -139,8 +145,8 @@ public class ScheduleTable extends Div {
             Label teacherShortLabel = new Label(getTeacherShort(meeting.getTeacherFirstName(), meeting.getTeacherLastName()));
             bottom.setClassName("bottom-element");
             bottom.add(classroom, teacherShortLabel);
+            Optional<Meeting> m1 = meetingService.getById(meeting.getId());
             if (isTeacher){
-                Optional<Meeting> m1 = meetingService.getById(meeting.getId());
                 m1.ifPresent(value -> this.addClickListener(listener -> {
                     MeetingDialog md = new MeetingDialog();
                     md.setMeeting(value);
@@ -149,6 +155,21 @@ public class ScheduleTable extends Div {
                     md.setMeetingService(meetingService);
                     md.build();
                     md.open();
+                }));
+            }else{
+                m1.ifPresent(value -> this.addClickListener(listener ->{
+                    MeetingInfoDialog mid = new MeetingInfoDialog(value);
+                    if (student != null){
+                        Attendance attendance = attendanceService.getByMeetingIdAndStudentId(meeting.getId(), student.getId());
+                        if (attendance != null){
+                            AttendanceStatus status = attendance.getAttendanceStatus();
+                            mid.setAttendanceStatus(status);
+                        }else {
+                            mid.setAttendanceStatus(null);
+                        }
+                    }
+                    mid.build();
+                    mid.open();
                 }));
             }
             add(lessonNameLabel, bottom);

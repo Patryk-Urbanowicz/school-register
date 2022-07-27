@@ -33,8 +33,8 @@ public class MeetingDialog extends Dialog {
     private AttendanceService attendanceService;
     private MeetingService meetingService;
     public MeetingDialog(){
-        this.setWidth("500px");
-        this.setHeight("500px");
+        this.setWidth("700px");
+        this.setHeight("700px");
         confirm = new Button("Confirm");
         cancel = new Button("Cancel", e -> this.close());
     }
@@ -87,23 +87,27 @@ public class MeetingDialog extends Dialog {
                     attendances.add(student.getIndex().intValue() - 1, attendance);
                 });
             }else{
-                attendances = att;
+                attendances = new ArrayList<>(att);
             }
             grid.addColumn(StudentDTO::getIndex).setHeader("Index");
             grid.addColumn(new ComponentRenderer<>(Label::new, (label, student) -> {
                 label.setText(String.format("%s %s", student.getFirstName(), student.getLastName()));
             })).setHeader("Name");
             grid.addColumn(new ComponentRenderer<>(Checkbox::new, (checkbox, student) -> {
+                System.out.println(student.getIndex());
                 checkbox.setValue(attendances.get(student.getIndex().intValue() - 1).getAttendanceStatus() == AttendanceStatus.ATTENDED);
                 checkbox.addValueChangeListener(listener -> {
                     attendances.get(student.getIndex().intValue() - 1).setAttendanceStatus(checkbox.getValue() ?
                             AttendanceStatus.ATTENDED : AttendanceStatus.NOT_ATTENDED);
                 });
-            }));
+            })).setHeader("Attendance");
 
             grid.setItems(students.stream().map(StudentDTO::new).collect(Collectors.toList()));
             Button save = new Button("Save");
             save.addClickListener(listener -> {
+                attendances.forEach(attendance -> {
+                    if (attendance.getAttendanceStatus() == null) attendance.setAttendanceStatus(AttendanceStatus.NOT_ATTENDED);
+                });
                 attendanceService.addAll(attendances);
                 Notification notification = new Notification("Attendance saved");
                 notification.setDuration(10);

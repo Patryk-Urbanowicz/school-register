@@ -13,10 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import pl.school.register.model.*;
 import pl.school.register.model.dto.TeacherDTO;
 import pl.school.register.model.projections.MeetingInWeek;
-import pl.school.register.service.AttendanceService;
-import pl.school.register.service.MeetingService;
-import pl.school.register.service.StudentService;
-import pl.school.register.service.TeacherService;
+import pl.school.register.service.*;
 import pl.school.register.view.components.ResponsiveTableWrapper;
 import pl.school.register.view.components.ScheduleTable;
 
@@ -34,29 +31,26 @@ import java.util.stream.Collectors;
 public class TeacherSchoolClassView extends VerticalLayout implements BeforeEnterObserver {
     private MeetingService meetingService;
     private TeacherService teacherService;
+    private LessonService lessonService;
     private StudentService studentService;
     private AttendanceService attendanceService;
     private Teacher teacher;
     private Long lessonIdL , classIdL;
-    public TeacherSchoolClassView(MeetingService meetingService, TeacherService teacherService,
-                                  StudentService studentService, AttendanceService attendanceService){
+    public TeacherSchoolClassView(MeetingService meetingService,
+                                  TeacherService teacherService,
+                                  StudentService studentService,
+                                  AttendanceService attendanceService,
+                                  LessonService lessonService){
         this.meetingService = meetingService;
         this.studentService = studentService;
         this.attendanceService = attendanceService;
+        this.lessonService = lessonService;
+        setClassName("middle-panel");
         UserDetails userDetails = (UserDetails) ((UsernamePasswordAuthenticationToken) SecurityContextHolder
                 .getContext().getAuthentication()).getPrincipal();
         teacher = teacherService.getByLogin(userDetails.getUsername());
         setClassName("school-class-view");
         removeAll();
-    }
-
-    private void drawLayout(){
-        removeAll();
-
-
-        add(new H1("Class: " + classIdL +  " Lesson: " + lessonIdL ));
-        add(new ResponsiveTableWrapper(new ScheduleTable(meetingService, studentService,
-                attendanceService, true, null, new TeacherDTO(teacher), classIdL, lessonIdL)));
     }
 
     @Override
@@ -67,13 +61,21 @@ public class TeacherSchoolClassView extends VerticalLayout implements BeforeEnte
         Optional<String> classId = params.get("classId");
         if (lessonId.isPresent() && classId.isPresent()){
 
-            TemporalField fieldISO = WeekFields.of(Locale.GERMANY).dayOfWeek();
-
             lessonIdL = Long.parseLong(lessonId.get());
             classIdL = Long.parseLong(classId.get());
-            add(new H1("Class: " + classIdL +  " Lesson: " + lessonIdL ));
-            add(new ResponsiveTableWrapper(new ScheduleTable(meetingService, studentService,
-                    attendanceService, true, null, new TeacherDTO(teacher), classIdL, lessonIdL)));
+            Optional<Lesson> lesson = lessonService.getById(lessonIdL);
+            lesson.ifPresent(value -> {
+                add(new H1("Class: " + value.getSchoolClass().getClassName()),
+                        new H1("Lesson: " + value.getSubject().getSubjectName() ));
+            });
+            ResponsiveTableWrapper wrapper = new ResponsiveTableWrapper(new ScheduleTable(meetingService, studentService,
+                    attendanceService, true, null, new TeacherDTO(teacher), classIdL, lessonIdL));
+            wrapper.getStyle().set("padding", "30px")
+                            .set("background", "#efefef")
+                                    .set("width", "95%")
+                                            .set("display", "flex")
+                                                    .set("justify-content", "center");
+            add(wrapper);
         }
 
     }

@@ -33,6 +33,8 @@ public class Meeting {
     LocalDateTime time;
     String topic;
 
+    String description;
+
     @NotNull
     String room;
 

@@ -25,6 +25,7 @@ public class StudentMarksView extends VerticalLayout {
     public StudentMarksView(StudentService studentService, MarkService markService){
         this.studentService = studentService;
         this.markService = markService;
+        setSizeFull();
         UserDetails userDetails = (UserDetails) ((UsernamePasswordAuthenticationToken) SecurityContextHolder
                 .getContext().getAuthentication()).getPrincipal();
         Student student = studentService.getByLogin(userDetails.getUsername());

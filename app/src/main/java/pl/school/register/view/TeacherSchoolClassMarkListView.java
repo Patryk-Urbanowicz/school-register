@@ -6,6 +6,7 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
@@ -26,6 +27,8 @@ import pl.school.register.view.components.dialog.NewMarkDialog;
 import pl.school.register.view.components.dialog.UpdateMarkDialog;
 
 import javax.annotation.security.RolesAllowed;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
@@ -70,7 +73,7 @@ public class TeacherSchoolClassMarkListView extends VerticalLayout implements Be
 
     private void drawLayout(){
         removeAll();
-        List<Mark> teacherMarks = markService.getAllByTeacherIdAndLessonId(1L, lessonId);
+        List<Mark> teacherMarks = markService.getAllByTeacherIdAndLessonId(teacher.getId(), lessonId);
         List<Student> students = studentService.getAllBySchoolClassId(classId);
 
         add(new ResponsiveTableWrapper(new StudentMarkTable(teacherMarks, students)));
@@ -113,9 +116,9 @@ public class TeacherSchoolClassMarkListView extends VerticalLayout implements Be
                         continue;
                     }
                 }
-                add(new StudentListMarkSegment());
+                add(new StudentListMarkSegment(student, column, true));
             }
-            add(new StudentListMarkSegment(student));
+            add(new StudentListMarkSegment(student, null, false));
 
         }
 
@@ -142,7 +145,7 @@ public class TeacherSchoolClassMarkListView extends VerticalLayout implements Be
     }
 
     private class StudentListMarkSegment extends RowSegment {
-        public StudentListMarkSegment(Mark mark){
+        public StudentListMarkSegment(Mark mark) {
             Label markLabel = new Label(mark.getValue().toString());
             add(markLabel);
             Button edit = new Button(new Icon(VaadinIcon.EDIT));
@@ -165,30 +168,60 @@ public class TeacherSchoolClassMarkListView extends VerticalLayout implements Be
             add(edit, delete);
         }
 
-        public StudentListMarkSegment(){
-            Button addNewExisting = new Button(new Icon(VaadinIcon.PLUS));
-            add(addNewExisting);
-        }
-
-        public StudentListMarkSegment(Student student){
+        public StudentListMarkSegment(Student student, String markLabel, boolean existing) {
             Button addNewMarkButton = new Button(new Icon(VaadinIcon.PLUS));
-            addNewMarkButton.addClickListener(listener -> {
-                NewMarkDialog newMarkDialog = new NewMarkDialog();
-                Mark mark = new Mark();
-                mark.setStudent(student);
-                mark.setTeacher(teacher);
-                mark.setLesson(currentLesson);
-                newMarkDialog.setData(mark);
-                newMarkDialog.setOnConfirmAction(nlistener -> {
-                    markService.update(mark);
-                    drawLayout();
-                    newMarkDialog.close();
+            if (existing) {
+                addNewMarkButton.addClickListener(listener -> {
+                    UpdateMarkDialog umd = new UpdateMarkDialog();
+                    Mark tmp = markService.getByLabel(markLabel);
+                    Mark mark = new Mark();
+                    mark.setTeacher(teacher);
+                    mark.setStudent(student);
+                    mark.setWeight(tmp.getWeight());
+                    mark.setDescription(tmp.getDescription());
+                    mark.setLabel(markLabel);
+                    mark.setLesson(tmp.getLesson());
+                    umd.setData(mark);
+                    umd.setOnConfirmAction(listener2 -> {
+                        try {
+                            mark.setTimestamp(Timestamp.valueOf(LocalDateTime.now()));
+                            markService.addNew(mark);
+                        } catch (Exception e) {
+                            Notification notification = new Notification(e.getMessage());
+                            notification.setDuration(2000);
+                            notification.open();
+                        }
+                        drawLayout();
+                        umd.close();
+                    });
+                    umd.build();
+                    umd.open();
                 });
-                newMarkDialog.build();
-                newMarkDialog.open();
-            });
+            } else {
+                addNewMarkButton.addClickListener(listener -> {
+                    NewMarkDialog newMarkDialog = new NewMarkDialog();
+                    Mark mark = new Mark();
+                    mark.setStudent(student);
+                    mark.setTeacher(teacher);
+                    mark.setLesson(currentLesson);
+                    newMarkDialog.setData(mark);
+                    newMarkDialog.setOnConfirmAction(nlistener -> {
+                        try {
+                            markService.addNew(mark);
+                        } catch (Exception e) {
+                            Notification notification = new Notification(e.getMessage());
+                            notification.setDuration(2000);
+                            notification.open();
+                        }
+                        drawLayout();
+                        newMarkDialog.close();
+                    });
+                    newMarkDialog.build();
+                    newMarkDialog.open();
+                });
+            }
+
             add(addNewMarkButton);
         }
     }
-
 }
